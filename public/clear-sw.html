@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Service Workers</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #0B1220;
+            color: #F3F4F6;
+        }
+        h1 { color: #06B6D4; }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: #1F2937;
+        }
+        .success { border-left: 4px solid #10B981; }
+        .error { border-left: 4px solid #EF4444; }
+        button {
+            background: #06B6D4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button:hover { background: #0891B2; }
+    </style>
+</head>
+<body>
+    <h1>🧹 Service Worker Cleanup</h1>
+    <p>This page will unregister all service workers that might be causing issues.</p>
+
+    <button onclick="clearServiceWorkers()">Clear All Service Workers</button>
+    <button onclick="clearCache()">Clear All Caches</button>
+    <button onclick="clearAll()">Clear Everything</button>
+
+    <div id="status"></div>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+
+        function addStatus(message, isError = false) {
+            const div = document.createElement('div');
+            div.className = `status ${isError ? 'error' : 'success'}`;
+            div.textContent = message;
+            statusDiv.appendChild(div);
+        }
+
+        async function clearServiceWorkers() {
+            try {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+
+                if (registrations.length === 0) {
+                    addStatus('✅ No service workers found to unregister');
+                    return;
+                }
+
+                for (let registration of registrations) {
+                    await registration.unregister();
+                    addStatus(`✅ Unregistered service worker: ${registration.scope}`);
+                }
+
+                addStatus(`🎉 Successfully unregistered ${registrations.length} service worker(s)`);
+            } catch (error) {
+                addStatus(`❌ Error: ${error.message}`, true);
+            }
+        }
+
+        async function clearCache() {
+            try {
+                const cacheNames = await caches.keys();
+
+                if (cacheNames.length === 0) {
+                    addStatus('✅ No caches found to clear');
+                    return;
+                }
+
+                for (let cacheName of cacheNames) {
+                    await caches.delete(cacheName);
+                    addStatus(`✅ Deleted cache: ${cacheName}`);
+                }
+
+                addStatus(`🎉 Successfully cleared ${cacheNames.length} cache(s)`);
+            } catch (error) {
+                addStatus(`❌ Error: ${error.message}`, true);
+            }
+        }
+
+        async function clearAll() {
+            addStatus('🚀 Starting cleanup...');
+            await clearServiceWorkers();
+            await clearCache();
+            addStatus('✨ All done! Refresh the page (Ctrl+Shift+R) to complete cleanup');
+        }
+
+        // Auto-run on page load
+        window.addEventListener('load', () => {
+            addStatus('📋 Ready to clean. Click a button above to start.');
+        });
+    </script>
+</body>
+</html>
