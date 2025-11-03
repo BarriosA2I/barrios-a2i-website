@@ -146,7 +146,7 @@ export default function HeroDualPath() {
                 variants={textVariants}
                 className="text-lg sm:text-xl text-slate-300 max-w-xl mb-8 leading-relaxed"
               >
-                Whether you're automating SMB workflows or building enterprise-scale AI systems,
+                Whether you&apos;re automating SMB workflows or building enterprise-scale AI systems,
                 we turn operational chaos into orchestrated precision.
               </motion.p>
 

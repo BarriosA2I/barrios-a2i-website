@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Github, Linkedin } from "lucide-react";
 
 export default function Footer() {
@@ -13,9 +14,11 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="h-12 w-12 relative">
-                <img
+                <Image
                   src="/logos/ChatGPT Image Oct 31, 2025, 10_32_50 AM.png"
                   alt="Barrios A2I"
+                  width={48}
+                  height={48}
                   className="h-full w-full object-contain"
                   style={{
                     filter: "drop-shadow(0 0 10px rgba(0, 217, 255, 0.3))",

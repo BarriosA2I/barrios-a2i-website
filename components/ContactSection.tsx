@@ -24,7 +24,7 @@ export default function ContactSection() {
           </h1>
 
           <p className="mt-4 max-w-xl text-slate-300 leading-relaxed">
-            We'll map your current system, identify scaling bottlenecks, and show exactly
+            We&apos;ll map your current system, identify scaling bottlenecks, and show exactly
             how Barrios A2I eliminates them. 30 minutes, no sales pitch.
           </p>
 

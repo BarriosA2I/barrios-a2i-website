@@ -6,7 +6,7 @@ export default function ContactForm() {
       <h3 className="text-lg font-bold text-white mb-4">Contact Us Directly</h3>
 
       <p className="text-slate-300 mb-4">
-        We're currently updating our backend. Please reach out directly:
+        We&apos;re currently updating our backend. Please reach out directly:
       </p>
 
       <div className="space-y-3">

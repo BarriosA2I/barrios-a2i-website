@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
@@ -62,9 +63,11 @@ export default function Navigation() {
               <Link href="/" className="flex items-center gap-3 group">
                 {/* NEW LOGO - NO BACKGROUND */}
                 <div className="relative h-16 w-16">
-                  <img
+                  <Image
                     src="/logos/ChatGPT Image Oct 31, 2025, 10_32_50 AM.png"
                     alt="Barrios A2I"
+                    width={64}
+                    height={64}
                     className="h-full w-full object-contain group-hover:scale-110 transition-transform duration-300"
                     style={{
                       filter: 'drop-shadow(0 0 15px rgba(0, 217, 255, 0.6))',
