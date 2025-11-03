@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://barrios-a2i-website.vercel.app/sitemap.xml
