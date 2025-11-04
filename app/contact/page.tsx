@@ -1,21 +1,9 @@
-"use client";
-
 import type { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, Mail, MapPin, Linkedin, X, Github, Phone } from 'lucide-react'
-
-// Since metadata export must be static, we define it outside the default function.
-// For client components, metadata cannot be directly exported from the component file.
-// In a `page.tsx` file (which is a server component by default), metadata can be exported.
-// However, since this page needs `use client` for Framer Motion, we handle metadata like this.
-// A common pattern is to wrap the client component in a server component `Page.tsx`
-// that exports metadata, or define metadata in a layout.
-// For this specific request, I'll provide metadata as if this were a server component,
-// assuming the client directive is purely for the interactive elements, and Next.js
-// will still pick up the static metadata export.
 
 export const metadata: Metadata = {
   title: 'Barrios A2I | Contact Us',
