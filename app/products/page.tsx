@@ -1,49 +1,71 @@
-import type { Metadata } from 'next';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ArrowRight, Cpu, Layers, Monitor, CheckCircle2 } from 'lucide-react';
+import type { Metadata } from 'next'
+import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { ArrowRight, Brain, Settings2, MonitorDot, Handshake } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Products | Barrios A2I | AI Orchestration & Multi-Agent Systems',
-  description: 'Explore Barrios A2I\'s enterprise-grade products including DYAD Orchestrator, Agent Framework, and Monitoring Suite for scaling AI agents with confidence.',
+  title: 'Barrios A2I | Products & Platforms',
+  description: 'Explore Barrios A2I\'s suite of enterprise-grade AI orchestration products: DYAD Orchestrator, Agent Framework, and Monitoring Suite. Build, deploy, and scale multi-agent systems with confidence.',
   openGraph: {
-    title: 'Products | Barrios A2I | AI Orchestration & Multi-Agent Systems',
-    description: 'Discover Barrios A2I\'s innovative products designed for robust AI orchestration, fault tolerance, observability, and horizontal scaling of multi-agent systems.',
-    url: 'https://barrios-a2i-website.vercel.app/products',
+    title: 'Barrios A2I | Products & Platforms',
+    description: 'Explore Barrios A2I\'s suite of enterprise-grade AI orchestration products.',
+    url: 'https://barrios-a2i-website.vercel.app/products', // Assuming a /products path
     images: [
       {
-        url: 'https://barrios-a2i-website.vercel.app/og-image.png',
+        url: 'https://barrios-a2i-website.vercel.app/og-image.png', // Reusing the existing OG image
         width: 1200,
         height: 630,
       },
     ],
   },
-};
+}
 
-// Animation variants for staggered appearance of product cards
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15, // Stagger children animations
-    },
+const productData = [
+  {
+    icon: Settings2,
+    title: 'DYAD Orchestrator',
+    description: 'The core engine for distributed multi-agent systems. Ensure fault tolerance, dynamic scaling, and seamless integration with existing infrastructure.',
+    features: [
+      'Declarative workflow definitions',
+      'Intelligent task scheduling',
+      'Horizontal scalability',
+      'Robust error handling & recovery',
+    ],
+    link: '#dyad-orchestrator',
+    primaryColor: 'cyan-400',
+    secondaryColor: 'cyan-700',
   },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut',
-    },
+  {
+    icon: Brain,
+    title: 'Agent Framework',
+    description: 'Accelerate agent development with a flexible, modular framework. Build custom AI agents or integrate existing models with ease.',
+    features: [
+      'Standardized agent interfaces',
+      'Pre-built common agent patterns',
+      'Language agnostic integration',
+      'Seamless orchestration compatibility',
+    ],
+    link: '#agent-framework',
+    primaryColor: 'amber-400',
+    secondaryColor: 'amber-700',
   },
-};
+  {
+    icon: MonitorDot,
+    title: 'Monitoring Suite',
+    description: 'Gain real-time insights into your multi-agent deployments. Comprehensive observability with OpenTelemetry and custom dashboards.',
+    features: [
+      'End-to-end tracing & logging',
+      'Real-time performance metrics',
+      'Anomaly detection',
+      'Customizable dashboards & alerts',
+    ],
+    link: '#monitoring-suite',
+    primaryColor: 'emerald-400',
+    secondaryColor: 'emerald-700',
+  },
+]
 
 export default function ProductsPage() {
   return (
@@ -51,71 +73,100 @@ export default function ProductsPage() {
       <Navigation />
 
       <main>
-        {/* Products Hero Section */}
-        <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#0B1220] via-[#0E1626] to-[#0B1220]">
+        {/* Hero Section */}
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#0B1220] via-[#0E1626] to-[#0B1220]">
           {/* Animated background gradient orbs */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
-              className="absolute top-1/3 left-1/4 w-80 h-80 bg-cyan-400/20 rounded-full blur-3xl"
+              className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"
               animate={{
-                x: [0, 80, 0],
-                y: [0, -40, 0],
-                scale: [1, 1.1, 1],
-              }}
-              transition={{ repeat: Infinity, duration: 18, ease: 'easeInOut' }}
-            />
-            <motion.div
-              className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-amber-500/20 rounded-full blur-3xl"
-              animate={{
-                x: [0, -80, 0],
-                y: [0, 40, 0],
+                x: [0, 100, 0],
+                y: [0, -50, 0],
                 scale: [1, 1.2, 1],
               }}
-              transition={{ repeat: Infinity, duration: 22, ease: 'easeInOut' }}
+              transition={{ repeat: Infinity, duration: 20, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl"
+              animate={{
+                x: [0, -100, 0],
+                y: [0, 50, 0],
+                scale: [1, 1.3, 1],
+              }}
+              transition={{ repeat: Infinity, duration: 25, ease: "easeInOut" }}
             />
           </div>
 
-          <div className="container mx-auto px-5 py-20 relative z-10 text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6"
-            >
-              Our{' '}
-              <span className="bg-gradient-to-r from-cyan-400 via-cyan-300 to-amber-400 bg-clip-text text-transparent">
-                Products & Platforms
-              </span>
-            </motion.h1>
+          <div className="container mx-auto px-5 py-20 relative z-10">
+            <div className="max-w-5xl mx-auto text-center">
+              {/* Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-xs font-medium text-cyan-100 mb-8"
+              >
+                <Handshake size={14} className="text-cyan-400" />
+                Integrated AI Platforms
+              </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10"
-            >
-              Empower your AI initiatives with Barrios A2I's suite of specialized tools, engineered for performance, scalability, and robust orchestration in production environments.
-            </motion.p>
+              {/* Main Headline */}
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6"
+              >
+                Products &{' '}
+                <span className="bg-gradient-to-r from-cyan-400 via-cyan-300 to-amber-400 bg-clip-text text-transparent">
+                  Platforms
+                </span>
+                <br />
+                for Enterprise AI
+              </motion.h1>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <Link href="/contact">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-400 to-amber-500 text-slate-900 font-semibold rounded-lg shadow-lg hover:shadow-cyan-400/50 transition-all mx-auto"
-                >
-                  Request a Demo
-                  <ArrowRight
-                    size={18}
-                    className="group-hover:translate-x-1 transition-transform"
-                  />
-                </motion.button>
-              </Link>
-            </motion.div>
+              {/* Subheadline */}
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10"
+              >
+                Barrios A2I offers a comprehensive suite of tools designed to streamline the development, deployment, and management of production-grade multi-agent AI systems.
+              </motion.p>
+
+              {/* CTAs */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+              >
+                <Link href="#product-showcase">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-400 to-amber-500 text-slate-900 font-semibold rounded-lg shadow-lg hover:shadow-cyan-400/50 transition-all"
+                  >
+                    Explore Products
+                    <ArrowRight
+                      size={18}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
+                  </motion.button>
+                </Link>
+
+                <Link href="/contact">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="group flex items-center gap-2 px-8 py-4 bg-white/5 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/10 hover:bg-white/10 hover:border-cyan-400/50 transition-all"
+                  >
+                    Contact Sales
+                  </motion.button>
+                </Link>
+              </motion.div>
+            </div>
           </div>
 
           {/* Bottom gradient fade */}
@@ -123,206 +174,102 @@ export default function ProductsPage() {
         </section>
 
         {/* Product Showcase Grid */}
-        <section className="py-20 bg-gradient-to-b from-[#0B1220] via-[#0E1626] to-[#0B1220] relative z-10">
+        <section id="product-showcase" className="py-20 md:py-32 bg-[var(--ink)] relative z-20">
           <div className="container mx-auto px-5">
             <motion.h2
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-4xl md:text-5xl font-bold text-white text-center mb-16"
+              className="text-4xl md:text-5xl font-bold text-center text-white mb-16 leading-tight"
             >
-              Our Core Offerings
+              Our Core <span className="bg-gradient-to-r from-cyan-400 to-amber-400 bg-clip-text text-transparent">Offerings</span>
             </motion.h2>
 
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
-            >
-              {/* Product Card 1: DYAD Orchestrator */}
-              <motion.div
-                variants={itemVariants}
-                className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 hover:border-cyan-400/50 transition-all duration-300 group relative overflow-hidden"
-              >
-                {/* Subtle gradient border effect on hover */}
-                <div className="absolute inset-0 border border-transparent rounded-xl group-hover:bg-gradient-to-br group-hover:from-cyan-400/20 group-hover:to-amber-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-                <div className="flex items-center gap-4 mb-6">
-                  <Cpu size={36} className="text-cyan-400" />
-                  <h3 className="text-2xl font-semibold text-white">DYAD Orchestrator</h3>
-                </div>
-                <p className="text-slate-300 mb-6 leading-relaxed">
-                  The heart of our system. DYAD provides enterprise-grade orchestration for complex, distributed multi-agent AI systems.
-                </p>
-                <ul className="space-y-3 mb-8 text-slate-200">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Fault Tolerance & Self-Healing</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Horizontal Scalability (10,000+ Agents)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Dynamic Agent Routing & Load Balancing</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Integrates with Existing Systems</span>
-                  </li>
-                </ul>
-                <Link href="/contact">
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-400 to-amber-500 text-slate-900 font-semibold rounded-md shadow-md hover:shadow-cyan-400/40 transition-all"
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {productData.map((product, index) => (
+                <motion.div
+                  key={product.title}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8 flex flex-col items-center text-center hover:border-${product.primaryColor}/50 transition-all shadow-lg`}
+                >
+                  <div
+                    className={`p-4 rounded-full bg-${product.primaryColor}/10 mb-6`}
                   >
-                    Learn More <ArrowRight size={16} />
-                  </motion.button>
-                </Link>
-              </motion.div>
-
-              {/* Product Card 2: Agent Framework */}
-              <motion.div
-                variants={itemVariants}
-                className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 hover:border-amber-400/50 transition-all duration-300 group relative overflow-hidden"
-              >
-                <div className="absolute inset-0 border border-transparent rounded-xl group-hover:bg-gradient-to-br group-hover:from-amber-400/20 group-hover:to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-                <div className="flex items-center gap-4 mb-6">
-                  <Layers size={36} className="text-amber-400" />
-                  <h3 className="text-2xl font-semibold text-white">Agent Framework</h3>
-                </div>
-                <p className="text-slate-300 mb-6 leading-relaxed">
-                  A robust framework for building and deploying your custom AI agents. Focus on logic, we handle the boilerplate.
-                </p>
-                <ul className="space-y-3 mb-8 text-slate-200">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Standardized Agent Interface</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Built-in Observability Hooks</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Pre-built Connectors (LLMs, APIs)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Python & JavaScript SDKs</span>
-                  </li>
-                </ul>
-                <Link href="/contact">
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-400 to-cyan-500 text-slate-900 font-semibold rounded-md shadow-md hover:shadow-amber-400/40 transition-all"
-                  >
-                    Learn More <ArrowRight size={16} />
-                  </motion.button>
-                </Link>
-              </motion.div>
-
-              {/* Product Card 3: Monitoring Suite */}
-              <motion.div
-                variants={itemVariants}
-                className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 hover:border-emerald-400/50 transition-all duration-300 group relative overflow-hidden"
-              >
-                <div className="absolute inset-0 border border-transparent rounded-xl group-hover:bg-gradient-to-br group-hover:from-emerald-400/20 group-hover:to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-                <div className="flex items-center gap-4 mb-6">
-                  <Monitor size={36} className="text-emerald-400" />
-                  <h3 className="text-2xl font-semibold text-white">Monitoring Suite</h3>
-                </div>
-                <p className="text-slate-300 mb-6 leading-relaxed">
-                  Gain deep insights into your multi-agent systems with real-time observability, logging, and performance metrics.
-                </p>
-                <ul className="space-y-3 mb-8 text-slate-200">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Distributed Tracing (OpenTelemetry)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Real-time Agent Health Dashboards</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Performance Bottleneck Identification</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span>Customizable Alerting & Reporting</span>
-                  </li>
-                </ul>
-                <Link href="/contact">
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-400 to-cyan-500 text-slate-900 font-semibold rounded-md shadow-md hover:shadow-emerald-400/40 transition-all"
-                  >
-                    Learn More <ArrowRight size={16} />
-                  </motion.button>
-                </Link>
-              </motion.div>
-            </motion.div>
+                    <product.icon size={36} className={`text-${product.primaryColor}`} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-3">{product.title}</h3>
+                  <p className="text-slate-300 text-base leading-relaxed mb-6">
+                    {product.description}
+                  </p>
+                  <ul className="text-left text-slate-400 text-sm space-y-2 mb-8">
+                    {product.features.map((feature, i) => (
+                      <li key={i} className="flex items-start">
+                        <ArrowRight size={16} className={`mr-2 flex-shrink-0 text-${product.primaryColor}`} />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href={product.link} className="mt-auto w-full">
+                    <motion.button
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`group flex items-center justify-center gap-2 px-6 py-3 w-full bg-white/5 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/10 hover:bg-white/10 hover:border-${product.primaryColor}/50 transition-all`}
+                    >
+                      Learn More
+                      <ArrowRight
+                        size={16}
+                        className="group-hover:translate-x-1 transition-transform"
+                      />
+                    </motion.button>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* Call to Action for Pricing/Consultation */}
-        <section className="py-20 bg-gradient-to-t from-[#0B1220] to-[#0E1626] relative z-10">
-          <div className="container mx-auto px-5 text-center max-w-4xl">
+        {/* Call to Action for Pricing */}
+        <section className="py-20 md:py-32 bg-[var(--ink)] relative z-20">
+          <div className="container mx-auto px-5 text-center max-w-3xl">
             <motion.h2
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-4xl md:text-5xl font-bold text-white mb-8"
+              className="text-4xl md:text-5xl font-bold text-white mb-8 leading-tight"
             >
-              Ready to Scale Your AI?
+              Ready to <span className="bg-gradient-to-r from-cyan-400 to-amber-400 bg-clip-text text-transparent">Transform</span> Your AI Operations?
             </motion.h2>
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-10"
+              className="text-lg md:text-xl text-slate-300 mb-10"
             >
-              Whether you're just starting or managing complex AI deployments, Barrios A2I has the solutions to accelerate your success.
+              Our enterprise solutions are tailored to your unique needs. Contact us to discuss custom pricing, integration, and deployment options.
             </motion.p>
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
               <Link href="/contact">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-400 to-amber-500 text-slate-900 font-semibold rounded-lg shadow-lg hover:shadow-cyan-400/50 transition-all"
+                  className="group flex items-center justify-center gap-2 px-10 py-5 bg-gradient-to-r from-cyan-400 to-amber-500 text-slate-900 font-semibold rounded-lg shadow-lg hover:shadow-cyan-400/50 transition-all text-lg"
                 >
-                  Book a Consultation
+                  Get a Custom Quote
                   <ArrowRight
-                    size={18}
+                    size={20}
                     className="group-hover:translate-x-1 transition-transform"
                   />
-                </motion.button>
-              </Link>
-              <Link href="/#features"> {/* Link to the Features section on the main page, or another relevant section */}
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group flex items-center gap-2 px-8 py-4 bg-white/5 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/10 hover:bg-white/10 hover:border-cyan-400/50 transition-all"
-                >
-                  Explore Features
                 </motion.button>
               </Link>
             </motion.div>
@@ -332,5 +279,5 @@ export default function ProductsPage() {
 
       <Footer />
     </div>
-  );
+  )
 }
