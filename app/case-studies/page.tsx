@@ -48,7 +48,7 @@ function CaseStudyCard({ logoSrc, companyName, metrics, quote, link }: CaseStudy
         </div>
 
         <blockquote className="text-md text-slate-300 italic border-l-2 border-cyan-400 pl-4 mb-6">
-          "{quote}"
+          &quot;{quote}&quot;
         </blockquote>
 
         <Link href={link} className="inline-flex items-center gap-2 text-cyan-400 font-semibold group/link hover:text-amber-400 transition-colors">
