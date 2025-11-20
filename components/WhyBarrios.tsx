@@ -59,7 +59,7 @@ export default function WhyBarrios() {
           </h2>
 
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            We're not a traditional agency. We're an AI-first dev shop that ships production systems at startup speed.
+            We&apos;re not a traditional agency. We&apos;re an AI-first dev shop that ships production systems at startup speed.
           </p>
         </div>
 
@@ -109,7 +109,7 @@ export default function WhyBarrios() {
         <div className="max-w-4xl mx-auto">
           <div className="relative p-8 md:p-12 bg-slate-900/50 backdrop-blur border border-cyan-400/30 rounded-2xl hover:shadow-[0_10px_40px_rgba(0,217,255,0.2)] transition-all duration-300">
             {/* Quote Icon */}
-            <div className="absolute top-6 left-6 text-6xl text-cyan-400/20 font-serif">"</div>
+            <div className="absolute top-6 left-6 text-6xl text-cyan-400/20 font-serif">&ldquo;</div>
 
             <div className="relative z-10">
               {/* Story */}
@@ -119,7 +119,7 @@ export default function WhyBarrios() {
                 </h3>
                 <div className="space-y-4 text-slate-300 leading-relaxed">
                   <p>
-                    I spent 10 years watching enterprise projects take 18 months to ship what should've taken 3 weeks.
+                    I spent 10 years watching enterprise projects take 18 months to ship what should&apos;ve taken 3 weeks.
                     Endless meetings, bloated teams, scope creep, and budgets that spiraled out of control.
                   </p>
                   <p>

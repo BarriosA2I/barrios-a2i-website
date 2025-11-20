@@ -45,7 +45,7 @@ export default function CTASection() {
           </h2>
 
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Book a 30-min discovery call. We'll scope your project, provide instant pricing, and outline delivery timelines.
+            Book a 30-min discovery call. We&apos;ll scope your project, provide instant pricing, and outline delivery timelines.
           </p>
         </div>
 
@@ -62,7 +62,7 @@ export default function CTASection() {
                   Thank You!
                 </h3>
                 <p className="text-slate-300 text-lg mb-6">
-                  We'll review your request and get back to you within 4 hours during business hours.
+                  We&apos;ll review your request and get back to you within 4 hours during business hours.
                 </p>
                 <p className="text-slate-400 text-sm">
                   Check your email for a confirmation message.

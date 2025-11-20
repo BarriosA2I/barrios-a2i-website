@@ -30,7 +30,7 @@ export default function PreLaunch() {
 
           {/* Honest Positioning */}
           <p className="text-xl text-slate-300 mb-12 leading-relaxed">
-            We're a <strong className="text-white">pre-revenue startup</strong> accepting our first 15 clients.
+            We&apos;re a <strong className="text-white">pre-revenue startup</strong> accepting our first 15 clients.
             You get production-grade AI products at <strong className="text-cyan-400">50% founding client pricing</strong>—we
             get real-world case studies and testimonials.
           </p>
