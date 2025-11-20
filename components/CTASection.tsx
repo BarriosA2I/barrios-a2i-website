@@ -41,7 +41,7 @@ export default function CTASection() {
           </div>
 
           <h2 className="font-space text-5xl font-bold text-slate-50 mb-6">
-            Let's Build <span className="bg-gradient-to-r from-cyan-400 to-amber-500 bg-clip-text text-transparent">Something Great</span>
+            Let&apos;s Build <span className="bg-gradient-to-r from-cyan-400 to-amber-500 bg-clip-text text-transparent">Something Great</span>
           </h2>
 
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
