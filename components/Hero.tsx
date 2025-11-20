@@ -46,6 +46,20 @@ export default function Hero() {
 
       <div className="container mx-auto px-5 py-20 relative z-10">
         <div className="max-w-5xl mx-auto text-center">
+          {/* Mobile Logo Fallback - shown on mobile/tablet, hidden on desktop */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="lg:hidden flex justify-center mb-8"
+          >
+            <img
+              src="/logos/barrios-a2i-logo.png"
+              alt="Barrios A2I"
+              className="h-32 w-auto animate-float"
+            />
+          </motion.div>
+
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -116,29 +130,35 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* Social Proof Stats */}
+          {/* Honest Stats */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto"
           >
             <div className="text-center">
-              <div className="text-4xl font-bold text-cyan-400 mb-2">10+</div>
+              <div className="text-4xl font-bold text-cyan-400 mb-2 font-space">48-72h</div>
               <div className="text-sm text-slate-400 uppercase tracking-wider">
-                Enterprise Deployments
+                Delivery Time
               </div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-amber-400 mb-2">$100M+</div>
+              <div className="text-4xl font-bold text-amber-500 mb-2 font-space">$5K+</div>
               <div className="text-sm text-slate-400 uppercase tracking-wider">
-                ARR Orchestrated
+                Starting Projects
               </div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-emerald-400 mb-2">18 Days</div>
+              <div className="text-4xl font-bold text-cyan-400 mb-2 font-space">15</div>
               <div className="text-sm text-slate-400 uppercase tracking-wider">
-                Avg Deployment Time
+                Founding Spots
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-amber-500 mb-2 font-space">100%</div>
+              <div className="text-sm text-slate-400 uppercase tracking-wider">
+                Focused
               </div>
             </div>
           </motion.div>

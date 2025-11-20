@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Mail, Github, Linkedin } from "lucide-react";
 
 export default function Footer() {
@@ -13,13 +12,11 @@ export default function Footer() {
           {/* Brand Column */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-12 w-12 relative">
-                <Image
-                  src="/logos/ChatGPT Image Oct 31, 2025, 10_32_50 AM.png"
+              <div className="h-16 w-auto relative">
+                <img
+                  src="/logos/barrios-a2i-logo.png"
                   alt="Barrios A2I"
-                  width={48}
-                  height={48}
-                  className="h-full w-full object-contain"
+                  className="h-16 w-auto object-contain"
                   style={{
                     filter: "drop-shadow(0 0 10px rgba(0, 217, 255, 0.3))",
                   }}

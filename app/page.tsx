@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
-import Features from '@/components/Features'
-import TrustedBy from '@/components/TrustedBy'
-import Architecture from '@/components/Architecture'
-import Services from '@/components/Services'
+import PreLaunch from '@/components/PreLaunch'
+import ServicesGrid from '@/components/ServicesGrid'
+import HowWeWork from '@/components/HowWeWork'
+import WhyBarrios from '@/components/WhyBarrios'
+import CTASection from '@/components/CTASection'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
@@ -31,10 +32,11 @@ export default function HomePage() {
 
       <main>
         <Hero />
-        <Features />
-        <TrustedBy />
-        <Architecture />
-        <Services />
+        <PreLaunch />
+        <ServicesGrid />
+        <HowWeWork />
+        <WhyBarrios />
+        <CTASection />
       </main>
 
       <Footer />

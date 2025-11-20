@@ -94,3 +94,31 @@ a:focus-visible {
     opacity: 1;
   }
 }
+
+/* Float animation for logo */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient radial background */
+.bg-gradient-radial {
+  background: radial-gradient(circle at center, var(--tw-gradient-from), var(--tw-gradient-to));
+}
+
+/* Enhanced glow utilities */
+.glow-cyan-hover:hover {
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.5), 0 0 60px rgba(0, 217, 255, 0.2);
+}
+
+.glow-amber-hover:hover {
+  box-shadow: 0 0 30px rgba(255, 167, 38, 0.5), 0 0 60px rgba(255, 167, 38, 0.2);
+}

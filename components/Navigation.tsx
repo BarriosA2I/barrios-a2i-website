@@ -2,14 +2,12 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,25 +18,10 @@ export default function Navigation() {
   }, [])
 
   const navLinks = [
-    {
-      label: 'Solutions',
-      dropdown: [
-        { label: 'SMB Automation', href: '/solutions/smb', icon: '⚡' },
-        { label: 'AI Infrastructure', href: '/solutions/enterprise', icon: '🏗️' },
-        { label: 'Multi-Agent Systems', href: '/solutions/agents', icon: '🤖' },
-      ],
-    },
-    { label: 'Products', href: '/products' },
-    { label: 'Case Studies', href: '/case-studies' },
-    {
-      label: 'Resources',
-      dropdown: [
-        { label: 'Blog', href: '/blog', icon: '📝' },
-        { label: 'Documentation', href: '/docs', icon: '📚' },
-        { label: 'Guides', href: '/guides', icon: '🗺️' },
-      ],
-    },
-    { label: 'Pricing', href: '/pricing' },
+    { label: 'Services', href: '/#services' },
+    { label: 'Process', href: '/#process' },
+    { label: 'Why Us', href: '/#why-us' },
+    { label: 'Contact', href: '/#contact' },
   ]
 
   return (
@@ -60,26 +43,38 @@ export default function Navigation() {
             }`}
           >
             <div className="flex items-center justify-between px-6 py-4">
-              <Link href="/" className="flex items-center gap-3 group">
-                {/* NEW LOGO - NO BACKGROUND */}
-                <div className="relative h-16 w-16">
-                  <Image
-                    src="/logos/ChatGPT Image Oct 31, 2025, 10_32_50 AM.png"
+              <Link href="/" className="flex items-center gap-3 group" aria-label="Barrios A2I Home">
+                {/* Barrios A2I Logo */}
+                <div className="relative h-12 w-auto">
+                  <img
+                    src="/logos/barrios-a2i-logo.png"
                     alt="Barrios A2I"
-                    width={64}
-                    height={64}
-                    className="h-full w-full object-contain group-hover:scale-110 transition-transform duration-300"
-                    style={{
-                      filter: 'drop-shadow(0 0 15px rgba(0, 217, 255, 0.6))',
+                    className="h-12 w-auto object-contain transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(0,217,255,0.6)]"
+                    onError={(e) => {
+                      // CSS fallback if logo fails to load
+                      const target = e.currentTarget as HTMLImageElement
+                      target.style.display = 'none'
+                      const parent = target.parentElement
+                      if (parent) {
+                        parent.innerHTML = `
+                          <div class="w-12 h-12 relative">
+                            <div class="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-amber-500 glow-cyan-strong group-hover:scale-110 transition-transform duration-300"></div>
+                            <div class="absolute inset-2 rounded-full bg-slate-950 flex items-center justify-center">
+                              <span class="text-cyan-400 font-space font-bold text-sm">A2I</span>
+                            </div>
+                          </div>
+                        `
+                      }
                     }}
                   />
                 </div>
 
-                <div className="hidden sm:block">
-                  <div className="text-cyan-400 font-orbitron font-bold text-2xl tracking-wide leading-none drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">
+                {/* Text labels - shown on desktop */}
+                <div className="hidden lg:block">
+                  <div className="text-cyan-400 font-orbitron font-bold text-xl tracking-wider leading-none drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">
                     BARRIOS
                   </div>
-                  <div className="text-amber-500 font-inter text-xs font-semibold tracking-[0.2em] leading-none mt-1.5 uppercase opacity-90">
+                  <div className="text-amber-500 font-inter text-xs font-semibold tracking-[0.2em] leading-none mt-1 uppercase opacity-90">
                     A2I SYSTEMS
                   </div>
                 </div>
@@ -87,57 +82,14 @@ export default function Navigation() {
 
               <div className="hidden lg:flex items-center gap-8">
                 {navLinks.map((link) => (
-                  <div
+                  <Link
                     key={link.label}
-                    className="relative"
-                    onMouseEnter={() => link.dropdown && setActiveDropdown(link.label)}
-                    onMouseLeave={() => setActiveDropdown(null)}
+                    href={link.href}
+                    className="text-slate-300 hover:text-cyan-400 font-medium transition-colors duration-300 relative group"
                   >
-                    {link.href ? (
-                      <Link
-                        href={link.href}
-                        className="text-slate-300 hover:text-cyan-400 font-medium transition-colors duration-300 relative group"
-                      >
-                        {link.label}
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-amber-500 group-hover:w-full transition-all duration-300" />
-                      </Link>
-                    ) : (
-                      <button className="text-slate-300 hover:text-cyan-400 font-medium transition-colors duration-300 flex items-center gap-1 group">
-                        {link.label}
-                        <ChevronDown
-                          size={16}
-                          className={`transition-transform duration-300 ${
-                            activeDropdown === link.label ? 'rotate-180' : ''
-                          }`}
-                        />
-                      </button>
-                    )}
-
-                    <AnimatePresence>
-                      {link.dropdown && activeDropdown === link.label && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-2 w-64 bg-slate-900/95 backdrop-blur-xl border border-cyan-400/30 rounded-xl overflow-hidden shadow-[0_10px_40px_rgba(0,217,255,0.2)]"
-                        >
-                          {link.dropdown.map((item) => (
-                            <Link
-                              key={item.href}
-                              href={item.href}
-                              className="flex items-center gap-3 px-4 py-3 hover:bg-cyan-400/10 transition-colors border-b border-slate-800 last:border-0"
-                            >
-                              <span className="text-2xl">{item.icon}</span>
-                              <span className="text-slate-300 hover:text-cyan-400 transition-colors">
-                                {item.label}
-                              </span>
-                            </Link>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                    {link.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-amber-500 group-hover:w-full transition-all duration-300" />
+                  </Link>
                 ))}
 
                 <div className="flex items-center gap-4">
@@ -177,52 +129,14 @@ export default function Navigation() {
                 >
                   <div className="px-6 py-4 space-y-4">
                     {navLinks.map((link) => (
-                      <div key={link.label}>
-                        {link.href ? (
-                          <Link
-                            href={link.href}
-                            className="block text-slate-300 hover:text-cyan-400 font-medium py-2 transition-colors"
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            {link.label}
-                          </Link>
-                        ) : (
-                          <>
-                            <button
-                              onClick={() =>
-                                setActiveDropdown(
-                                  activeDropdown === link.label ? null : link.label
-                                )
-                              }
-                              className="flex items-center justify-between w-full text-slate-300 hover:text-cyan-400 font-medium py-2 transition-colors"
-                            >
-                              {link.label}
-                              <ChevronDown
-                                size={16}
-                                className={`transition-transform duration-300 ${
-                                  activeDropdown === link.label ? 'rotate-180' : ''
-                                }`}
-                              />
-                            </button>
-
-                            {activeDropdown === link.label && link.dropdown && (
-                              <div className="pl-4 mt-2 space-y-2">
-                                {link.dropdown.map((item) => (
-                                  <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 py-2 transition-colors"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                  >
-                                    <span>{item.icon}</span>
-                                    <span>{item.label}</span>
-                                  </Link>
-                                ))}
-                              </div>
-                            )}
-                          </>
-                        )}
-                      </div>
+                      <Link
+                        key={link.label}
+                        href={link.href}
+                        className="block text-slate-300 hover:text-cyan-400 font-medium py-2 transition-colors"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
                     ))}
 
                     <div className="pt-4 space-y-3 border-t border-slate-800">
