@@ -32,13 +32,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://barrios-a2i-website.vercel.app',
+    url: 'https://www.barriosa2i.com',
     siteName: 'Barrios A2I',
     title: 'Barrios A2I | AI Orchestration & Multi-Agent Systems',
     description: 'Enterprise-grade AI orchestration platform for distributed multi-agent systems.',
     images: [
       {
-        url: 'https://barrios-a2i-website.vercel.app/og-image.png',
+        url: 'https://www.barriosa2i.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Barrios A2I - AI Orchestration Platform',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     title: 'Barrios A2I | AI Orchestration & Multi-Agent Systems',
     description: 'Enterprise-grade AI orchestration platform for distributed multi-agent systems.',
     creator: '@BarriosA2I',
-    images: ['https://barrios-a2i-website.vercel.app/og-image.png'],
+    images: ['https://www.barriosa2i.com/og-image.png'],
   },
   icons: {
     icon: '/favicon.ico',
@@ -92,8 +92,8 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'Barrios A2I',
-              url: 'https://barrios-a2i-website.vercel.app',
-              logo: 'https://barrios-a2i-website.vercel.app/og-image.png',
+              url: 'https://www.barriosa2i.com',
+              logo: 'https://www.barriosa2i.com/logo.png',
               description: 'Enterprise-grade AI orchestration platform for distributed multi-agent systems',
               foundingDate: '2024',
               contactPoint: {

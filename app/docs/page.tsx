@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Documentation | Barrios A2I Developer Guides',
     description: 'Get started with Barrios A2I multi-agent orchestration in minutes.',
-    url: 'https://barrios-a2i-website.vercel.app/docs',
+    url: 'https://www.barriosa2i.com/docs',
   },
 }
 

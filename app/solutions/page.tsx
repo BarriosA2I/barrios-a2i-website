@@ -10,10 +10,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Barrios A2I | AI Orchestration Solutions',
     description: 'Discover how Barrios A2I empowers scalable and fault-tolerant multi-agent AI deployments.',
-    url: 'https://barrios-a2i-website.vercel.app/solutions',
+    url: 'https://www.barriosa2i.com/solutions',
     images: [
       {
-        url: 'https://barrios-a2i-website.vercel.app/og-image.png',
+        url: 'https://www.barriosa2i.com/og-image.png',
         width: 1200,
         height: 630,
       },

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Terms of Service | Barrios A2I',
     description: 'Review our terms of service and user agreement.',
-    url: 'https://barrios-a2i-website.vercel.app/terms',
+    url: 'https://www.barriosa2i.com/terms',
   },
 }
 

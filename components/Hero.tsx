@@ -54,9 +54,10 @@ export default function Hero() {
             className="lg:hidden flex justify-center mb-8"
           >
             <img
-              src="/logos/barrios-a2i-logo.png"
+              src="/images/Logo/Barrios_a2i_logo-removebg-preview.png"
               alt="Barrios A2I"
               className="h-32 w-auto animate-float"
+              style={{ maxWidth: '250px' }}
             />
           </motion.div>
 

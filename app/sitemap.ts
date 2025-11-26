@@ -3,25 +3,25 @@ import type { MetadataRoute } from 'next'
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://barrios-a2i-website.vercel.app',
+      url: 'https://www.barriosa2i.com',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: 'https://barrios-a2i-website.vercel.app/contact',
+      url: 'https://www.barriosa2i.com/contact',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: 'https://barrios-a2i-website.vercel.app/qualify/smb',
+      url: 'https://www.barriosa2i.com/qualify/smb',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: 'https://barrios-a2i-website.vercel.app/qualify/enterprise',
+      url: 'https://www.barriosa2i.com/qualify/enterprise',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,

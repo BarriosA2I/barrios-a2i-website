@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     url: 'https:// barrios-a2i-website.vercel.app/products',
     images: [
       {
-        url: 'https://barrios-a2i-website.vercel.app/og-image.png',
+        url: 'https://www.barriosa2i.com/og-image.png',
         width: 1200,
         height: 630,
       },

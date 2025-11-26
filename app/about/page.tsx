@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'About Barrios A2I | AI Orchestration Experts',
     description: 'Meet the team building the future of multi-agent AI systems.',
-    url: 'https://barrios-a2i-website.vercel.app/about',
+    url: 'https://www.barriosa2i.com/about',
   },
 }
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Security | Barrios A2I',
     description: 'Enterprise-grade security for AI orchestration.',
-    url: 'https://barrios-a2i-website.vercel.app/security',
+    url: 'https://www.barriosa2i.com/security',
   },
 }
 

@@ -47,24 +47,13 @@ export default function Navigation() {
                 {/* Barrios A2I Logo */}
                 <div className="relative h-12 w-auto">
                   <img
-                    src="/logos/barrios-a2i-logo.png"
+                    src="/images/Logo/Barrios_a2i_logo-removebg-preview.png"
                     alt="Barrios A2I"
-                    className="h-12 w-auto object-contain transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(0,217,255,0.6)]"
+                    className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
+                    style={{ maxWidth: '180px' }}
                     onError={(e) => {
-                      // CSS fallback if logo fails to load
                       const target = e.currentTarget as HTMLImageElement
-                      target.style.display = 'none'
-                      const parent = target.parentElement
-                      if (parent) {
-                        parent.innerHTML = `
-                          <div class="w-12 h-12 relative">
-                            <div class="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-amber-500 glow-cyan-strong group-hover:scale-110 transition-transform duration-300"></div>
-                            <div class="absolute inset-2 rounded-full bg-slate-950 flex items-center justify-center">
-                              <span class="text-cyan-400 font-space font-bold text-sm">A2I</span>
-                            </div>
-                          </div>
-                        `
-                      }
+                      target.src = '/logos/barrios-a2i-logo.png'
                     }}
                   />
                 </div>

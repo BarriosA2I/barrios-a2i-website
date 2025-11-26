@@ -14,12 +14,10 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <div className="h-16 w-auto relative">
                 <img
-                  src="/logos/barrios-a2i-logo.png"
+                  src="/images/Logo/Barrios_a2i_logo-removebg-preview.png"
                   alt="Barrios A2I"
                   className="h-16 w-auto object-contain"
-                  style={{
-                    filter: "drop-shadow(0 0 10px rgba(0, 217, 255, 0.3))",
-                  }}
+                  style={{ maxWidth: '200px' }}
                 />
               </div>
               <div>

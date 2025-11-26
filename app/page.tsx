@@ -14,10 +14,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Barrios A2I | AI Orchestration & Multi-Agent Systems',
     description: 'Scale AI agents with confidence. Enterprise-grade orchestration for production-scale AI deployments.',
-    url: 'https://barrios-a2i-website.vercel.app',
+    url: 'https://www.barriosa2i.com',
     images: [
       {
-        url: 'https://barrios-a2i-website.vercel.app/og-image.png',
+        url: 'https://www.barriosa2i.com/og-image.png',
         width: 1200,
         height: 630,
       },

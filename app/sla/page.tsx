@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Service Level Agreement | Barrios A2I',
     description: 'Review our SLA commitments and uptime guarantees.',
-    url: 'https://barrios-a2i-website.vercel.app/sla',
+    url: 'https://www.barriosa2i.com/sla',
   },
 }
 
