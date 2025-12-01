@@ -1,169 +1,105 @@
-'use client'
+'use client';
 
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
-import Link from 'next/link'
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Menu, X, ArrowRight } from 'lucide-react';
 
 export default function Navigation() {
-  const [scrolled, setScrolled] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
-    { label: 'Services', href: '/#services' },
-    { label: 'Process', href: '/#process' },
-    { label: 'Why Us', href: '/#why-us' },
-    { label: 'Contact', href: '/#contact' },
-  ]
+    { name: 'Capabilities', href: '#capabilities' },
+    { name: 'Architecture', href: '#architecture' },
+    { name: 'Protocol', href: '#protocol' },
+  ];
 
   return (
-    <>
-      <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'py-3' : 'py-6'
-        }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            className={`relative rounded-2xl border transition-all duration-300 ${
-              scrolled
-                ? 'bg-slate-950/90 backdrop-blur-xl border-cyan-400/30 shadow-[0_0_30px_rgba(0,217,255,0.2)]'
-                : 'bg-slate-950/50 backdrop-blur-md border-slate-800/50'
-            }`}
+    <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 px-4 md:px-6 
+      ${isScrolled ? 'pt-4' : 'pt-6'}`}>
+      
+      <div className={`max-w-7xl mx-auto rounded-full px-6 py-4 flex items-center justify-between transition-all duration-300
+        ${isScrolled 
+          ? 'bg-navy-900/80 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/50' 
+          : 'bg-transparent border border-transparent'}`}>
+        
+        {/* Brand Identity */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="relative w-10 h-10 flex items-center justify-center bg-gradient-to-br from-navy-800 to-navy-950 rounded-xl border border-white/10 overflow-hidden">
+            <div className="absolute inset-0 bg-neon-cyan/20 blur-md group-hover:bg-neon-cyan/40 transition-all duration-500"></div>
+            <span className="relative text-neon-cyan font-bold font-mono text-sm tracking-tighter">A2I</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold tracking-tight leading-none text-white text-lg">BARRIOS</span>
+            <span className="font-mono text-[10px] text-neon-gold tracking-widest uppercase">Systems</span>
+          </div>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.name} 
+              href={link.href} 
+              className="text-sm font-medium text-gray-400 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* CTA Button */}
+        <div className="hidden md:flex items-center">
+          <Link 
+            href="#contact" 
+            className="flex items-center gap-2 px-6 py-2.5 bg-white text-navy-950 font-bold text-sm rounded-full hover:bg-neon-cyan transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(0,234,255,0.4)]"
           >
-            <div className="flex items-center justify-between px-6 py-4">
-              <Link href="/" className="flex items-center gap-3 group" aria-label="Barrios A2I Home">
-                {/* Barrios A2I Logo */}
-                <div className="relative h-12 w-auto">
-                  <img
-                    src="/images/Logo/Barrios_a2i_logo-removebg-preview.png"
-                    alt="Barrios A2I"
-                    className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
-                    style={{ maxWidth: '180px' }}
-                    onError={(e) => {
-                      const target = e.currentTarget as HTMLImageElement
-                      target.src = '/logos/barrios-a2i-logo.png'
-                    }}
-                  />
-                </div>
+            <span>Initialize</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
 
-                {/* Text labels - shown on desktop */}
-                <div className="hidden lg:block">
-                  <div className="text-cyan-400 font-orbitron font-bold text-xl tracking-wider leading-none drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">
-                    BARRIOS
-                  </div>
-                  <div className="text-amber-500 font-inter text-xs font-semibold tracking-[0.2em] leading-none mt-1 uppercase opacity-90">
-                    A2I SYSTEMS
-                  </div>
-                </div>
-              </Link>
+        {/* Mobile Toggle */}
+        <button 
+          className="md:hidden text-white p-2"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
 
-              <div className="hidden lg:flex items-center gap-8">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className="text-slate-300 hover:text-cyan-400 font-medium transition-colors duration-300 relative group"
-                  >
-                    {link.label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-amber-500 group-hover:w-full transition-all duration-300" />
-                  </Link>
-                ))}
-
-                <div className="flex items-center gap-4">
-                  <Link
-                    href="/contact"
-                    className="px-5 py-2.5 text-slate-300 hover:text-cyan-400 font-medium transition-colors"
-                  >
-                    Contact
-                  </Link>
-
-                  <Link
-                    href="/qualify/smb"
-                    className="px-6 py-2.5 bg-gradient-to-r from-cyan-400 to-amber-500 text-slate-950 font-bold rounded-lg hover:shadow-[0_0_20px_rgba(0,217,255,0.5)] hover:scale-105 transition-all duration-300"
-                  >
-                    Get Started
-                  </Link>
-                </div>
-              </div>
-
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 text-cyan-400 hover:bg-cyan-400/10 rounded-lg transition-colors"
-                aria-label="Toggle mobile menu"
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div className="absolute top-full left-0 w-full p-4 md:hidden">
+          <div className="bg-navy-900 border border-white/10 rounded-2xl p-6 flex flex-col gap-4 shadow-2xl backdrop-blur-xl">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.name}
+                href={link.href}
+                className="text-lg font-medium text-gray-300 hover:text-neon-cyan transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-
-            <AnimatePresence>
-              {mobileMenuOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="lg:hidden border-t border-slate-800 overflow-hidden"
-                >
-                  <div className="px-6 py-4 space-y-4">
-                    {navLinks.map((link) => (
-                      <Link
-                        key={link.label}
-                        href={link.href}
-                        className="block text-slate-300 hover:text-cyan-400 font-medium py-2 transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-
-                    <div className="pt-4 space-y-3 border-t border-slate-800">
-                      <Link
-                        href="/contact"
-                        className="block text-center px-6 py-3 bg-slate-800 text-slate-300 font-medium rounded-lg hover:bg-slate-700 transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        Contact
-                      </Link>
-
-                      <Link
-                        href="/qualify/smb"
-                        className="block text-center px-6 py-3 bg-gradient-to-r from-cyan-400 to-amber-500 text-slate-950 font-bold rounded-lg"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        Get Started
-                      </Link>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                {link.name}
+              </Link>
+            ))}
+            <Link 
+              href="#contact"
+              className="mt-4 flex items-center justify-center gap-2 px-6 py-3 bg-neon-cyan text-navy-950 font-bold rounded-full"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <span>Initialize</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
-      </motion.nav>
-
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setMobileMenuOpen(false)}
-            className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40 lg:hidden"
-          />
-        )}
-      </AnimatePresence>
-    </>
-  )
+      )}
+    </nav>
+  );
 }

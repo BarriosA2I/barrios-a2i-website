@@ -1,120 +1,106 @@
-/**
- * ServicesGrid Component - Barrios A2I
- *
- * 4 core service offerings with hover effects
- * Replaces old single-focus features section
- */
+'use client';
 
-'use client'
+import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Bot, Layers, Palette, Gauge, Database, Workflow } from 'lucide-react';
 
-import React from 'react'
-import Link from 'next/link'
-import { Video, Brain, Globe, Smartphone } from 'lucide-react'
+const services = [
+  { 
+    title: "AI Orchestration", 
+    desc: "Custom RAG agents and autonomous workflows built on n8n.", 
+    icon: Bot 
+  },
+  { 
+    title: "Full-Stack Architecture", 
+    desc: "Production-grade Next.js 15 & React 19 applications.", 
+    icon: Layers 
+  },
+  { 
+    title: "UI/UX Design", 
+    desc: "Futuristic, high-conversion interfaces with glassmorphism.", 
+    icon: Palette 
+  },
+  { 
+    title: "Performance Engineering", 
+    desc: "Core Web Vitals optimization and lazy-loading strategies.", 
+    icon: Gauge 
+  },
+  { 
+    title: "Database Design", 
+    desc: "Scalable schema design using Supabase and PostgreSQL.", 
+    icon: Database 
+  },
+  { 
+    title: "Automation Strategy", 
+    desc: "Replacing manual legacy processes with intelligent scripts.", 
+    icon: Workflow 
+  },
+];
 
 export default function ServicesGrid() {
-  const services = [
-    {
-      icon: Video,
-      title: 'Business Commercials',
-      description: 'AI-scripted, RAG-powered video commercials delivered in 48-72 hours. From storyboard to final cut.',
-      features: ['30-90 sec spots', 'Social cutdowns', 'Voiceover & music', 'Multi-platform export'],
-      href: '/contact',
-      color: 'cyan',
-    },
-    {
-      icon: Brain,
-      title: 'RAG Agents & MCP Servers',
-      description: 'Production-grade multi-agent orchestration with LangGraph, RabbitMQ, and OpenTelemetry.',
-      features: ['Event-driven', 'Fault-tolerant', 'Horizontal scaling', 'Real-time monitoring'],
-      href: '/contact',
-      color: 'amber',
-    },
-    {
-      icon: Globe,
-      title: 'Premium Websites',
-      description: 'Next.js 14 sites with cyber aesthetics, Tailwind, and sub-3s load times. SEO-optimized.',
-      features: ['App Router', 'Framer Motion', 'shadcn/ui', 'Vercel deployment'],
-      href: '/contact',
-      color: 'cyan',
-    },
-    {
-      icon: Smartphone,
-      title: 'App Development',
-      description: 'Turn your idea into a React Native or Next.js PWA with AI integrations built-in.',
-      features: ['iOS + Android', 'AI-powered', 'Real-time data', 'Push notifications'],
-      href: '/contact',
-      color: 'amber',
-    },
-  ]
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const cards = gridRef.current?.querySelectorAll('.glass-card');
+      cards?.forEach((card) => {
+        const rect = (card as HTMLElement).getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+        (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+      });
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => document.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
-    <section id="services" className="relative py-32 bg-gradient-to-b from-slate-950 to-slate-900">
-      {/* Background grid */}
-      <div className="absolute inset-0 grid-pattern opacity-5" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-20">
-          <div className="inline-block px-4 py-2 bg-amber-500/10 border border-amber-500/30 rounded-full mb-6">
-            <span className="text-amber-500 font-medium text-sm uppercase tracking-wider">Our Services</span>
-          </div>
-
-          <h2 className="font-space text-5xl font-bold text-slate-50 mb-6">
-            End-to-End <span className="bg-gradient-to-r from-cyan-400 to-amber-500 bg-clip-text text-transparent">AI Solutions</span>
+    <section id="capabilities" className="py-32 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-20"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Built for <span className="text-gradient-cyber">Scale.</span>
           </h2>
+          <div className="h-1 w-20 bg-neon-gold rounded-full"></div>
+        </motion.div>
 
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Four core offerings, one premium standard: production-ready, revenue-generating AI products.
-          </p>
-        </div>
-
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => {
-            const Icon = service.icon
-            const glowColor = service.color === 'cyan' ? 'hover:shadow-[0_10px_40px_rgba(0,217,255,0.3)]' : 'hover:shadow-[0_10px_40px_rgba(255,167,38,0.3)]'
-            const borderColor = service.color === 'cyan' ? 'border-cyan-400/30' : 'border-amber-500/30'
-            const iconColor = service.color === 'cyan' ? 'text-cyan-400' : 'text-amber-500'
-            const bgColor = service.color === 'cyan' ? 'bg-cyan-400/10' : 'bg-amber-500/10'
-
+            const Icon = service.icon;
             return (
-              <Link
-                key={index}
-                href={service.href}
-                className={`group relative p-8 bg-slate-900/50 backdrop-blur border ${borderColor} rounded-lg ${glowColor} transition-all duration-300 hover:-translate-y-2`}
+              <motion.div 
+                key={service.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="glass-card p-8 rounded-2xl group transition-all duration-300 hover:-translate-y-1"
               >
-                {/* Icon */}
-                <div className={`w-14 h-14 ${bgColor} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <Icon size={28} className={iconColor} />
+                <div className="spotlight-overlay"></div>
+                <div className="relative z-10">
+                  <div className="w-12 h-12 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center mb-6 text-neon-cyan group-hover:scale-110 transition-transform duration-300">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-white group-hover:text-neon-gold transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    {service.desc}
+                  </p>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-xl font-space font-bold text-slate-50 mb-4">
-                  {service.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-slate-400 leading-relaxed mb-6 text-sm">
-                  {service.description}
-                </p>
-
-                {/* Features */}
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2 text-slate-500 text-xs">
-                      <div className={`w-1.5 h-1.5 rounded-full ${service.color === 'cyan' ? 'bg-cyan-400' : 'bg-amber-500'}`} />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Hover indicator */}
-                <div className={`absolute bottom-0 left-0 w-full h-1 ${service.color === 'cyan' ? 'bg-cyan-400' : 'bg-amber-500'} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-b-lg`} />
-              </Link>
-            )
+              </motion.div>
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }

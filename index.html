@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barrios A2I | Future-Grade AI Engineering</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            navy: {
+              950: '#050A14', // Deeper, closer to void
+              900: '#0B1221',
+              800: '#151E32',
+            },
+            neon: {
+              cyan: '#00EAFF', // Electric Blue
+              blue: '#007CFF',
+              gold: '#FFD600', // Cyber Gold
+              purple: '#7B2BF9'
+            }
+          },
+          backgroundImage: {
+            'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+            'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #00EAFF 0deg, #007CFF 120deg, #7B2BF9 240deg, #00EAFF 360deg)',
+          },
+          animation: {
+            'spin-slow': 'spin 15s linear infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-glow': 'pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            'pulse-glow': {
+              '0%, 100%': { opacity: 0.5, transform: 'scale(1)' },
+              '50%': { opacity: 0.8, transform: 'scale(1.1)' },
+            }
+          }
+        },
+      },
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #050A14; }
+    ::-webkit-scrollbar-thumb { background: #151E32; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #00EAFF; }
+
+    /* Noise Overlay for Texture */
+    .bg-noise {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    /* Gradient Text Utilities */
+    .text-gradient-cyber {
+      background: linear-gradient(135deg, #FFF 0%, #00EAFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .text-gradient-gold {
+      background: linear-gradient(135deg, #FFD600 0%, #FF8F00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Outlined Text */
+    .text-outline {
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+      color: transparent;
+    }
+
+    /* Glass Cards with Spotlight support */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* The mouse-tracking glow layer */
+    .spotlight-overlay {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(0, 234, 255, 0.06), transparent 40%);
+    }
+    .glass-card:hover .spotlight-overlay {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="bg-navy-950 text-white antialiased overflow-x-hidden selection:bg-neon-cyan selection:text-navy-950">
+
+  <div class="bg-noise"></div>
+
+  <nav class="fixed top-0 left-0 right-0 z-40 pt-6 px-6 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto backdrop-blur-xl bg-navy-900/60 border border-white/5 rounded-full px-6 py-4 flex items-center justify-between shadow-2xl shadow-black/50">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 flex items-center justify-center bg-gradient-to-br from-navy-800 to-navy-950 rounded-xl border border-white/10 overflow-hidden">
+          <div class="absolute inset-0 bg-neon-cyan/20 blur-md group-hover:bg-neon-cyan/40 transition-all"></div>
+          <span class="relative text-neon-cyan font-bold font-mono text-sm tracking-tighter">A2I</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold tracking-tight leading-none text-white text-lg">BARRIOS</span>
+          <span class="font-mono text-[10px] text-neon-gold tracking-widest uppercase">Systems</span>
+        </div>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#services" class="text-sm font-medium text-gray-400 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all">Capabilities</a>
+        <a href="#stack" class="text-sm font-medium text-gray-400 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all">Architecture</a>
+        <a href="#work" class="text-sm font-medium text-gray-400 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all">Protocol</a>
+      </div>
+
+      <a href="#contact" class="hidden md:flex items-center gap-2 px-6 py-2.5 bg-white text-navy-950 font-bold text-sm rounded-full hover:bg-neon-cyan transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(0,234,255,0.4)]">
+        <span>Initialize</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </nav>
+
+  <section class="relative min-h-screen flex items-center justify-center pt-20">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[600px] bg-neon-blue/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-neon-gold/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+      
+      <div class="space-y-8">
+        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-neon-cyan/20 bg-neon-cyan/5 backdrop-blur-md">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-neon-cyan"></span>
+          </span>
+          <span class="font-mono text-xs text-neon-cyan tracking-wider">SYSTEM STATUS: ONLINE</span>
+        </div>
+
+        <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[0.9]">
+          FROM <br>
+          <span class="text-outline">ALIENATED</span> <br>
+          TO <span class="text-gradient-gold">INNOVATED</span>.
+        </h1>
+
+        <p class="text-lg text-gray-400 max-w-lg font-light leading-relaxed">
+          We architect <span class="text-white font-medium">multi-agent AI systems</span> that solve complex business logic. 
+          Bridging the gap between legacy chaos and future-grade automation.
+        </p>
+
+        <div class="flex flex-wrap gap-4 pt-4">
+          <button class="px-8 py-4 bg-neon-cyan text-navy-950 font-bold rounded-lg hover:bg-white transition-all shadow-[0_0_30px_-5px_rgba(0,234,255,0.3)] flex items-center gap-2 group">
+            Start Transformation
+            <i data-lucide="chevron-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+          </button>
+          
+          <div class="flex items-center gap-4 px-6 text-sm font-mono text-gray-500">
+            <span>// NEXT.JS 15</span>
+            <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
+            <span>// REACT 19</span>
+            <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
+            <span>// RAG</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative hidden lg:flex justify-center items-center perspective-1000">
+        <div class="absolute inset-0 border border-neon-cyan/20 rounded-full w-[500px] h-[500px] animate-[spin_20s_linear_infinite]"></div>
+        <div class="absolute inset-0 border border-dotted border-neon-gold/30 rounded-full w-[350px] h-[350px] m-auto animate-[spin_15s_linear_infinite_reverse]"></div>
+        
+        <div class="relative w-80 h-[420px] glass-card rounded-2xl border-t border-l border-white/20 shadow-2xl shadow-neon-cyan/10 animate-float flex flex-col p-6 z-20">
+          <div class="flex justify-between items-center mb-8">
+            <div class="w-8 h-8 rounded bg-gradient-to-br from-neon-cyan to-blue-600"></div>
+            <i data-lucide="cpu" class="text-gray-400 w-5 h-5"></i>
+          </div>
+          
+          <div class="space-y-3 font-mono text-[10px] text-gray-400 mb-auto">
+            <div class="text-neon-cyan">const engineer = new Agent({</div>
+            <div class="pl-4">role: "Architect",</div>
+            <div class="pl-4">stack: ["Next.js", "n8n"],</div>
+            <div class="pl-4">efficiency: <span class="text-neon-gold">100%</span></div>
+            <div class="text-neon-cyan">});</div>
+            <br>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              <span class="text-green-500">Optimizing workflow...</span>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-white/5">
+             <div class="flex justify-between items-end">
+               <div>
+                 <div class="text-[10px] uppercase text-gray-500 tracking-widest mb-1">Processing</div>
+                 <div class="text-2xl font-bold text-white">1.4ms</div>
+               </div>
+               <div class="h-8 w-24 bg-gradient-to-t from-neon-cyan/20 to-transparent flex items-end gap-1 px-1 pb-1">
+                 <div class="w-full bg-neon-cyan h-[40%]"></div>
+                 <div class="w-full bg-neon-cyan h-[70%]"></div>
+                 <div class="w-full bg-neon-cyan h-[50%]"></div>
+                 <div class="w-full bg-neon-cyan h-[90%]"></div>
+               </div>
+             </div>
+          </div>
+        </div>
+
+        <div class="absolute -right-4 bottom-20 px-4 py-3 bg-navy-900 border border-neon-gold/30 rounded-lg shadow-xl shadow-black/50 z-30 animate-float" style="animation-delay: 1s;">
+          <div class="flex items-center gap-3">
+             <i data-lucide="zap" class="text-neon-gold w-5 h-5 fill-current"></i>
+             <div>
+               <div class="text-[10px] text-gray-400 uppercase">Efficiency Gain</div>
+               <div class="text-sm font-bold text-white">+340%</div>
+             </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="py-10 border-y border-white/5 bg-black/20 overflow-hidden">
+    <div class="flex gap-16 whitespace-nowrap animate-[marquee_20s_linear_infinite]" id="marquee">
+      </div>
+  </section>
+
+  <section id="services" class="py-32 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="mb-20">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Built for <span class="text-gradient-cyber">Scale.</span></h2>
+        <div class="h-1 w-20 bg-neon-gold rounded-full"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6" id="card-grid">
+        </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-32 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-950 to-blue-950/20"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-cyan/5 blur-[120px] rounded-full"></div>
+    
+    <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+      <h2 class="text-5xl md:text-7xl font-bold mb-8 tracking-tight">
+        Ready to <span class="text-outline">Innovate?</span>
+      </h2>
+      <p class="text-xl text-gray-400 mb-12">
+        Stop letting legacy systems alienate your potential. Let's architect the future.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+        <a href="mailto:contact@barriosa2i.com" class="px-10 py-5 bg-white text-navy-950 font-bold text-lg rounded-full hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.3)]">
+          Schedule Discovery
+        </a>
+        <a href="#" class="px-10 py-5 border border-white/20 text-white font-medium rounded-full hover:bg-white/5 transition-colors backdrop-blur-sm">
+          View Documentation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/5 bg-[#02050A] pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start gap-12">
+      <div>
+        <div class="flex items-center gap-2 mb-6">
+          <div class="w-8 h-8 bg-neon-cyan/20 rounded border border-neon-cyan/50 flex items-center justify-center text-neon-cyan font-bold text-xs">A2I</div>
+          <span class="font-bold text-xl">BARRIOS <span class="text-neon-gold">A2I</span></span>
+        </div>
+        <p class="text-gray-500 max-w-xs text-sm">
+          Premium AI engineering and architecture.
+          <br>Alienated 2 Innovated.
+        </p>
+      </div>
+      
+      <div class="flex gap-12 text-sm text-gray-400">
+        <div class="flex flex-col gap-4">
+          <span class="text-white font-bold">Services</span>
+          <a href="#" class="hover:text-neon-cyan transition-colors">Automation</a>
+          <a href="#" class="hover:text-neon-cyan transition-colors">Development</a>
+          <a href="#" class="hover:text-neon-cyan transition-colors">Consulting</a>
+        </div>
+        <div class="flex flex-col gap-4">
+          <span class="text-white font-bold">Legal</span>
+          <a href="#" class="hover:text-neon-cyan transition-colors">Privacy</a>
+          <a href="#" class="hover:text-neon-cyan transition-colors">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-white/5 text-center text-xs text-gray-600 font-mono">
+      © 2025 BARRIOS A2I. ALL SYSTEMS OPERATIONAL.
+    </div>
+  </footer>
+
+  <script>
+    // 1. Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 2. Populate Tech Stack Marquee
+    const techStack = ["Next.js 15", "React 19", "Tailwind v4", "TypeScript", "OpenAI", "Anthropic", "n8n", "LangChain", "Supabase", "Stripe", "Vercel"];
+    const marqueeContainer = document.getElementById('marquee');
+    
+    // Create content twice for seamless loop
+    const marqueeContent = [...techStack, ...techStack, ...techStack].map(tech => `
+      <div class="flex items-center gap-2 text-gray-500 font-mono text-sm font-bold uppercase tracking-widest px-8">
+        <i data-lucide="zap" class="w-3 h-3 text-neon-gold"></i>
+        ${tech}
+      </div>
+    `).join('');
+    marqueeContainer.innerHTML = marqueeContent;
+    lucide.createIcons(); // Re-init icons for dynamic content
+
+    // 3. Populate Services Grid with Spotlight Effect
+    const services = [
+      { title: "AI Orchestration", desc: "Custom RAG agents and autonomous workflows built on n8n.", icon: "bot" },
+      { title: "Full-Stack Architecture", desc: "Production-grade Next.js 15 & React 19 applications.", icon: "layers" },
+      { title: "UI/UX Design", desc: "Futuristic, high-conversion interfaces with glassmorphism.", icon: "palette" },
+      { title: "Performance Engineering", desc: "Core Web Vitals optimization and lazy-loading strategies.", icon: "gauge" },
+      { title: "Database Design", desc: "Scalable schema design using Supabase and PostgreSQL.", icon: "database" },
+      { title: "Automation Strategy", desc: "Replacing manual legacy processes with intelligent scripts.", icon: "workflow" },
+    ];
+
+    const grid = document.getElementById('card-grid');
+    grid.innerHTML = services.map(s => `
+      <div class="glass-card p-8 rounded-2xl group transition-all duration-300 hover:-translate-y-1">
+        <div class="spotlight-overlay"></div>
+        <div class="relative z-10">
+          <div class="w-12 h-12 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center mb-6 text-neon-cyan group-hover:scale-110 transition-transform duration-300">
+            <i data-lucide="${s.icon}" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-white group-hover:text-neon-gold transition-colors">${s.title}</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">${s.desc}</p>
+        </div>
+      </div>
+    `).join('');
+    lucide.createIcons();
+
+    // 4. Spotlight Effect Logic
+    const cards = document.querySelectorAll('.glass-card');
+    document.addEventListener('mousemove', e => {
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // 5. Marquee Animation CSS Injection
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+    `;
+    document.head.appendChild(style);
+
+  </script>
+</body>
+</html>

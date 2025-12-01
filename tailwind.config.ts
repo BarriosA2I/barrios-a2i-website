@@ -2,45 +2,82 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        'cyber-cyan': '#00D9FF',
-        'cyber-gold': '#FFA726',
-        'navy-deep': '#0A1628',
+        // Barrios A2I Brand Colors - Senior Creative Director Palette
+        navy: {
+          950: '#050A14', // Deeper, closer to void
+          900: '#0B1221',
+          800: '#151E32',
+        },
+        neon: {
+          cyan: '#00EAFF', // Electric Blue
+          blue: '#007CFF',
+          gold: '#FFD600', // Cyber Gold
+          purple: '#7B2BF9',
+        },
+        // Legacy support
+        'cyber-cyan': '#00EAFF',
+        'cyber-gold': '#FFD600',
+        'navy-deep': '#050A14',
+        'navy-light': '#0B1221',
+        // Semantic
+        background: '#050A14',
+        foreground: '#ffffff',
+        muted: '#94a3b8',
+        border: 'rgba(255, 255, 255, 0.05)',
       },
       fontFamily: {
-        'space': ['var(--font-space)', 'sans-serif'],
-        'orbitron': ['var(--font-orbitron)', 'sans-serif'],
-        'inter': ['var(--font-inter)', 'sans-serif'],
+        sans: ['Outfit', 'system-ui', 'sans-serif'],
+        display: ['Outfit', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+      boxShadow: {
+        'glow-cyan': '0 0 20px rgba(0, 234, 255, 0.5)',
+        'glow-gold': '0 0 20px rgba(255, 214, 0, 0.5)',
+        'glow-cyan-lg': '0 0 40px rgba(0, 234, 255, 0.6)',
       },
       animation: {
-        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+        'pulse-glow': 'pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 6s ease-in-out infinite',
-        'spin-slow': 'spin 8s linear infinite',
+        'gradient': 'gradient 8s ease infinite',
+        'spin-slow': 'spin 15s linear infinite',
+        'marquee': 'marquee 20s linear infinite',
+        'scan': 'scan 8s linear infinite',
       },
       keyframes: {
         'pulse-glow': {
-          '0%, 100%': {
-            boxShadow: '0 0 20px rgba(0, 217, 255, 0.4)',
-            transform: 'scale(1)',
-          },
-          '50%': {
-            boxShadow: '0 0 40px rgba(0, 217, 255, 0.8)',
-            transform: 'scale(1.05)',
-          },
+          '0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
+          '50%': { opacity: '0.8', transform: 'scale(1.1)' },
         },
-        'float': {
+        float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-20px)' },
         },
+        gradient: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        scan: {
+          '0%': { backgroundPosition: '0% 0%' },
+          '100%': { backgroundPosition: '0% 100%' },
+        },
+      },
+      backdropBlur: {
+        xs: '2px',
       },
     },
   },
   plugins: [],
 }
+
 export default config

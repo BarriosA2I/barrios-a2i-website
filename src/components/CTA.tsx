@@ -1,26 +1,39 @@
-"use client";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+"use client"
+
+import { motion } from "framer-motion"
+import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 export function CTA() {
   return (
-    <section className="py-24 bg-gradient-to-br from-[#0a0a1e] via-[#0B1220] to-[#0a0a1e] relative overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00C2FF10_1px,transparent_1px),linear-gradient(to_bottom,#00C2FF10_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-      <div className="container mx-auto px-6 text-center relative z-10">
-        <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-          Ready to Build Something Real?
-        </h2>
-        <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
-          No fluff. No 47-step funnels. Just honest work that drives ROI.
-        </p>
-        <Link
-          href="mailto:hello@barriosa2i.com"
-          className="inline-flex items-center gap-2 h-14 px-10 rounded-md bg-[#00C2FF] text-[#0a0a1e] font-bold hover:scale-105 transition-transform"
+    <section id="contact" className="relative py-24 sm:py-32">
+      <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center max-w-3xl mx-auto"
         >
-          Book a Call
-          <ArrowRight className="w-5 h-5" />
-        </Link>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
+            Ready to Build Something{" "}
+            <span className="gradient-text">Real</span>?
+          </h2>
+          
+          <p className="text-xl text-slate-300 mb-10">
+            No fluff. No 47-step funnels. Just honest work that drives ROI.
+          </p>
+
+          <Link
+            href="https://calendly.com/barriosa2i"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 px-10 py-4 bg-cyber-cyan text-navy-deep font-bold text-lg rounded-xl hover:shadow-glow-cyan-lg hover:scale-105 transition-all duration-300"
+          >
+            Book a Call
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </motion.div>
       </div>
     </section>
-  );
+  )
 }
