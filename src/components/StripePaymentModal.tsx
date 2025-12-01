@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { loadStripe } from '@stripe/stripe-js';
 
 // =============================================================================
 // STRIPE PAYMENT MODAL - S+++ PRODUCTION
@@ -10,9 +9,6 @@ import { loadStripe } from '@stripe/stripe-js';
 // "Deployment Authorization" aesthetic for $50K positioning
 // Integrated with lead tracking system
 // =============================================================================
-
-// Initialize Stripe
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 // --- ICONS ---
 const Icons = {
@@ -220,18 +216,11 @@ export default function StripePaymentModal({
         throw new Error(data.error || 'Failed to create checkout session');
       }
 
-      // Redirect to Stripe Checkout
-      const stripe = await stripePromise;
-      if (!stripe) {
-        throw new Error('Stripe failed to load');
-      }
-
-      const { error: stripeError } = await stripe.redirectToCheckout({
-        sessionId: data.sessionId,
-      });
-
-      if (stripeError) {
-        throw new Error(stripeError.message);
+      // Redirect to Stripe Checkout using the URL from the API response
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL received');
       }
 
     } catch (err) {
