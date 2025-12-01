@@ -1,6 +1,7 @@
 import { Particles } from "@/components/Particles"
 import { Nav } from "@/components/Nav"
 import { Hero } from "@/components/Hero"
+import SolutionsSection from "@/components/SolutionsSection"
 import { Problems } from "@/components/Problems"
 import NeuralCoreDemo from "@/components/NeuralCoreDemo"
 import { Audience } from "@/components/Audience"
@@ -43,6 +44,7 @@ export default function Home() {
         
         <main className="flex flex-col">
           <Hero />
+          <SolutionsSection />
           <Problems />
           <NeuralCoreDemo />
           <Audience />

@@ -15,3 +15,4 @@ export {
   MetricsGrid,
   StatusIndicator,
 } from './data-stream';
+export { VideoPortalCard } from './video-portal-card';
