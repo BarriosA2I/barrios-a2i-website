@@ -56,9 +56,9 @@ interface CheckoutRequest {
   tierId: string;
   mode: 'payment' | 'subscription';
   price: number;
-  leadId?: string | null;
-  leadEmail?: string | null;
-  source?: string;
+  leadId: string | null;
+  leadEmail: string | null;
+  source: string;
 }
 
 function validateRequest(body: unknown): CheckoutRequest {
