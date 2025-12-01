@@ -24,8 +24,8 @@ import {
   type ThreatLevel,
 } from '@/lib/security';
 import {
-  useTrinitySocketMock, // Use mock for development
-  // useTrinitySocket,  // Use real for production
+  // useTrinitySocketMock, // Use mock for development
+  useTrinitySocket,  // Use real for production
   type TrinityLogEntry,
   type ConnectionState,
 } from '@/hooks/useTrinitySocket';
@@ -265,7 +265,7 @@ export default function TrinityTerminal() {
   const logsEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // WebSocket hook (use mock for development)
+  // WebSocket hook (connected to real Ragnarok Creative Director)
   const {
     connectionState,
     status,
@@ -273,7 +273,13 @@ export default function TrinityTerminal() {
     sendCommand,
     resetCircuit,
     metrics,
-  } = useTrinitySocketMock(); // Switch to useTrinitySocket for production
+  } = useTrinitySocket({
+    url: process.env.NEXT_PUBLIC_TRINITY_WS_URL || 'ws://127.0.0.1:8000/ws/creative-director',
+    autoConnect: true,
+    heartbeatInterval: 30000,
+    reconnectAttempts: 5,
+    reconnectBaseDelay: 1000,
+  });
 
   // Auto-scroll logs
   useEffect(() => {
