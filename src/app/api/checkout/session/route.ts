@@ -7,7 +7,13 @@ import Stripe from 'stripe';
 // Retrieves session details for the success page display
 // =============================================================================
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+// Lazy initialization to prevent build-time errors
+function getStripe() {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error('STRIPE_SECRET_KEY is not configured');
+  }
+  return new Stripe(process.env.STRIPE_SECRET_KEY);
+}
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -21,6 +27,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    const stripe = getStripe();
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
       expand: ['customer', 'line_items'],
     });

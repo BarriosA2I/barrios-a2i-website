@@ -10,9 +10,20 @@ import Stripe from 'stripe';
 // =============================================================================
 
 // --- CONFIGURATION ---
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+// Lazy initialization to prevent build-time errors
+function getStripe() {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error('STRIPE_SECRET_KEY is not configured');
+  }
+  return new Stripe(process.env.STRIPE_SECRET_KEY);
+}
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+function getWebhookSecret() {
+  if (!process.env.STRIPE_WEBHOOK_SECRET) {
+    throw new Error('STRIPE_WEBHOOK_SECRET is not configured');
+  }
+  return process.env.STRIPE_WEBHOOK_SECRET;
+}
 
 // --- TYPES ---
 interface TransactionRecord {
@@ -138,6 +149,7 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription): Pro
   console.log(`🔄 SUBSCRIPTION CREATED: ${customerId} for ${tier}`);
 
   // Get customer email
+  const stripe = getStripe();
   const customer = await stripe.customers.retrieve(customerId);
   const email = ('email' in customer && customer.email) || '';
 
@@ -157,6 +169,7 @@ async function handleSubscriptionCanceled(subscription: Stripe.Subscription): Pr
   console.log(`🚫 SUBSCRIPTION CANCELED: ${customerId}`);
 
   // Get customer email
+  const stripe = getStripe();
   const customer = await stripe.customers.retrieve(customerId);
   const email = ('email' in customer && customer.email) || '';
   const leadId = subscription.metadata?.lead_id || null;
@@ -211,6 +224,8 @@ export async function POST(req: NextRequest) {
 
   // Verify webhook signature
   try {
+    const stripe = getStripe();
+    const webhookSecret = getWebhookSecret();
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
   } catch (err) {
     console.error('Webhook signature verification failed:', err);
