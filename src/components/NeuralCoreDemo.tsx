@@ -4,10 +4,10 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // =============================================================================
-// NEURAL CORE DEMO - S+++ PRODUCTION COMPONENT
+// NEURAL CORE DEMO - LIVE ANTIGRAVITY AGENT FLEET
 // =============================================================================
-// Live demonstration of Tiered RAG Architecture
-// Features: Real streaming, cost display, lead capture, industry presets
+// Connected to 8-agent Antigravity system via WebSocket
+// Features: Real-time processing, intent classification, confidence display
 // =============================================================================
 
 // --- TYPES ---
@@ -22,23 +22,28 @@ interface LogEntry {
 interface QueryResult {
   answer: string;
   sources: string[];
+  citations: string[];
   metrics: {
     totalCost: number;
-    naiveCost: number;
-    savings: number;
     latencyMs: number;
-    tierUsed: string;
-    cacheHit: boolean;
-    tokensUsed: number;
+    intent: string;
+    confidence: number;
+  };
+  validation?: {
+    passed: boolean;
+    citation_coverage: number;
+    factual_grounding: number;
   };
 }
 
 interface DemoState {
-  status: 'idle' | 'processing' | 'complete' | 'error' | 'rate-limited';
+  status: 'idle' | 'connecting' | 'processing' | 'complete' | 'error' | 'rate-limited';
   logs: LogEntry[];
   result: QueryResult | null;
   error: string | null;
 }
+
+type ConnectionState = 'DISCONNECTED' | 'CONNECTING' | 'CONNECTED' | 'ERROR';
 
 // --- ICONS (Zero Dependency) ---
 const Icons = {
@@ -101,6 +106,18 @@ const Icons = {
         d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
     </svg>
   ),
+  Wifi: () => (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+    </svg>
+  ),
+  WifiOff: () => (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 01-1.414-2.83m-1.414 5.658a9 9 0 01-2.167-9.238m7.824 2.167a1 1 0 111.414 1.414m-1.414-1.414L3 3" />
+    </svg>
+  ),
 };
 
 // --- INDUSTRY PRESETS ---
@@ -148,129 +165,12 @@ const STEP_ICONS: Record<string, React.FC> = {
   'RAG': Icons.Search,
   'SYNTHESIS': Icons.Brain,
   'COMPLETE': Icons.Check,
+  'INTENT': Icons.Route,
+  'RETRIEVAL': Icons.Database,
+  'FUSION': Icons.Cpu,
+  'GENERATION': Icons.Brain,
+  'VALIDATION': Icons.Shield,
 };
-
-// --- DEMO RESPONSES (for demo mode without backend) ---
-const DEMO_RESPONSES: Record<string, { answer: string; sources: string[] }> = {
-  dental: {
-    answer: `**AUTOMATION BLUEPRINT: Missed Call Recovery System**
-
-1. **AI Voice Agent Deployment**
-   Deploy a Twilio-powered voice agent that answers missed calls within 2 rings, 24/7.
-
-2. **RAG-Enhanced Responses**
-   Connect to your pricing PDF, services list, and appointment availability in real-time.
-
-3. **Smart Booking Integration**
-   Auto-schedule callbacks or book directly into your practice management system.
-
-**ESTIMATED ROI:**
-- Recover 15-25% of lost revenue from no-shows
-- $3,200-$8,500/month for average dental practice
-- Payback period: 6-8 weeks`,
-    sources: ['Dental Practice Economics 2024', 'Twilio Voice API Docs', 'Missed Call Revenue Study'],
-  },
-
-  manufacturing: {
-    answer: `**AUTOMATION BLUEPRINT: Predictive Maintenance System**
-
-1. **IoT Sensor Integration**
-   Connect vibration, temperature, and power consumption sensors to your equipment fleet.
-
-2. **ML-Powered Anomaly Detection**
-   Train models on your historical failure data to detect patterns 72+ hours before failure.
-
-3. **Automated Work Order Generation**
-   When anomalies detected, auto-create maintenance tickets with parts lists and technician assignments.
-
-**ESTIMATED ROI:**
-- Reduce unplanned downtime by 35-50%
-- Extend equipment lifespan by 20%
-- $50K-$200K annual savings (10-machine fleet)`,
-    sources: ['McKinsey Manufacturing Report 2024', 'Predictive Maintenance Best Practices', 'IoT Industry Standards'],
-  },
-
-  insurance: {
-    answer: `**AUTOMATION BLUEPRINT: Claims Processing Pipeline**
-
-1. **Document Intelligence Layer**
-   OCR + NLP to extract claim details from any format: PDFs, images, handwritten forms.
-
-2. **Compliance Guardrails**
-   Built-in checks against state regulations, policy terms, and fraud indicators.
-
-3. **Auto-Adjudication Engine**
-   Route simple claims (< $5K, clear documentation) to auto-approve. Flag complex for human review.
-
-**ESTIMATED ROI:**
-- Process 60% of claims without human touch
-- Reduce average processing time from 14 days to 48 hours
-- $15-25 saved per claim in labor costs`,
-    sources: ['Insurance Automation Benchmark 2024', 'State Compliance Database', 'Fraud Detection Protocols'],
-  },
-
-  realestate: {
-    answer: `**AUTOMATION BLUEPRINT: 24/7 Lead Qualification System**
-
-1. **Multi-Channel Capture**
-   AI chatbot on website, SMS responder, and voice agent for calls—all feeding into unified CRM.
-
-2. **Intelligent Qualification**
-   Score leads based on budget, timeline, location preferences, and engagement patterns.
-
-3. **Automated Nurture Sequences**
-   Personalized follow-ups with property recommendations based on search behavior.
-
-**ESTIMATED ROI:**
-- Respond to leads in <60 seconds (vs. industry avg 47 hours)
-- Increase conversion rate by 25-40%
-- Save 15+ hours/week on manual follow-up`,
-    sources: ['NAR Technology Report 2024', 'Real Estate Lead Conversion Study', 'CRM Integration Best Practices'],
-  },
-
-  default: {
-    answer: `**AUTOMATION ANALYSIS COMPLETE**
-
-Based on your query, here's a high-level automation strategy:
-
-1. **Data Layer**: Centralize your operational data into a unified knowledge base with semantic search.
-
-2. **Agent Layer**: Deploy specialized AI agents for your specific workflow bottleneck.
-
-3. **Integration Layer**: Connect to your existing tools (CRM, ERP, scheduling) via secure APIs.
-
-**NEXT STEPS:**
-This is a preview of our analysis. For a complete architecture design with:
-- Detailed implementation roadmap
-- Cost-benefit analysis
-- Technical specifications
-
-→ Book a Strategy Call to get your custom blueprint.`,
-    sources: ['Business Process Automation Guide', 'AI Implementation Framework'],
-  },
-};
-
-function selectDemoResponse(query: string): { answer: string; sources: string[] } {
-  const normalized = query.toLowerCase();
-
-  if (normalized.includes('dental') || normalized.includes('patient') || normalized.includes('missed call') || normalized.includes('no-show')) {
-    return DEMO_RESPONSES.dental;
-  }
-
-  if (normalized.includes('manufactur') || normalized.includes('equipment') || normalized.includes('predict') || normalized.includes('maintenance') || normalized.includes('downtime')) {
-    return DEMO_RESPONSES.manufacturing;
-  }
-
-  if (normalized.includes('insurance') || normalized.includes('claim') || normalized.includes('compliance') || normalized.includes('adjudic')) {
-    return DEMO_RESPONSES.insurance;
-  }
-
-  if (normalized.includes('real estate') || normalized.includes('lead') || normalized.includes('qualify') || normalized.includes('follow up')) {
-    return DEMO_RESPONSES.realestate;
-  }
-
-  return DEMO_RESPONSES.default;
-}
 
 // --- MAIN COMPONENT ---
 export default function NeuralCoreDemo() {
@@ -282,6 +182,7 @@ export default function NeuralCoreDemo() {
     result: null,
     error: null,
   });
+  const [connectionState, setConnectionState] = useState<ConnectionState>('DISCONNECTED');
   const [queryCount, setQueryCount] = useState(0);
   const [showEmailGate, setShowEmailGate] = useState(false);
   const [email, setEmail] = useState('');
@@ -289,19 +190,18 @@ export default function NeuralCoreDemo() {
 
   // Refs
   const logsEndRef = useRef<HTMLDivElement>(null);
-  const abortControllerRef = useRef<AbortController | null>(null);
+  const wsRef = useRef<WebSocket | null>(null);
+  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const hasShownConnectionMessage = useRef(false);
+
+  // WebSocket URL from environment
+  const wsUrl = process.env.NEXT_PUBLIC_TRINITY_WS_URL || 'wss://web-production-43c7.up.railway.app/ws/antigravity';
 
   // Auto-scroll logs
   useEffect(() => {
     logsEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [state.logs]);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      abortControllerRef.current?.abort();
-    };
-  }, []);
 
   // Add log entry
   const addLog = useCallback((entry: Omit<LogEntry, 'timestamp'>) => {
@@ -311,74 +211,175 @@ export default function NeuralCoreDemo() {
     }));
   }, []);
 
-  // Sleep helper
-  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+  // Connect to WebSocket
+  const connectWebSocket = useCallback(() => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) return;
 
-  // Simulate streaming demo (no backend required)
-  const simulateDemo = async () => {
-    const startTime = Date.now();
+    setConnectionState('CONNECTING');
 
-    // Step 1: Gatekeeper
-    addLog({ step: 'GATEKEEPER', msg: 'Scanning input for intent...', status: 'pending' });
-    await sleep(300 + Math.random() * 200);
-    addLog({ step: 'GATEKEEPER', msg: '✓ Input validated - proceeding' });
+    try {
+      const ws = new WebSocket(wsUrl);
+      wsRef.current = ws;
 
-    // Step 2: Cache check
-    addLog({ step: 'CACHE', msg: 'Checking Semantic Cache (Redis)...', tier: 0, status: 'pending' });
-    await sleep(400 + Math.random() * 300);
-    addLog({ step: 'CACHE', msg: '✗ CACHE MISS - Routing to LLM', tier: 0 });
+      ws.onopen = () => {
+        setConnectionState('CONNECTED');
+        console.log('Antigravity WebSocket connected');
+      };
 
-    // Step 3: Complexity routing
-    addLog({ step: 'ROUTER', msg: 'Analyzing query complexity...', status: 'pending' });
-    await sleep(500 + Math.random() * 300);
+      ws.onclose = () => {
+        setConnectionState('DISCONNECTED');
+        wsRef.current = null;
+        // Auto-reconnect after 3 seconds
+        reconnectTimeoutRef.current = setTimeout(() => {
+          connectWebSocket();
+        }, 3000);
+      };
 
-    const tier = query.toLowerCase().includes('automate') || query.toLowerCase().includes('strategy') ? 2 : 1;
-    const tierName = tier === 2 ? 'SONNET' : 'HAIKU';
-    addLog({ step: 'ROUTER', msg: `Complexity: 0.${tier === 2 ? '75' : '45'} → Tier ${tier} (${tierName})`, tier });
+      ws.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        setConnectionState('ERROR');
+      };
 
-    // Step 4: Document retrieval
-    addLog({ step: 'RAG', msg: 'Retrieving relevant documents...', tier, status: 'pending' });
-    await sleep(600 + Math.random() * 400);
-    const docCount = Math.floor(Math.random() * 3) + 3;
-    addLog({ step: 'RAG', msg: `✓ Retrieved ${docCount} relevant documents`, tier });
+      ws.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          handleWebSocketMessage(data);
+        } catch (e) {
+          console.error('Failed to parse WebSocket message:', e);
+        }
+      };
+    } catch (error) {
+      console.error('Failed to create WebSocket:', error);
+      setConnectionState('ERROR');
+    }
+  }, [wsUrl]);
 
-    // Step 5: Synthesis
-    addLog({ step: 'SYNTHESIS', msg: 'Generating response...', tier, status: 'pending' });
-    await sleep(1500 + Math.random() * 1000);
-    addLog({ step: 'SYNTHESIS', msg: '✓ Response compiled', tier });
+  // Handle WebSocket messages
+  const handleWebSocketMessage = useCallback((data: Record<string, unknown>) => {
+    const type = data.type as string;
 
-    // Get demo response
-    const demoResponse = selectDemoResponse(query);
-    const latencyMs = Date.now() - startTime;
+    switch (type) {
+      case 'connected':
+        // Only show connection message once (not on reconnects)
+        if (!hasShownConnectionMessage.current) {
+          hasShownConnectionMessage.current = true;
+          addLog({ step: 'SYSTEM', msg: `Connected to Antigravity Fleet (${(data.fleet as string[])?.length || 8} agents)` });
+        }
+        break;
 
-    // Calculate simulated costs
-    const inputTokens = Math.ceil(query.length / 4) + 500;
-    const outputTokens = Math.ceil(demoResponse.answer.length / 4);
-    const tierCost = tier === 1 ? 0.00025 : 0.003;
-    const actualCost = (inputTokens / 1000 * tierCost) + (outputTokens / 1000 * (tier === 1 ? 0.00125 : 0.015));
-    const naiveCost = (inputTokens / 1000 * 0.003) + (outputTokens / 1000 * 0.015);
-    const savings = ((naiveCost - actualCost) / naiveCost) * 100;
+      case 'processing':
+        addLog({ step: 'INTENT', msg: 'Classifying query intent...', status: 'pending', tier: 1 });
+        break;
 
-    setState(prev => ({
-      ...prev,
-      status: 'complete',
-      result: {
-        answer: demoResponse.answer,
-        sources: demoResponse.sources,
-        metrics: {
-          totalCost: actualCost,
-          naiveCost: naiveCost,
-          savings: savings,
-          latencyMs: latencyMs,
-          tierUsed: tierName,
-          cacheHit: false,
-          tokensUsed: inputTokens + outputTokens,
-        },
-      },
+      case 'response':
+        // Final response received
+        const latencyMs = (data.elapsed_ms as number) || (data.duration_ms as number) || 0;
+        const confidence = (data.confidence as number) || 0;
+        const intent = (data.intent as string) || 'unknown';
+        const content = (data.content as string) || '';
+        const sources = (data.sources as Array<{ id?: string }>) || [];
+        const citations = (data.citations as string[]) || [];
+        const validation = data.validation as { passed?: boolean; citation_coverage?: number; factual_grounding?: number } | undefined;
+        const costUsd = (data.cost_usd as number) || 0.02;
+
+        // Add completion logs
+        addLog({ step: 'INTENT', msg: `Intent: ${intent} (${Math.round(confidence * 100)}% confidence)`, tier: 1 });
+        addLog({ step: 'RETRIEVAL', msg: 'Parallel retrieval swarm completed', tier: 1 });
+        addLog({ step: 'FUSION', msg: 'RRF fusion + reranking complete', tier: 1 });
+        addLog({ step: 'GENERATION', msg: 'Sonnet 4.5 synthesis complete', tier: 2 });
+        if (validation) {
+          addLog({
+            step: 'VALIDATION',
+            msg: `Hallucination check: ${validation.passed ? 'PASSED' : 'FLAGGED'} (${Math.round((validation.factual_grounding || 0) * 100)}% grounding)`,
+            tier: 1
+          });
+        }
+        addLog({ step: 'COMPLETE', msg: `Response generated in ${latencyMs}ms`, status: 'complete' });
+
+        setState(prev => ({
+          ...prev,
+          status: 'complete',
+          result: {
+            answer: content,
+            sources: sources.map(s => s.id || 'source'),
+            citations: citations,
+            metrics: {
+              totalCost: costUsd,
+              latencyMs: latencyMs,
+              intent: intent,
+              confidence: confidence,
+            },
+            validation: validation ? {
+              passed: validation.passed || false,
+              citation_coverage: validation.citation_coverage || 0,
+              factual_grounding: validation.factual_grounding || 0,
+            } : undefined,
+          },
+        }));
+
+        setQueryCount(prev => prev + 1);
+        break;
+
+      case 'error':
+        setState(prev => ({
+          ...prev,
+          status: 'error',
+          error: (data.message as string) || 'An error occurred',
+        }));
+        break;
+
+      case 'heartbeat':
+      case 'pong':
+        // Ignore heartbeats
+        break;
+
+      default:
+        console.log('Unknown message type:', type, data);
+    }
+  }, [addLog]);
+
+  // Connect on mount
+  useEffect(() => {
+    connectWebSocket();
+
+    return () => {
+      if (reconnectTimeoutRef.current) {
+        clearTimeout(reconnectTimeoutRef.current);
+      }
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
+    };
+  }, [connectWebSocket]);
+
+  // Send query to Antigravity
+  const sendQuery = useCallback((queryText: string) => {
+    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
+      setState(prev => ({
+        ...prev,
+        status: 'error',
+        error: 'Not connected to server. Please wait...',
+      }));
+      return;
+    }
+
+    // Reset state
+    setState({
+      status: 'processing',
+      logs: [],
+      result: null,
+      error: null,
+    });
+
+    // Add initial log
+    addLog({ step: 'SYSTEM', msg: `Processing query: "${queryText.substring(0, 50)}..."` });
+
+    // Send to WebSocket
+    wsRef.current.send(JSON.stringify({
+      type: 'query',
+      query: queryText,
     }));
-
-    setQueryCount(prev => prev + 1);
-  };
+  }, [addLog]);
 
   // Handle query submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -391,33 +392,7 @@ export default function NeuralCoreDemo() {
       return;
     }
 
-    // Reset state
-    setState({
-      status: 'processing',
-      logs: [],
-      result: null,
-      error: null,
-    });
-
-    // Abort any existing request
-    abortControllerRef.current?.abort();
-    abortControllerRef.current = new AbortController();
-
-    // Use demo mode (simulate without backend)
-    try {
-      await simulateDemo();
-    } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') {
-        return;
-      }
-
-      console.error('Demo error:', error);
-      setState(prev => ({
-        ...prev,
-        status: 'error',
-        error: error instanceof Error ? error.message : 'An unexpected error occurred',
-      }));
-    }
+    sendQuery(query);
   };
 
   // Handle email submission
@@ -425,13 +400,10 @@ export default function NeuralCoreDemo() {
     e.preventDefault();
     if (!email.trim() || !email.includes('@')) return;
 
-    // In production, this would submit to your lead capture endpoint
     console.log('Lead captured:', email);
-
     setEmailSubmitted(true);
     setShowEmailGate(false);
-    // Trigger the actual query now
-    handleSubmit(e);
+    sendQuery(query);
   };
 
   // Select preset query
@@ -446,11 +418,21 @@ export default function NeuralCoreDemo() {
     return `$${cost.toFixed(4)}`;
   };
 
-  // Calculate savings percentage
-  const calcSavings = (actual: number, naive: number) => {
-    if (naive === 0) return 0;
-    return Math.round(((naive - actual) / naive) * 100);
+  // Get connection status display
+  const getConnectionDisplay = () => {
+    switch (connectionState) {
+      case 'CONNECTED':
+        return { color: 'text-emerald-400', icon: <Icons.Wifi />, label: 'ONLINE' };
+      case 'CONNECTING':
+        return { color: 'text-yellow-400', icon: <Icons.Wifi />, label: 'CONNECTING' };
+      case 'ERROR':
+        return { color: 'text-red-400', icon: <Icons.WifiOff />, label: 'ERROR' };
+      default:
+        return { color: 'text-slate-500', icon: <Icons.WifiOff />, label: 'OFFLINE' };
+    }
   };
+
+  const connDisplay = getConnectionDisplay();
 
   return (
     <section id="neural-core-demo" className="py-24 px-6 bg-[#050505] border-t border-white/5 relative overflow-hidden">
@@ -470,7 +452,7 @@ export default function NeuralCoreDemo() {
             className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-950/20 text-cyan-400 text-xs font-mono tracking-widest uppercase"
           >
             <Icons.Zap />
-            Live Architecture Demo
+            Live 8-Agent Fleet
           </motion.div>
 
           <motion.h2
@@ -496,7 +478,7 @@ export default function NeuralCoreDemo() {
             className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto"
           >
             Don&apos;t take our word for it. Test the architecture.
-            Watch our <strong className="text-white">Tiered RAG Engine</strong> analyze your business bottleneck in real-time.
+            Watch our <strong className="text-white">Antigravity Agent Fleet</strong> analyze your business challenge in real-time.
           </motion.p>
         </div>
 
@@ -511,7 +493,7 @@ export default function NeuralCoreDemo() {
             transition={{ delay: 0.3 }}
           >
             <h3 className="text-2xl font-bold text-white mb-8">
-              The 4-Tier Cost Optimizer
+              The 8-Agent Antigravity Fleet
             </h3>
 
             <div className="space-y-6">
@@ -540,9 +522,9 @@ export default function NeuralCoreDemo() {
                       </div>
                       <p className="text-sm text-slate-500">
                         {tier === '0' && 'Semantic cache serves 80% of queries instantly at $0 cost'}
-                        {tier === '1' && 'Claude Haiku handles simple queries at $0.00025/1K tokens'}
-                        {tier === '2' && 'Claude Sonnet tackles complex analysis at $0.003/1K tokens'}
-                        {tier === '3' && 'Claude Opus reserved for critical decisions only'}
+                        {tier === '1' && 'Claude Haiku handles intent + retrieval at $0.00025/1K tokens'}
+                        {tier === '2' && 'Claude Sonnet 4.5 synthesizes deep analysis at $0.003/1K tokens'}
+                        {tier === '3' && 'GPT-4o reserved for edge cases requiring maximum capability'}
                       </p>
                     </div>
                   </motion.div>
@@ -550,31 +532,54 @@ export default function NeuralCoreDemo() {
               })}
             </div>
 
-            {/* Cost Comparison */}
+            {/* Agent Fleet Display */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.8 }}
-              className="mt-10 p-6 rounded-xl bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20"
+              className="mt-10 p-6 rounded-xl bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-500/20"
             >
               <div className="flex items-center justify-between mb-4">
-                <span className="text-sm text-slate-400">Monthly Cost Comparison</span>
-                <span className="text-xs font-mono text-emerald-400">50,000 queries</span>
+                <span className="text-sm text-slate-400">Agent Fleet Status</span>
+                <span className={`text-xs font-mono ${connDisplay.color} flex items-center gap-1`}>
+                  {connDisplay.icon}
+                  {connDisplay.label}
+                </span>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <div className="text-2xl font-bold text-red-400 line-through opacity-60">$750</div>
-                  <div className="text-xs text-slate-500">Naive Approach</div>
+              <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-cyan-500"></span>
+                  <span className="text-slate-400">IntentClassifier</span>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-emerald-400">$50</div>
-                  <div className="text-xs text-slate-500">Tiered RAG</div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                  <span className="text-slate-400">VectorAgent</span>
                 </div>
-              </div>
-              <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
-                <span className="text-sm text-slate-400">Your Savings</span>
-                <span className="text-lg font-bold text-emerald-400">93% Less</span>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+                  <span className="text-slate-400">CompetitorAgent</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                  <span className="text-slate-400">GraphAgent</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="text-slate-400">TemporalAgent</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-orange-500"></span>
+                  <span className="text-slate-400">FusionAgent</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-pink-500"></span>
+                  <span className="text-slate-400">GenerationAgent</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                  <span className="text-slate-400">HallucinationChecker</span>
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -598,8 +603,8 @@ export default function NeuralCoreDemo() {
                   <div className="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/50" />
                 </div>
                 <div className="flex items-center gap-2 text-[10px] font-mono text-slate-500 uppercase tracking-widest">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Neural Core: <span className="text-emerald-400">ONLINE</span>
+                  <span className={`w-2 h-2 rounded-full ${connectionState === 'CONNECTED' ? 'bg-emerald-500 animate-pulse' : 'bg-slate-500'}`} />
+                  Antigravity: <span className={connDisplay.color}>{connDisplay.label}</span>
                 </div>
               </div>
 
@@ -637,7 +642,7 @@ export default function NeuralCoreDemo() {
                   {state.status === 'idle' && state.logs.length === 0 && (
                     <div className="text-slate-600 text-center mt-16 space-y-2">
                       <div className="text-2xl mb-4">🧠</div>
-                      <div>[ Neural Core Standing By ]</div>
+                      <div>[ Antigravity Fleet Standing By ]</div>
                       <div className="text-[10px] text-slate-700">Enter a business challenge to begin analysis</div>
                     </div>
                   )}
@@ -684,7 +689,7 @@ export default function NeuralCoreDemo() {
                       className="flex items-center gap-2 text-cyan-400 mt-4"
                     >
                       <Icons.Spinner />
-                      <span>Initializing...</span>
+                      <span>Connecting to Antigravity Fleet...</span>
                     </motion.div>
                   )}
 
@@ -695,7 +700,7 @@ export default function NeuralCoreDemo() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="mt-4 p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-300"
                     >
-                      <div className="font-bold mb-1">⚠️ Error</div>
+                      <div className="font-bold mb-1">Error</div>
                       <p>{state.error}</p>
                     </motion.div>
                   )}
@@ -716,7 +721,7 @@ export default function NeuralCoreDemo() {
                         href="#pricing"
                         className="inline-block px-4 py-2 bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs uppercase tracking-wider rounded transition-colors"
                       >
-                        Book Strategy Call →
+                        Book Strategy Call
                       </a>
                     </motion.div>
                   )}
@@ -728,27 +733,30 @@ export default function NeuralCoreDemo() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="mt-4 space-y-4"
                     >
-                      {/* Cost Metrics Bar */}
+                      {/* Metrics Bar */}
                       <div className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10">
                         <div className="flex items-center gap-4 text-[10px]">
                           <div>
-                            <span className="text-slate-500">Your Cost: </span>
-                            <span className="text-emerald-400 font-bold">
-                              {formatCost(state.result.metrics.totalCost)}
+                            <span className="text-slate-500">Intent: </span>
+                            <span className="text-cyan-400 font-bold uppercase">
+                              {state.result.metrics.intent}
                             </span>
                           </div>
                           <div>
-                            <span className="text-slate-500">Naive: </span>
-                            <span className="text-red-400 line-through">
-                              {formatCost(state.result.metrics.naiveCost)}
+                            <span className="text-slate-500">Confidence: </span>
+                            <span className="text-emerald-400 font-bold">
+                              {Math.round(state.result.metrics.confidence * 100)}%
                             </span>
                           </div>
-                          <div className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">
-                            {calcSavings(state.result.metrics.totalCost, state.result.metrics.naiveCost)}% Saved
+                          <div>
+                            <span className="text-slate-500">Cost: </span>
+                            <span className="text-amber-400">
+                              {formatCost(state.result.metrics.totalCost)}
+                            </span>
                           </div>
                         </div>
                         <div className="text-[10px] text-slate-500">
-                          {state.result.metrics.latencyMs}ms · {state.result.metrics.tierUsed}
+                          {state.result.metrics.latencyMs}ms
                         </div>
                       </div>
 
@@ -762,16 +770,28 @@ export default function NeuralCoreDemo() {
                           {state.result.answer}
                         </p>
 
-                        {/* Sources */}
-                        {state.result.sources.length > 0 && (
+                        {/* Validation Status */}
+                        {state.result.validation && (
+                          <div className="mt-3 pt-3 border-t border-emerald-500/20 flex items-center gap-4 text-[10px]">
+                            <span className={state.result.validation.passed ? 'text-emerald-400' : 'text-amber-400'}>
+                              Validation: {state.result.validation.passed ? 'PASSED' : 'FLAGGED'}
+                            </span>
+                            <span className="text-slate-500">
+                              Grounding: {Math.round(state.result.validation.factual_grounding * 100)}%
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Citations */}
+                        {state.result.citations.length > 0 && (
                           <div className="mt-4 pt-3 border-t border-emerald-500/20">
                             <div className="text-[10px] text-emerald-400/60 uppercase tracking-wider mb-2">
-                              Sources
+                              Citations
                             </div>
                             <div className="flex flex-wrap gap-2">
-                              {state.result.sources.map((source, i) => (
+                              {state.result.citations.map((citation, i) => (
                                 <span key={i} className="text-[10px] px-2 py-1 rounded bg-emerald-500/10 text-emerald-300">
-                                  {source}
+                                  {citation}
                                 </span>
                               ))}
                             </div>
@@ -783,13 +803,13 @@ export default function NeuralCoreDemo() {
                       <div className="flex items-center justify-between p-4 rounded-lg bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/20">
                         <div>
                           <div className="text-sm text-white font-medium">Ready for the full architecture?</div>
-                          <div className="text-xs text-slate-400">50,000 queries/month · 93% cost savings</div>
+                          <div className="text-xs text-slate-400">8-agent fleet deployed in your infrastructure</div>
                         </div>
                         <a
                           href="#pricing"
                           className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-black font-bold text-xs uppercase tracking-wider rounded transition-all"
                         >
-                          Deploy Now →
+                          Deploy Now
                         </a>
                       </div>
                     </motion.div>
@@ -799,21 +819,32 @@ export default function NeuralCoreDemo() {
                 </div>
 
                 {/* Input Area */}
-                <form onSubmit={handleSubmit} className="relative">
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
+                <form onSubmit={handleSubmit} className="relative z-10">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">
                     <Icons.Search />
                   </div>
                   <input
+                    ref={inputRef}
                     type="text"
+                    inputMode="text"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    spellCheck={false}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    disabled={state.status === 'processing'}
-                    placeholder="Describe a business bottleneck..."
-                    className="w-full bg-[#050910] border border-white/10 rounded-xl py-4 pl-12 pr-28 text-white text-sm focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                    onTouchStart={(e) => {
+                      // Ensure input gets focus on mobile touch
+                      e.currentTarget.focus();
+                    }}
+                    disabled={state.status === 'processing' || connectionState !== 'CONNECTED'}
+                    placeholder={connectionState === 'CONNECTED' ? "Describe a business bottleneck..." : "Connecting to server..."}
+                    className="w-full bg-[#050910] border border-white/10 rounded-xl py-4 pl-12 pr-28 text-white text-sm text-base focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-600 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
+                    style={{ fontSize: '16px' }}
                   />
                   <button
                     type="submit"
-                    disabled={state.status === 'processing' || !query.trim()}
+                    disabled={state.status === 'processing' || !query.trim() || connectionState !== 'CONNECTED'}
                     className="absolute right-2 top-1/2 -translate-y-1/2 px-5 py-2 bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white text-xs font-bold uppercase tracking-wider rounded-lg disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:from-cyan-600 disabled:hover:to-cyan-500 transition-all flex items-center gap-2"
                   >
                     {state.status === 'processing' ? (
@@ -834,7 +865,7 @@ export default function NeuralCoreDemo() {
                       {queryCount === 0 ? '1 free analysis remaining' : 'Enter email for unlimited demos'}
                     </span>
                   ) : (
-                    <span className="text-emerald-400">✓ Unlimited demos unlocked</span>
+                    <span className="text-emerald-400">Unlimited demos unlocked</span>
                   )}
                 </div>
               </div>
@@ -865,7 +896,7 @@ export default function NeuralCoreDemo() {
                       Unlock Unlimited Analysis
                     </h3>
                     <p className="text-slate-400 mb-6">
-                      Enter your email to continue testing the architecture with unlimited queries.
+                      Enter your email to continue testing the 8-agent fleet with unlimited queries.
                     </p>
                     <form onSubmit={handleEmailSubmit} className="space-y-4">
                       <input
@@ -880,7 +911,7 @@ export default function NeuralCoreDemo() {
                         type="submit"
                         className="w-full py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-black font-bold uppercase tracking-wider rounded-lg transition-all"
                       >
-                        Continue Demo →
+                        Continue Demo
                       </button>
                     </form>
                     <button

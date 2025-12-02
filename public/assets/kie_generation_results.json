@@ -1,0 +1,18 @@
+{
+  "generated_at": "2025-12-01T19:20:50.139732",
+  "model": "runway",
+  "results": [
+    {
+      "id": "ragnarok_memory_loop",
+      "status": "generation_failed"
+    },
+    {
+      "id": "ragnarok_agents_loop",
+      "status": "generation_failed"
+    },
+    {
+      "id": "ragnarok_dashboard_loop",
+      "status": "generation_failed"
+    }
+  ]
+}
