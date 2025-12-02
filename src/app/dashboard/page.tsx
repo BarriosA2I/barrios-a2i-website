@@ -1,13 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { useEffect, useState, useMemo } from 'react';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import DiscoveryFeed from '@/components/dashboard/DiscoveryFeed';
-
-// Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 interface DiscoveryLead {
   id: string;
@@ -36,8 +31,26 @@ export default function DashboardPage() {
   const [stats, setStats] = useState<Stats>({ total: 0, hotLeads: 0, avgScore: 0, topIndustry: '-' });
   const [loading, setLoading] = useState(true);
   const [connected, setConnected] = useState(false);
+  const [configError, setConfigError] = useState(false);
+
+  // Create Supabase client only on client-side
+  const supabase = useMemo<SupabaseClient | null>(() => {
+    if (typeof window === 'undefined') return null;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseAnonKey) {
+      return null;
+    }
+    return createClient(supabaseUrl, supabaseAnonKey);
+  }, []);
 
   useEffect(() => {
+    if (!supabase) {
+      setConfigError(true);
+      setLoading(false);
+      return;
+    }
+
     // Initial fetch
     fetchLeads();
 
@@ -60,7 +73,7 @@ export default function DashboardPage() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, []);
+  }, [supabase]);
 
   // Calculate stats whenever leads change
   useEffect(() => {
@@ -87,6 +100,7 @@ export default function DashboardPage() {
   }, [leads]);
 
   async function fetchLeads() {
+    if (!supabase) return;
     try {
       const { data, error } = await supabase
         .from('discovery_leads')
@@ -104,6 +118,24 @@ export default function DashboardPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  // Show config error message if Supabase is not configured
+  if (configError) {
+    return (
+      <div className="min-h-screen bg-[#070B14] flex items-center justify-center">
+        <div className="text-center p-8 rounded-xl bg-[#0B1220]/80 border border-yellow-500/30 max-w-md">
+          <div className="text-4xl mb-4">&#x26A0;</div>
+          <h2 className="text-xl font-bold text-white mb-2">Configuration Required</h2>
+          <p className="text-slate-400 text-sm">
+            Supabase environment variables are not configured. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your environment.
+          </p>
+          <a href="/" className="inline-block mt-4 px-4 py-2 bg-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/30 transition-colors">
+            Back to Site
+          </a>
+        </div>
+      </div>
+    );
   }
 
   return (
