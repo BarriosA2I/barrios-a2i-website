@@ -796,7 +796,7 @@ export default async function AgentDetailPage({ params }: PageProps) {
           
           {/* Role */}
           <p className="text-lg text-cyan-400/80 font-mono uppercase tracking-widest mb-6">
-            // {agent.role}
+            <span className="opacity-50">{'// '}</span>{agent.role}
           </p>
 
           {/* Description */}
