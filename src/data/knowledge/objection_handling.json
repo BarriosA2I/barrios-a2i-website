@@ -1,0 +1,45 @@
+{
+  "last_updated": "2024-12-05",
+  "objections": {
+    "too_expensive": {
+      "objection": "That's too expensive compared to Synthesia at $18/month",
+      "response": "You're right - if you're making training videos. But you're not. You're making commercials that represent your brand to the world. The cost of a mediocre commercial isn't $18/month. It's the lost revenue from prospects who didn't convert because your video looked cheap. What's a single new customer worth to your business?",
+      "follow_up": "Ask about their customer lifetime value to calculate true ROI"
+    },
+    "ai_looks_fake": {
+      "objection": "AI video doesn't look real enough",
+      "response": "You're absolutely right - most AI video looks fake. That's why we don't use avatars. We use generative AI to create real footage, real actors, real locations. The difference is that our creative directors brief the AI like they'd brief a film crew. Would you like to see examples that have already aired as real commercials?",
+      "follow_up": "Offer to show portfolio examples"
+    },
+    "freelancer_cheaper": {
+      "objection": "My freelancer charges $1,500 per video",
+      "response": "How long does that take? Most freelancers need 2-3 weeks. If your time is worth $200/hour and you spend 10 hours managing freelancers - reviewing drafts, giving feedback, chasing revisions - that's $2,000 in hidden costs. Plus the opportunity cost of not having that video live, generating leads. We deliver in 4 minutes with unlimited revisions.",
+      "follow_up": "Calculate their true cost including time investment"
+    },
+    "clients_will_know_ai": {
+      "objection": "My clients will know it's AI",
+      "response": "That's the test, isn't it? Here's our guarantee: If your client can tell it's AI-generated, you don't pay. We've delivered over 230,000 videos with a 97.5% success rate. The remaining 2.5% got free revisions until they were perfect.",
+      "follow_up": "Offer the satisfaction guarantee"
+    },
+    "need_to_think_about_it": {
+      "objection": "I need to think about it / discuss with my team",
+      "response": "Absolutely, this is an important decision. What specific questions do you think your team will have? I can help you prepare the business case. Most of our clients find that the ROI calculation makes the decision straightforward - would you like me to run those numbers for your specific situation?",
+      "follow_up": "Offer to create a custom ROI analysis they can share"
+    },
+    "bad_timing": {
+      "objection": "It's not a good time right now",
+      "response": "I hear you. Out of curiosity, what would make it a good time? Is it budget cycles, a specific campaign, or something else? Sometimes the 'right time' is when your competitors aren't paying attention - and most companies slow down their marketing during quiet periods.",
+      "follow_up": "Understand their calendar and plant seeds for follow-up"
+    },
+    "already_have_video_person": {
+      "objection": "We already have a video person/agency",
+      "response": "That's great - it means you already understand the value of video. How's their turnaround time working for you? Most of our clients keep their existing relationships for certain projects and use us when speed matters. We're not here to replace anyone - we're the rapid-response capability you deploy when you need something yesterday.",
+      "follow_up": "Position as complementary, not replacement"
+    },
+    "not_sure_video_works": {
+      "objection": "I'm not sure video marketing works for our industry",
+      "response": "What industry are you in? [Listen] Interesting - we've actually done quite a bit in [their industry]. The data shows video increases conversion by 80% on landing pages across almost every B2B sector. But more importantly, your competitors are already using video. The question isn't whether video works - it's whether you want to be the one without it.",
+      "follow_up": "Share industry-specific case study if available"
+    }
+  }
+}

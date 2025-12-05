@@ -1,0 +1,91 @@
+{
+  "last_updated": "2024-12-05",
+  "personas": {
+    "marketing_director_saas": {
+      "title": "Marketing Director at B2B SaaS",
+      "pain_points": [
+        "Quality-speed tradeoff",
+        "Budget unpredictability",
+        "Brand inconsistency across video content"
+      ],
+      "roi_metrics": [
+        "Video increases demo requests by 15%",
+        "Homepage conversion improves 0.5-2%",
+        "Reduces sales cycle by showing product value upfront"
+      ],
+      "decision_timeline": "2-4 week sales cycle",
+      "language_cues": ["pipeline", "MQLs", "demo conversion", "CAC", "ARR"]
+    },
+    "agency_owner": {
+      "title": "Agency Owner",
+      "pain_points": [
+        "Capacity constraints limiting growth",
+        "Margin compression on creative work",
+        "Managing unreliable freelancers",
+        "Client demands for faster turnaround"
+      ],
+      "what_makes_them_switch": [
+        "Guaranteed capacity on demand",
+        "White-label guarantee",
+        "Speed wins for competitive pitches"
+      ],
+      "pricing_sensitivity": "Values margin preservation over lowest cost",
+      "language_cues": ["retainer", "scope creep", "client deliverable", "white-label"]
+    },
+    "ecommerce_manager": {
+      "title": "E-commerce Manager",
+      "pain_points": [
+        "Creative fatigue (ads stop working after 5 days)",
+        "Platform spec formatting headaches",
+        "Need constant fresh content for Meta/TikTok"
+      ],
+      "metrics": {
+        "view_through_rate": "60-90% target",
+        "roas_target": "3:1 to 5:1",
+        "cpa_reduction_goal": "30-50%"
+      },
+      "language_cues": ["ROAS", "CPA", "CTR", "ad fatigue", "creative testing"]
+    },
+    "founder_ceo_smb": {
+      "title": "Founder/CEO of Small Business",
+      "constraints": {
+        "marketing_time": "2-5 hours per week max",
+        "technical_skill": "Low to none",
+        "budget": "Wants enterprise results on SMB budget"
+      },
+      "exact_language": [
+        "I don't have time to learn another tool",
+        "I need this to look like we spent $50K",
+        "Can you just handle it for me?",
+        "I'm the bottleneck in my business"
+      ],
+      "decision_driver": "Trust and simplicity over features"
+    },
+    "dental_practice": {
+      "title": "Dental Practice Owner/Manager",
+      "pain_points": [
+        "Local competition from corporate dental chains",
+        "Difficulty showing personality/trust online",
+        "No time for marketing between patients"
+      ],
+      "roi_metrics": [
+        "New patient value: $1,200-$3,000 lifetime",
+        "Video on Google Business Profile increases calls 40%"
+      ],
+      "language_cues": ["new patients", "Google reviews", "local SEO"]
+    },
+    "manufacturing_company": {
+      "title": "Manufacturing/Industrial Business",
+      "pain_points": [
+        "Complex products hard to explain",
+        "Long sales cycles need nurturing content",
+        "Trade show materials always outdated"
+      ],
+      "roi_metrics": [
+        "Explainer video reduces sales call time 30%",
+        "Video proposals close 50% faster"
+      ],
+      "language_cues": ["RFP", "specs", "lead time", "OEM"]
+    }
+  }
+}

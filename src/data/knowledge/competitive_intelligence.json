@@ -1,0 +1,87 @@
+{
+  "last_updated": "2024-12-05",
+  "competitors": {
+    "synthesia": {
+      "name": "Synthesia",
+      "type": "primary",
+      "pricing": {
+        "free": "3 min/month",
+        "starter": "$18/month (120 min/year)",
+        "creator": "$64/month (360 min/year)",
+        "enterprise": "custom"
+      },
+      "cost_per_minute": "$0.18-$0.53",
+      "critical_weaknesses": [
+        "30% of legitimate videos arbitrarily rejected",
+        "Uncanny valley effects, limited emotional expressiveness",
+        "Technical terms consistently mispronounced",
+        "Audio quality randomly shifts mid-video"
+      ],
+      "talk_track": "Synthesia works for internal training videos where perfection doesn't matter. But when you're spending $5,000+ on a commercial that represents your brand, 'good enough' isn't enough."
+    },
+    "heygen": {
+      "name": "HeyGen",
+      "type": "primary",
+      "pricing": {
+        "free": "3 videos/month",
+        "creator": "$24-29/month",
+        "team": "$30-39/seat/month"
+      },
+      "critical_weaknesses": [
+        "AI-only customer support",
+        "Bait-and-switch on 'unlimited' plans",
+        "Frequent policy changes removing features"
+      ],
+      "talk_track": "HeyGen is great until you hit a problem. Then you're stuck with AI-powered support that can't solve real business issues."
+    },
+    "runway": {
+      "name": "Runway",
+      "type": "secondary",
+      "pricing": { "unlimited": "$76-95/month" },
+      "critical_weaknesses": [
+        "Credit-based complexity",
+        "Steep learning curve",
+        "Quality inconsistency"
+      ],
+      "talk_track": "Runway is powerful but requires a creative director who knows how to use professional editing software."
+    },
+    "sora": {
+      "name": "Sora (OpenAI)",
+      "type": "emerging",
+      "critical_weaknesses": [
+        "No avatar customization",
+        "No commercial controls",
+        "Early stage quality"
+      ],
+      "talk_track": "Sora is exciting but it's a creative toy right now, not a reliable commercial production tool."
+    },
+    "wistia": {
+      "name": "Wistia",
+      "type": "video_hosting",
+      "pricing": {
+        "free": "Limited",
+        "plus": "$19/month",
+        "pro": "$79/month",
+        "advanced": "$319/month"
+      },
+      "critical_weaknesses": [
+        "Hosting only - no video creation",
+        "Analytics without production capability",
+        "Expensive for what you get"
+      ],
+      "talk_track": "Wistia is great for hosting and analytics, but you still need to create the video first. We handle the entire production pipeline."
+    }
+  },
+  "barrios_positioning": {
+    "cost_per_minute": "$83-$167",
+    "production_time": "243 seconds",
+    "value_proposition": "Agency-quality at AI speed",
+    "competitive_advantages": [
+      "120,000x faster than traditional agencies",
+      "Human creative director on every project",
+      "Fixed pricing with unlimited revisions",
+      "Real footage and actors, not uncanny valley avatars",
+      "Full Command Deck automation system included"
+    ]
+  }
+}

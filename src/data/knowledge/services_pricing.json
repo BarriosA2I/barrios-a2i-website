@@ -1,0 +1,103 @@
+{
+  "last_updated": "2024-12-05",
+  "video_production": {
+    "starter": {
+      "name": "Starter",
+      "price": "$2,500",
+      "duration": "30 seconds",
+      "includes": [
+        "Professional script",
+        "AI-generated footage",
+        "Human creative director",
+        "Unlimited revisions",
+        "4K delivery",
+        "All platform formats"
+      ],
+      "best_for": "Social media ads, quick announcements",
+      "delivery": "243 seconds"
+    },
+    "professional": {
+      "name": "Professional",
+      "price": "$5,000",
+      "duration": "60 seconds",
+      "includes": [
+        "Everything in Starter",
+        "Extended storytelling",
+        "Multiple scenes",
+        "Custom music",
+        "Voiceover options"
+      ],
+      "best_for": "Homepage explainers, product demos",
+      "delivery": "243 seconds"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "$15,000",
+      "duration": "90+ seconds",
+      "includes": [
+        "Everything in Professional",
+        "Campaign strategy session",
+        "Multiple video variants",
+        "A/B testing versions",
+        "Priority support",
+        "Quarterly content calendar"
+      ],
+      "best_for": "Full campaign launches, brand videos",
+      "delivery": "Same day"
+    }
+  },
+  "websites": {
+    "starter_site": {
+      "name": "Starter Site",
+      "price": "$1,500",
+      "pages": 5,
+      "includes": ["Mobile responsive", "Contact form", "Basic SEO"]
+    },
+    "growth_site": {
+      "name": "Growth Site",
+      "price": "$3,500",
+      "pages": "8-12",
+      "includes": ["SEO setup", "Blog ready", "Analytics integration"]
+    },
+    "lead_gen": {
+      "name": "Lead Gen Site",
+      "price": "$5,000",
+      "pages": 15,
+      "includes": ["CRM hookup", "Ad landing pages", "Conversion optimization"]
+    },
+    "ecommerce": {
+      "name": "E-Commerce",
+      "price": "$4,000",
+      "includes": ["Shopify setup", "25 products", "Payment integration"]
+    }
+  },
+  "automation": {
+    "smart_bot": {
+      "name": "Smart Bot",
+      "price": "$199/month",
+      "setup": "$1,000",
+      "includes": ["RAG training on your docs", "Booking handoff", "24/7 availability"]
+    },
+    "ops_sprint": {
+      "name": "Ops Sprint",
+      "price": "$3,500",
+      "includes": ["Bottleneck mapping", "Workflow automation", "ROI report"]
+    },
+    "command_deck": {
+      "name": "Command Deck (Enterprise)",
+      "price": "$50,000+",
+      "includes": [
+        "Full AI automation system",
+        "RAG knowledge base",
+        "Multi-agent architecture",
+        "Real-time dashboard",
+        "Custom integrations"
+      ]
+    }
+  },
+  "guarantees": {
+    "satisfaction": "If you can tell it's AI-generated, you don't pay",
+    "delivery": "243 seconds or it's free",
+    "revisions": "Unlimited until you're 100% satisfied"
+  }
+}

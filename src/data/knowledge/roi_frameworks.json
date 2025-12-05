@@ -1,0 +1,112 @@
+{
+  "last_updated": "2024-12-05",
+  "cost_comparisons": {
+    "traditional_agency": {
+      "cost": "$25,000 - $200,000",
+      "time": "4-8 weeks",
+      "revisions": "2-3 included, $500+ each after",
+      "hidden_costs": ["Project management overhead", "Revision cycles", "Reshoots"]
+    },
+    "freelancer": {
+      "cost": "$1,500 - $5,000",
+      "time": "2-3 weeks",
+      "hidden_costs": ["Your time managing (10+ hours)", "Revision delays", "Quality inconsistency"]
+    },
+    "diy_tools": {
+      "cost": "$18 - $95/month",
+      "time": "4-8 hours per video",
+      "hidden_costs": ["Learning curve", "Uncanny valley results", "Your time worth $200+/hr"]
+    },
+    "barrios_a2i": {
+      "cost": "$2,500 - $15,000",
+      "time": "243 seconds (4 minutes)",
+      "revisions": "Unlimited included",
+      "hidden_costs": ["None - fixed price, done for you"]
+    }
+  },
+  "roi_by_persona": {
+    "saas_marketing_director": {
+      "scenario": "Homepage explainer video",
+      "current_state": "2% homepage-to-demo conversion",
+      "with_video": "4-6% homepage-to-demo conversion",
+      "math": {
+        "monthly_visitors": 10000,
+        "current_demos": 200,
+        "with_video_demos": 400,
+        "demo_to_close": "20%",
+        "acv": "$12,000",
+        "monthly_revenue_lift": "$48,000"
+      },
+      "investment": "$5,000",
+      "payback_period": "3 days",
+      "annual_roi": "11,520%"
+    },
+    "ecommerce_manager": {
+      "scenario": "Product video ads for Meta/TikTok",
+      "current_state": "$150 CPA",
+      "with_video": "$100 CPA",
+      "math": {
+        "monthly_ad_spend": "$50,000",
+        "current_conversions": 333,
+        "with_video_conversions": 500,
+        "additional_revenue_per_conversion": "$85",
+        "monthly_revenue_lift": "$14,200"
+      },
+      "investment": "$2,500",
+      "payback_period": "5 days",
+      "annual_roi": "6,816%"
+    },
+    "agency_owner": {
+      "scenario": "White-label video production",
+      "current_state": "Turning down video projects or low margins",
+      "with_barrios": "Accept all video projects at 60%+ margin",
+      "math": {
+        "projects_per_month": 5,
+        "client_charge": "$7,500",
+        "barrios_cost": "$2,500",
+        "margin_per_project": "$5,000",
+        "monthly_profit": "$25,000"
+      },
+      "investment": "$12,500/month",
+      "net_profit": "$12,500/month",
+      "annual_profit": "$150,000"
+    },
+    "dental_practice": {
+      "scenario": "Google Business Profile video",
+      "current_state": "20 new patient calls/month",
+      "with_video": "28 new patient calls/month",
+      "math": {
+        "additional_calls": 8,
+        "call_to_appointment": "50%",
+        "new_patients": 4,
+        "lifetime_value": "$2,400",
+        "monthly_revenue_lift": "$9,600"
+      },
+      "investment": "$2,500",
+      "payback_period": "8 days",
+      "annual_roi": "4,508%"
+    },
+    "founder_smb": {
+      "scenario": "Sales page video",
+      "current_state": "No video, 1% conversion",
+      "with_video": "Professional video, 2.5% conversion",
+      "math": {
+        "monthly_page_visitors": 2000,
+        "current_sales": 20,
+        "with_video_sales": 50,
+        "average_sale": "$500",
+        "monthly_revenue_lift": "$15,000"
+      },
+      "investment": "$2,500",
+      "payback_period": "5 days",
+      "annual_roi": "7,100%"
+    }
+  },
+  "quick_roi_questions": [
+    "What's your average customer lifetime value?",
+    "How many website visitors do you get per month?",
+    "What's your current conversion rate?",
+    "How much do you spend on ads monthly?",
+    "What's your cost per acquisition right now?"
+  ]
+}
