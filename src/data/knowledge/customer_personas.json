@@ -1,91 +1,310 @@
 {
   "last_updated": "2024-12-05",
   "personas": {
-    "marketing_director_saas": {
-      "title": "Marketing Director at B2B SaaS",
-      "pain_points": [
-        "Quality-speed tradeoff",
-        "Budget unpredictability",
-        "Brand inconsistency across video content"
-      ],
-      "roi_metrics": [
-        "Video increases demo requests by 15%",
-        "Homepage conversion improves 0.5-2%",
-        "Reduces sales cycle by showing product value upfront"
-      ],
-      "decision_timeline": "2-4 week sales cycle",
-      "language_cues": ["pipeline", "MQLs", "demo conversion", "CAC", "ARR"]
-    },
     "agency_owner": {
-      "title": "Agency Owner",
+      "title": "Agency Owner (Marketing/Creative)",
+      "profile": {
+        "client_types": {"saas": "40%", "ecommerce": "25%", "professional_services": "20%", "healthcare": "15%"},
+        "typical_margins": "50-100% markup on video services",
+        "volume": "50-200 videos monthly across all clients"
+      },
       "pain_points": [
-        "Capacity constraints limiting growth",
-        "Margin compression on creative work",
-        "Managing unreliable freelancers",
-        "Client demands for faster turnaround"
+        "Freelancer reliability issues (delays, quality inconsistency)",
+        "Margin compression from tool costs and provider price changes",
+        "Client churn from slow delivery",
+        "Operational bottlenecks creating 'You Constraint'",
+        "Zapier spaghetti infrastructure fragility",
+        "Best editor booked 6 weeks out - have to say no to new business",
+        "15 hours/week spent briefing and managing video projects"
       ],
-      "what_makes_them_switch": [
-        "Guaranteed capacity on demand",
-        "White-label guarantee",
-        "Speed wins for competitive pitches"
+      "psychological_triggers": [
+        "Fear of client churn when competitors deliver faster",
+        "Frustration with being the business bottleneck",
+        "Desire for white-label solutions that maintain client relationships",
+        "Anxiety about margin erosion"
       ],
-      "pricing_sensitivity": "Values margin preservation over lowest cost",
-      "language_cues": ["retainer", "scope creep", "client deliverable", "white-label"]
+      "kpi_pressure": ["Client retention", "Profit margins", "Delivery speed", "Team utilization rates"],
+      "exact_language": [
+        "I need to scale without hiring",
+        "My clients don't care how it's made, just that it looks expensive",
+        "I can't afford surprises on delivery day",
+        "Show me the white-label version",
+        "My freelancers are killing my margins"
+      ],
+      "trigger_events": [
+        "Lost a client to faster competitor",
+        "Major client requests 20 videos in 2 weeks",
+        "Freelancer misses deadline on important project",
+        "Realizes spending more on tools than making in profit"
+      ],
+      "objections": [
+        "My clients will know it's AI",
+        "I can't charge premium prices for AI-generated content",
+        "What if the quality drops?",
+        "I need to own the creative control"
+      ],
+      "hook": "Your freelancers are killing margins. Barrios A2I's white-label video service delivers agency-quality in 243 seconds, not 4 days - with 99.9% margins built for your economics.",
+      "roi_metrics": {
+        "margin_improvement": "From 30% to 60%+ by eliminating freelancer middlemen",
+        "capacity_increase": "3x more clients without hiring",
+        "time_savings": "15 hours/week recovered from project management"
+      },
+      "discovery_questions": [
+        "How many hours per week do you spend managing video production?",
+        "What's your current margin on video services?",
+        "Have you ever lost a client because video took too long?",
+        "How important is white-label delivery to your business?"
+      ]
+    },
+    "saas_marketing_director": {
+      "title": "Marketing Director at B2B SaaS",
+      "profile": {
+        "budget_authority": "$10K-$50K per campaign, $200K-$500K annual content",
+        "team_size": "Usually 1.5 FTEs for video (if any)",
+        "reports_to": "CMO or CEO"
+      },
+      "kpis": {
+        "pipeline_generation": "$500K-$2M quarterly",
+        "cac_target": "$1,200-$3,000",
+        "lead_to_opportunity": "15-25%",
+        "marketing_sourced_revenue": "20-40%"
+      },
+      "pain_points": [
+        "CAC pressure requiring efficient lead conversion",
+        "Speed-to-lead KPIs (5-minute response = 8-21x qualification rate)",
+        "A/B testing velocity constraints",
+        "Content production bottlenecks for multi-channel campaigns",
+        "Quality-speed tradeoff: fast videos look cheap, good videos take forever",
+        "Budget unpredictability: freelancer quotes vary 3-5x"
+      ],
+      "psychological_triggers": [
+        "Performance metrics tied to lead response time",
+        "Competition for market share requiring rapid experimentation",
+        "Budget efficiency demands from CFO",
+        "Fear of looking like a startup when selling to enterprise"
+      ],
+      "exact_language": [
+        "We need to move faster",
+        "Our videos don't look professional enough",
+        "I'm tired of managing freelancers",
+        "The CEO wants something 'polished'",
+        "Our competitors just launched a video campaign"
+      ],
+      "trigger_events": [
+        "New funding round announced (need to look bigger)",
+        "Product launch in 30 days (video not started)",
+        "Competitor video goes viral (need response)",
+        "Website conversion rate drops",
+        "Sales team complains about lack of collateral"
+      ],
+      "objections": [
+        "I can get Synthesia for $18/month",
+        "My freelancer charges $1,500 per video",
+        "This needs to go through procurement",
+        "I need to see examples in our exact vertical"
+      ],
+      "hook": "Speed-to-lead is your #1 KPI. Barrios A2I's 243-second video production enables 10x A/B testing velocity, directly impacting CAC efficiency with human-quality creative.",
+      "roi_metrics": {
+        "pipeline_impact": "If video increases demo requests by 15%, that's $400K in pipeline",
+        "cac_reduction": "If video ad CPA drops from $180 to $120, save $60K per quarter",
+        "conversion_lift": "If homepage conversion improves 0.5%, that's 50 extra MQLs monthly"
+      },
+      "discovery_questions": [
+        "What's the value of a 1% improvement in your conversion rate?",
+        "How many campaigns are delayed by video production?",
+        "What's your current lead response time?",
+        "How do you currently produce video content?"
+      ]
     },
     "ecommerce_manager": {
       "title": "E-commerce Manager",
+      "profile": {
+        "monthly_ad_spend": "$10K-$100K",
+        "creative_budget": "10-15% of ad spend ($1K-$15K monthly)",
+        "platforms": ["TikTok", "Meta", "YouTube", "Amazon"]
+      },
+      "video_needs": {
+        "types": ["Product showcases", "UGC-style ads", "Lifestyle content", "Seasonal campaigns"],
+        "volume": "20-50 video assets per product launch",
+        "refresh_rate": "New creative every 3-5 days to avoid fatigue"
+      },
       "pain_points": [
-        "Creative fatigue (ads stop working after 5 days)",
-        "Platform spec formatting headaches",
-        "Need constant fresh content for Meta/TikTok"
+        "Ads stop working after 5 days (creative fatigue)",
+        "In-house takes 2 weeks, freelancers are random quality",
+        "Every platform has different specs - hours spent reformatting",
+        "At $500/video, 50 videos/month is $25K just for creative",
+        "By the time we produce a video, the trend is over"
       ],
-      "metrics": {
-        "view_through_rate": "60-90% target",
-        "roas_target": "3:1 to 5:1",
-        "cpa_reduction_goal": "30-50%"
+      "psychological_triggers": [
+        "ROAS pressure from CFO",
+        "Competitor ads appearing everywhere",
+        "Fear of missing viral trends",
+        "Black Friday/Q4 anxiety"
+      ],
+      "exact_language": [
+        "We need to move at the speed of TikTok",
+        "Our ROAS dropped because creative fatigued",
+        "I can't hire 10 video editors",
+        "Black Friday video production is a nightmare"
+      ],
+      "trigger_events": [
+        "Q4 planning begins (need 100+ videos)",
+        "Viral trend emerges (24-hour window)",
+        "ROAS drops below 2:1 (need fresh creative)",
+        "Product launch delayed (video not ready)"
+      ],
+      "hook": "Creative fatigue is killing your ROAS. Barrios A2I's 243-second turnaround lets you test 10x more variants, keeping your ads fresh and your conversion rates high.",
+      "roi_metrics": {
+        "ctr_improvement": "If CTR improves from 1.5% to 2.5%, that's 67% more traffic",
+        "speed_value": "Every day of delay costs $3K in lost revenue",
+        "volume_efficiency": "If cost drops from $500 to $100 per video, test 5x more creative"
       },
-      "language_cues": ["ROAS", "CPA", "CTR", "ad fatigue", "creative testing"]
+      "discovery_questions": [
+        "How many video variants do you test per campaign?",
+        "What's your current creative refresh rate?",
+        "How much are you spending on video production monthly?",
+        "When was the last time a trend passed you by because production was too slow?"
+      ]
     },
-    "founder_ceo_smb": {
-      "title": "Founder/CEO of Small Business",
-      "constraints": {
-        "marketing_time": "2-5 hours per week max",
-        "technical_skill": "Low to none",
-        "budget": "Wants enterprise results on SMB budget"
+    "smb_founder": {
+      "title": "Founder/CEO of SMB",
+      "profile": {
+        "marketing_budget": "$5K-$25K monthly total",
+        "marketing_time": "2-5 hours per week maximum",
+        "technical_skill": "Low - can use Canva, basic tools"
       },
+      "video_needs": [
+        "Fundraising: pitch deck videos for investors",
+        "Homepage: explainer video for product-market fit",
+        "Social proof: customer testimonial videos",
+        "Hiring: culture videos for recruitment"
+      ],
+      "pain_points": [
+        "Credibility gap vs larger competitors",
+        "Limited marketing budget requiring high ROI",
+        "Need to 'look big' to attract enterprise clients",
+        "Video production costs prohibitive at $25k+ agency rates",
+        "Don't have time to learn complex tools"
+      ],
+      "psychological_triggers": [
+        "Desire for professional brand image",
+        "Conversion anxiety on high-ticket offers",
+        "Trust-building challenges with limited brand history",
+        "Imposter syndrome when pitching to enterprise"
+      ],
       "exact_language": [
         "I don't have time to learn another tool",
         "I need this to look like we spent $50K",
-        "Can you just handle it for me?",
-        "I'm the bottleneck in my business"
+        "If it doesn't work, I'm out of business",
+        "Can you just handle everything?"
       ],
-      "decision_driver": "Trust and simplicity over features"
+      "trigger_events": [
+        "Fundraising timeline: need pitch video by demo day",
+        "Website conversion: 80% bounce rate",
+        "Competitive pressure: competitor video looks better",
+        "Advisor recommendation: board member said we need video"
+      ],
+      "objections": [
+        "I can use Synthesia for $18/month",
+        "My cousin's friend makes videos",
+        "We can't afford $5K right now",
+        "What if our product changes?"
+      ],
+      "hook": "Stop looking small. Barrios A2I's $2,500 agency-quality commercials give you enterprise credibility that increases conversions 24%, without the $25k agency price tag.",
+      "roi_metrics": {
+        "fundraising": "If video helps raise $500K, it's worth every penny",
+        "conversion": "If conversion improves 1%, that's 10 more demos monthly",
+        "pricing_power": "If you look professional, you can charge 2x more"
+      },
+      "discovery_questions": [
+        "What would one new customer be worth to your business?",
+        "When was the last time you lost a deal because you 'looked small'?",
+        "What's your timeline for this video?",
+        "Where will this video appear?"
+      ]
     },
     "dental_practice": {
       "title": "Dental Practice Owner/Manager",
+      "profile": {
+        "practice_size": "3-10 operatories",
+        "patient_volume": "50-200 patients/month",
+        "marketing_budget": "$2K-$10K monthly"
+      },
       "pain_points": [
         "Local competition from corporate dental chains",
         "Difficulty showing personality/trust online",
-        "No time for marketing between patients"
+        "No time for marketing between patients",
+        "Google Business Profile looks the same as competitors"
       ],
-      "roi_metrics": [
-        "New patient value: $1,200-$3,000 lifetime",
-        "Video on Google Business Profile increases calls 40%"
+      "psychological_triggers": [
+        "Fear of losing patients to DSO chains",
+        "Desire to show human side of practice",
+        "Frustration with impersonal online presence"
       ],
-      "language_cues": ["new patients", "Google reviews", "local SEO"]
+      "exact_language": [
+        "I just want more new patients",
+        "How do I stand out from the chain down the street?",
+        "I don't have time for marketing",
+        "My reviews are good but calls are down"
+      ],
+      "hook": "Your Google Business Profile video can increase calls by 40%. A $2,500 video that brings in 4 new patients pays for itself in the first month.",
+      "roi_metrics": {
+        "new_patient_value": "$1,200-$3,000 lifetime",
+        "call_increase": "40% more calls with GBP video",
+        "payback": "4 new patients = full ROI"
+      },
+      "discovery_questions": [
+        "How many new patient calls do you get per month?",
+        "What's your average patient lifetime value?",
+        "Do you have video on your Google Business Profile?",
+        "How do you differentiate from corporate dental chains?"
+      ]
     },
     "manufacturing_company": {
       "title": "Manufacturing/Industrial Business",
+      "profile": {
+        "deal_size": "$50K-$500K average",
+        "sales_cycle": "3-12 months",
+        "decision_makers": "Engineers, procurement, C-suite"
+      },
       "pain_points": [
         "Complex products hard to explain",
         "Long sales cycles need nurturing content",
-        "Trade show materials always outdated"
+        "Trade show materials always outdated",
+        "Technical buyers need detailed visual explanations",
+        "RFP responses lack visual differentiation"
       ],
-      "roi_metrics": [
-        "Explainer video reduces sales call time 30%",
-        "Video proposals close 50% faster"
+      "psychological_triggers": [
+        "Frustration with long sales cycles",
+        "Desire to shorten technical explanation time",
+        "Fear of losing deals to more visual competitors"
       ],
-      "language_cues": ["RFP", "specs", "lead time", "OEM"]
+      "exact_language": [
+        "Our product is too complex for a simple video",
+        "Can you show our manufacturing process?",
+        "We need something for trade shows",
+        "Our sales team spends hours explaining basic capabilities"
+      ],
+      "hook": "Explainer videos reduce sales call time by 30% and close deals 50% faster. For $5K, you can shorten every sales cycle by weeks.",
+      "roi_metrics": {
+        "sales_time_saved": "30% reduction in explanation calls",
+        "close_rate_improvement": "50% faster deal closure",
+        "trade_show_impact": "3x more booth engagement"
+      },
+      "discovery_questions": [
+        "How long does it typically take to explain your product?",
+        "What's your average deal size?",
+        "How do you currently support your sales team with content?",
+        "When is your next trade show?"
+      ]
     }
+  },
+  "persona_detection": {
+    "agency_signals": ["clients", "white-label", "margin", "freelancers", "agency", "retainer", "deliverables"],
+    "saas_signals": ["SaaS", "B2B", "pipeline", "demos", "CAC", "conversion rate", "product launch", "MQLs", "ARR"],
+    "ecommerce_signals": ["ads", "ROAS", "TikTok", "Meta", "products", "creative fatigue", "Black Friday", "CPA", "CTR"],
+    "founder_signals": ["startup", "fundraising", "investors", "small team", "bootstrap", "pitch", "series A"],
+    "dental_signals": ["patients", "practice", "dental", "Google reviews", "local", "chains"],
+    "manufacturing_signals": ["manufacturing", "industrial", "trade show", "RFP", "specs", "OEM", "engineering"]
   }
 }

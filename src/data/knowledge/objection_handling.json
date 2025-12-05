@@ -1,45 +1,118 @@
 {
   "last_updated": "2024-12-05",
   "objections": {
-    "too_expensive": {
-      "objection": "That's too expensive compared to Synthesia at $18/month",
-      "response": "You're right - if you're making training videos. But you're not. You're making commercials that represent your brand to the world. The cost of a mediocre commercial isn't $18/month. It's the lost revenue from prospects who didn't convert because your video looked cheap. What's a single new customer worth to your business?",
-      "follow_up": "Ask about their customer lifetime value to calculate true ROI"
+    "too_expensive_vs_diy": {
+      "objection": "That's too expensive compared to Synthesia/HeyGen at $20-95/month",
+      "competitor_reality": {
+        "hidden_costs": "DIY platforms promise $20-95/month unlimited but deliver uncanny valley, 36-hour render times, account bans for usage, and require 10+ regeneration attempts",
+        "real_cost": "Credit overages ($0.10-0.50 per video), API fees, and failed content waste bring real cost to 2-3x advertised",
+        "quality_impact": "Low-quality AI avatars reduce trust by 87%, with robotic voices decreasing conversion rates by 40-60%"
+      },
+      "response": "You're absolutely right about the sticker price. But let me share what our clients discovered: DIY tools cost $20-200/month but waste 40% of content due to uncanny valley. When your video looks robotic, it actually hurts conversion - 87% of buyers judge brand trust by video quality. Our clients see 3x ROI because Barrios delivers usable, credible video that actually converts. The real question isn't cost per video - it's cost per converted customer.",
+      "follow_up": "What's the value of a 1% improvement in your conversion rate?"
     },
-    "ai_looks_fake": {
-      "objection": "AI video doesn't look real enough",
-      "response": "You're absolutely right - most AI video looks fake. That's why we don't use avatars. We use generative AI to create real footage, real actors, real locations. The difference is that our creative directors brief the AI like they'd brief a film crew. Would you like to see examples that have already aired as real commercials?",
-      "follow_up": "Offer to show portfolio examples"
+    "ai_not_real_enough": {
+      "objection": "AI video doesn't look real enough / My audience will know it's AI",
+      "competitor_reality": {
+        "trust_data": "Synthesia/HeyGen users consistently report 'uncanny valley' effect, flat voice emotion, robotic movements",
+        "ratings": "Trustpilot shows 1.8-2.1/5 ratings specifically for unnatural avatar quality",
+        "impact": "AI video tools without human oversight show 40-60% lower engagement"
+      },
+      "response": "You're absolutely right - most AI video looks fake. That's exactly why we don't rely on avatars alone. Barrios A2I uses a Human Creative Director on every project who briefs the AI like they'd brief a film crew. You get human creative judgment plus AI speed. Our guarantee: if your audience can tell it's AI-generated, you don't pay. We've delivered over 230,000 videos with a 97.5% success rate.",
+      "follow_up": "Want to see a side-by-side comparison with our competitors?"
+    },
+    "already_have_solution": {
+      "objection": "We already have a video solution / We use [competitor]",
+      "response": "Most of our clients said that too. They were using Synthesia or HeyGen for internal videos or quick social content, but when the CEO asked for a commercial for the homepage - something that represents the brand - they realized those tools couldn't deliver broadcast quality. We don't replace your existing tool for quick content. We handle the high-stakes moments where quality directly impacts revenue.",
+      "follow_up": "When was the last time you needed commercial-quality video on a tight deadline?"
+    },
+    "need_to_think": {
+      "objection": "We need to think about it / Let me discuss with my team",
+      "response": "Of course, take the time you need. While you're thinking, can I ask one question: what's the cost of waiting? If you have a campaign launch coming up, traditional production is already impossible. Our 243-second turnaround means you can decide Monday and launch Tuesday. What campaign opportunities have you missed because video production took too long?",
+      "follow_up": "What's your timeline for this project?"
+    },
+    "show_industry_examples": {
+      "objection": "Can you show me examples in my industry?",
+      "response": "Absolutely. We have case studies across SaaS, e-commerce, healthcare, and financial services. But here's what I think would be more valuable: I can generate a custom storyboard for your specific product in the next 10 minutes while we're talking. That way you'll see exactly what YOUR commercial would look like, not someone else's.",
+      "follow_up": "What product or service would you want to feature first?"
     },
     "freelancer_cheaper": {
-      "objection": "My freelancer charges $1,500 per video",
-      "response": "How long does that take? Most freelancers need 2-3 weeks. If your time is worth $200/hour and you spend 10 hours managing freelancers - reviewing drafts, giving feedback, chasing revisions - that's $2,000 in hidden costs. Plus the opportunity cost of not having that video live, generating leads. We deliver in 4 minutes with unlimited revisions.",
-      "follow_up": "Calculate their true cost including time investment"
+      "objection": "My freelancer charges $1,500 per video / I have a guy",
+      "competitor_reality": {
+        "timeline": "Freelancer average revision time is 4+ days per G2 reviews",
+        "reliability": "70% of projects experience scope creep",
+        "availability": "Best freelancers booked 6 weeks out"
+      },
+      "response": "How long does that take? Most freelancers need 2-3 weeks, and if you need revisions - another week. With us, you get broadcast-quality in 243 seconds. Here's the hidden cost: if your time is worth $200/hour and you spend 10 hours managing freelancers, that's $2,000 in invisible costs. Plus, we're available at 11 PM before your board meeting. Is your freelancer?",
+      "follow_up": "How many hours per month do you spend managing video production?"
+    },
+    "need_procurement": {
+      "objection": "This needs to go through procurement / I need approval",
+      "response": "Completely understand. What information would help speed that process? We can provide ROI projections showing the conversion impact, security documentation, and case studies from similar companies. Many of our clients start with a single project to prove value - that often falls below procurement thresholds and creates internal champions for larger engagements.",
+      "follow_up": "What's the threshold for procurement approval at your company?"
+    },
+    "tried_ai_before": {
+      "objection": "We tried AI video before and it didn't work",
+      "response": "I hear that a lot. Let me guess - robotic avatars, pronunciation problems, videos that got rejected for 'policy violations,' or maybe even got your account banned for 'suspicious activity'? That's the DIY AI experience. We're fundamentally different because you get a human Creative Director who reviews every script and output before delivery. It's AI speed with human quality control - and a guarantee that if you're not satisfied, you don't pay.",
+      "follow_up": "What specifically went wrong with your previous experience?"
+    },
+    "unlimited_plan_better": {
+      "objection": "Runway/HeyGen has unlimited plans for $95/month",
+      "competitor_reality": {
+        "runway_bans": "Runway's 'Unlimited' $95/mo plan bans users after 15-21 days for 'suspicious activity' (actual usage). $1,000 annual fee kept without refund",
+        "heygen_throttling": "HeyGen's unlimited still throttles processing speed during demand spikes - 36 hour queues",
+        "quality_waste": "Unusable outputs require 5-10 regeneration attempts, wasting credits and time"
+      },
+      "response": "Have you read the terms of service on those 'unlimited' plans? Runway users report getting banned after 15-21 days - their $1,000 kept without refund - for what they call 'suspicious activity,' which is just using the service. HeyGen's unlimited still means 36-hour queues. Our transparent per-video pricing means no surprises, no bans, and human quality control that ensures usable output on the first delivery.",
+      "follow_up": "Have you experienced any throttling or limitations on your current 'unlimited' plan?"
+    },
+    "cant_afford_right_now": {
+      "objection": "We can't afford $2,500-5,000 right now",
+      "response": "I understand budget constraints - every dollar matters. Let me ask: what would one new customer be worth to your business? If a professional video helps you close even one additional deal, does it pay for itself? Our clients typically see ROI within the first month because video quality directly impacts conversion rates. For context, video landing pages convert 34% higher than static - that's not a small number.",
+      "follow_up": "What's your average customer lifetime value?"
     },
     "clients_will_know_ai": {
       "objection": "My clients will know it's AI",
-      "response": "That's the test, isn't it? Here's our guarantee: If your client can tell it's AI-generated, you don't pay. We've delivered over 230,000 videos with a 97.5% success rate. The remaining 2.5% got free revisions until they were perfect.",
-      "follow_up": "Offer the satisfaction guarantee"
-    },
-    "need_to_think_about_it": {
-      "objection": "I need to think about it / discuss with my team",
-      "response": "Absolutely, this is an important decision. What specific questions do you think your team will have? I can help you prepare the business case. Most of our clients find that the ROI calculation makes the decision straightforward - would you like me to run those numbers for your specific situation?",
-      "follow_up": "Offer to create a custom ROI analysis they can share"
+      "response": "That's the test, isn't it? Here's our guarantee: If your client can tell it's AI-generated, you don't pay. We've delivered over 230,000 videos with a 97.5% success rate. The remaining 2.5% got free revisions until they were perfect. Your reputation is our reputation.",
+      "follow_up": "Would you like to see examples from agencies that white-label our work?"
     },
     "bad_timing": {
       "objection": "It's not a good time right now",
-      "response": "I hear you. Out of curiosity, what would make it a good time? Is it budget cycles, a specific campaign, or something else? Sometimes the 'right time' is when your competitors aren't paying attention - and most companies slow down their marketing during quiet periods.",
-      "follow_up": "Understand their calendar and plant seeds for follow-up"
-    },
-    "already_have_video_person": {
-      "objection": "We already have a video person/agency",
-      "response": "That's great - it means you already understand the value of video. How's their turnaround time working for you? Most of our clients keep their existing relationships for certain projects and use us when speed matters. We're not here to replace anyone - we're the rapid-response capability you deploy when you need something yesterday.",
-      "follow_up": "Position as complementary, not replacement"
-    },
-    "not_sure_video_works": {
-      "objection": "I'm not sure video marketing works for our industry",
-      "response": "What industry are you in? [Listen] Interesting - we've actually done quite a bit in [their industry]. The data shows video increases conversion by 80% on landing pages across almost every B2B sector. But more importantly, your competitors are already using video. The question isn't whether video works - it's whether you want to be the one without it.",
-      "follow_up": "Share industry-specific case study if available"
+      "response": "I hear you. Out of curiosity, what would make it a good time? Is it budget cycles, a specific campaign, or something else? Sometimes the 'right time' is when your competitors aren't paying attention - and most companies slow down their marketing during quiet periods. Our 243-second turnaround means you can act when opportunity strikes.",
+      "follow_up": "When is your next major campaign or launch?"
     }
+  },
+  "psychological_triggers": {
+    "urgency": {
+      "trigger": "Time pressure",
+      "message": "Our 243-second turnaround means you can decide Monday and launch Tuesday. Traditional production is already impossible for anything in the next 4 weeks."
+    },
+    "scarcity": {
+      "trigger": "Limited capacity",
+      "message": "We limit new clients to maintain quality - our Creative Directors only take on 10 new projects per month."
+    },
+    "social_proof": {
+      "trigger": "Others succeeding",
+      "message": "Join 500+ companies using Barrios A2I for broadcast-quality commercials. We've delivered over 230,000 videos with 97.5% success rate."
+    },
+    "authority": {
+      "trigger": "Expert credibility",
+      "message": "Our Creative Directors have 20+ years combined experience at agencies like Ogilvy and Wieden+Kennedy. They brief AI like they'd brief a film crew."
+    },
+    "risk_reversal": {
+      "trigger": "Fear of loss",
+      "message": "If your audience can tell it's AI-generated, you don't pay. That's our quality guarantee."
+    },
+    "reciprocity": {
+      "trigger": "Value first",
+      "message": "Let me generate a free storyboard for your product right now - you'll see exactly what your commercial would look like in 10 minutes."
+    }
+  },
+  "kill_sheets": {
+    "vs_synthesia": "Stop accepting robotic avatars. Barrios A2I's Human Creative Director delivers agency-quality that Synthesia's 1.8-star Trustpilot and uncanny valley can't match. Their 30% rejection rate means you can't trust deadlines. We guarantee 243 seconds.",
+    "vs_heygen": "36-hour render queues kill campaigns. Barrios guarantees 243-second turnaround with human oversight, eliminating HeyGen's processing bottlenecks. Their AI support can't solve real problems - we give you a human Creative Director's phone number.",
+    "vs_runway": "Banned for using 'unlimited'? Runway terminates accounts after 15-21 days and keeps your $1,000. Barrios A2I's transparent pricing delivers without termination risk, plus human quality control that ensures usable output - not 10 regeneration attempts.",
+    "vs_freelancers": "4-day revision cycles are revenue killers. Speed-to-lead research shows 8-21x higher conversion within 5 minutes. Barrios delivers in 243 seconds. Plus, we're available at 11 PM before your board meeting.",
+    "vs_agencies": "Traditional agencies charge $25,000-200,000 per minute and take 4-8 weeks. Barrios A2I delivers broadcast-quality in 243 seconds for $2,500-15,000. Same quality, 120,000x faster, 90% cheaper."
   }
 }

@@ -2,111 +2,195 @@
   "last_updated": "2024-12-05",
   "cost_comparisons": {
     "traditional_agency": {
-      "cost": "$25,000 - $200,000",
-      "time": "4-8 weeks",
-      "revisions": "2-3 included, $500+ each after",
-      "hidden_costs": ["Project management overhead", "Revision cycles", "Reshoots"]
+      "cost_per_minute": "$25,000-$200,000",
+      "turnaround": "4-8 weeks",
+      "revisions": "$2,000-$5,000 per round",
+      "hidden_costs": ["Project management overhead", "Revision cycles", "Reshoots", "Coordination meetings"]
     },
     "freelancer": {
-      "cost": "$1,500 - $5,000",
-      "time": "2-3 weeks",
-      "hidden_costs": ["Your time managing (10+ hours)", "Revision delays", "Quality inconsistency"]
+      "cost_per_video": "$1,500-$5,000",
+      "turnaround": "2-3 weeks",
+      "revision_time": "4+ days per round",
+      "hidden_cost": "10+ hours management time",
+      "reliability_issues": ["Quality inconsistency", "Scope creep (70% of projects)", "Best ones booked 6 weeks out"]
     },
-    "diy_tools": {
-      "cost": "$18 - $95/month",
-      "time": "4-8 hours per video",
-      "hidden_costs": ["Learning curve", "Uncanny valley results", "Your time worth $200+/hr"]
+    "diy_platforms": {
+      "advertised_cost": "$20-200/month",
+      "real_cost": "2-3x due to re-renders and rejected content",
+      "quality_impact": "40-60% lower conversion due to uncanny valley",
+      "risks": ["Account bans", "36-hour queues", "Policy violations", "Credit overages"]
     },
     "barrios_a2i": {
-      "cost": "$2,500 - $15,000",
-      "time": "243 seconds (4 minutes)",
-      "revisions": "Unlimited included",
-      "hidden_costs": ["None - fixed price, done for you"]
+      "starter": {"price": "$2,500", "length": "30 seconds", "best_for": "Homepage explainers, social ads"},
+      "professional": {"price": "$5,000", "length": "60 seconds", "best_for": "Product demos, testimonials"},
+      "enterprise": {"price": "$15,000", "length": "90+ seconds", "best_for": "Brand campaigns, full commercials"},
+      "turnaround": "243 seconds",
+      "includes": ["Human Creative Director", "Unlimited revisions", "Broadcast quality", "All platform formats"]
+    }
+  },
+  "conversion_data": {
+    "video_vs_static": {
+      "conversion_lift": "34% higher conversion on video landing pages",
+      "purchase_likelihood": "85% more likely to purchase after watching product video",
+      "trust_impact": "87% of consumers judge brand trust by video quality"
+    },
+    "video_forms": {
+      "conversion_rate": "16% vs 2-3% industry average for static forms"
+    },
+    "testimonial_placement": {
+      "checkout_impact": "32% sales increase when featured on checkout page"
+    },
+    "speed_to_lead": {
+      "response_time_impact": "5-minute response = 8-21x higher qualification rate",
+      "first_responder_advantage": "50% of deals go to first responder"
+    },
+    "quality_trust": {
+      "uncanny_valley_impact": "40-60% lower engagement with robotic AI video",
+      "professional_video": "75% higher credibility perception",
+      "brand_trust": "87% judge brand trust by video quality"
     }
   },
   "roi_by_persona": {
-    "saas_marketing_director": {
-      "scenario": "Homepage explainer video",
-      "current_state": "2% homepage-to-demo conversion",
-      "with_video": "4-6% homepage-to-demo conversion",
-      "math": {
-        "monthly_visitors": 10000,
-        "current_demos": 200,
-        "with_video_demos": 400,
-        "demo_to_close": "20%",
-        "acv": "$12,000",
-        "monthly_revenue_lift": "$48,000"
+    "agency_owner": {
+      "scenario": "White-label video production service",
+      "metrics": {
+        "client_charge": "$5,000-$8,000 per video",
+        "barrios_cost": "$2,500",
+        "margin": "$2,500-$5,500 (50-68%)",
+        "videos_per_month": "10",
+        "monthly_profit": "$25,000-$55,000",
+        "capacity_increase": "3x without hiring",
+        "time_recovered": "15 hours/week"
       },
-      "investment": "$5,000",
-      "payback_period": "3 days",
-      "annual_roi": "11,520%"
+      "pitch": "If you're currently making 30% margin on freelancer video, switching to Barrios A2I could double your margin while tripling your capacity.",
+      "calculator": {
+        "inputs": ["current_margin_percent", "videos_per_month", "client_charge"],
+        "formula": "new_profit = (videos_per_month * client_charge) - (videos_per_month * 2500)"
+      }
+    },
+    "saas_marketing_director": {
+      "scenario": "Homepage explainer + video ads",
+      "metrics": {
+        "current_conversion": "2%",
+        "with_video_conversion": "3-6% (34% lift)",
+        "monthly_visitors": "10,000",
+        "extra_conversions": "100-400 per month",
+        "value_per_lead": "$100",
+        "monthly_roi": "$10,000-$40,000",
+        "payback_period": "< 1 month"
+      },
+      "pitch": "If your homepage gets 10,000 visitors and converts at 2%, a 34% lift means 68 extra leads per month. At $100 per lead, that's $6,800/month from a one-time $5,000 investment.",
+      "calculator": {
+        "inputs": ["monthly_visitors", "current_conversion_rate", "value_per_lead"],
+        "formula": "monthly_value = monthly_visitors * (current_conversion_rate * 1.34 - current_conversion_rate) * value_per_lead"
+      }
     },
     "ecommerce_manager": {
       "scenario": "Product video ads for Meta/TikTok",
-      "current_state": "$150 CPA",
-      "with_video": "$100 CPA",
-      "math": {
+      "metrics": {
+        "current_cpa": "$150",
+        "with_video_cpa": "$100",
         "monthly_ad_spend": "$50,000",
-        "current_conversions": 333,
-        "with_video_conversions": 500,
-        "additional_revenue_per_conversion": "$85",
-        "monthly_revenue_lift": "$14,200"
+        "current_conversions": "333",
+        "with_video_conversions": "500",
+        "extra_sales": "167",
+        "average_order_value": "$100",
+        "extra_revenue": "$16,700/month",
+        "video_cost": "$2,500",
+        "net_monthly_roi": "$14,200"
       },
-      "investment": "$2,500",
-      "payback_period": "5 days",
-      "annual_roi": "6,816%"
+      "pitch": "If video ads reduce your CPA from $150 to $100, that's 167 extra sales per month on your current ad spend. At $100 AOV, that's $16,700 in extra revenue from a $2,500 video.",
+      "calculator": {
+        "inputs": ["monthly_ad_spend", "current_cpa", "target_cpa", "aov"],
+        "formula": "extra_revenue = ((monthly_ad_spend / target_cpa) - (monthly_ad_spend / current_cpa)) * aov"
+      }
     },
-    "agency_owner": {
-      "scenario": "White-label video production",
-      "current_state": "Turning down video projects or low margins",
-      "with_barrios": "Accept all video projects at 60%+ margin",
-      "math": {
-        "projects_per_month": 5,
-        "client_charge": "$7,500",
-        "barrios_cost": "$2,500",
-        "margin_per_project": "$5,000",
-        "monthly_profit": "$25,000"
+    "smb_founder": {
+      "scenario": "Fundraising pitch video",
+      "metrics": {
+        "video_cost": "$5,000",
+        "funding_target": "$500,000",
+        "investor_response_improvement": "10% higher",
+        "value_of_one_meeting": "Potential $500K",
+        "roi_potential": "100x"
       },
-      "investment": "$12,500/month",
-      "net_profit": "$12,500/month",
-      "annual_profit": "$150,000"
+      "pitch": "If a professional pitch video helps you get one additional investor meeting, and that meeting leads to funding, the $5,000 investment could return 100x. What's the cost of looking small when pitching for half a million?",
+      "calculator": {
+        "inputs": ["funding_target", "additional_meetings_expected"],
+        "formula": "potential_value = funding_target * (additional_meetings_expected / 10)"
+      }
     },
     "dental_practice": {
       "scenario": "Google Business Profile video",
-      "current_state": "20 new patient calls/month",
-      "with_video": "28 new patient calls/month",
-      "math": {
-        "additional_calls": 8,
+      "metrics": {
+        "current_calls": "20/month",
+        "with_video_calls": "28/month (40% increase)",
+        "additional_calls": "8",
         "call_to_appointment": "50%",
-        "new_patients": 4,
+        "new_patients": "4",
         "lifetime_value": "$2,400",
-        "monthly_revenue_lift": "$9,600"
+        "monthly_revenue_lift": "$9,600",
+        "annual_revenue_lift": "$115,200",
+        "video_cost": "$2,500",
+        "payback_period": "8 days"
       },
-      "investment": "$2,500",
-      "payback_period": "8 days",
-      "annual_roi": "4,508%"
+      "pitch": "A $2,500 video on your Google Business Profile could bring in 4 extra patients per month. At $2,400 lifetime value each, that's $9,600/month - nearly 4x ROI in the first month alone.",
+      "calculator": {
+        "inputs": ["current_monthly_calls", "patient_lifetime_value"],
+        "formula": "monthly_value = (current_monthly_calls * 0.4) * 0.5 * patient_lifetime_value"
+      }
     },
-    "founder_smb": {
-      "scenario": "Sales page video",
-      "current_state": "No video, 1% conversion",
-      "with_video": "Professional video, 2.5% conversion",
-      "math": {
-        "monthly_page_visitors": 2000,
-        "current_sales": 20,
-        "with_video_sales": 50,
-        "average_sale": "$500",
-        "monthly_revenue_lift": "$15,000"
+    "manufacturing_company": {
+      "scenario": "Sales explainer video",
+      "metrics": {
+        "average_deal_size": "$100,000",
+        "current_sales_cycle": "6 months",
+        "with_video_cycle": "4 months (33% reduction)",
+        "deals_per_year": "12",
+        "accelerated_deals": "4 additional",
+        "annual_revenue_impact": "$400,000",
+        "video_cost": "$5,000"
       },
-      "investment": "$2,500",
-      "payback_period": "5 days",
-      "annual_roi": "7,100%"
+      "pitch": "If a $5,000 explainer video shortens your sales cycle by 33%, you close 4 more deals per year. At $100K average deal, that's $400,000 in accelerated revenue.",
+      "calculator": {
+        "inputs": ["average_deal_size", "current_sales_cycle_months", "deals_per_year"],
+        "formula": "annual_impact = (deals_per_year * 0.33) * average_deal_size"
+      }
     }
   },
-  "quick_roi_questions": [
+  "roi_calculator_inputs": {
+    "website_conversion": {
+      "monthly_visitors": "How many visitors to your website per month?",
+      "current_conversion_rate": "What's your current conversion rate?",
+      "average_deal_value": "What's your average deal value?"
+    },
+    "ad_performance": {
+      "monthly_ad_spend": "What's your monthly ad spend?",
+      "current_cpa": "What's your current cost per acquisition?",
+      "average_order_value": "What's your average order value?"
+    },
+    "time_savings": {
+      "hours_per_video_current": "How many hours does a video take currently?",
+      "hourly_rate": "What's your team's effective hourly rate?",
+      "videos_per_month": "How many videos do you need per month?"
+    }
+  },
+  "roi_questions_to_ask": [
+    "What's the value of a 1% improvement in your conversion rate?",
+    "How many leads does this campaign need to generate?",
+    "What's your target CPA for video-acquired customers?",
+    "How much is your team's time worth per hour?",
     "What's your average customer lifetime value?",
-    "How many website visitors do you get per month?",
-    "What's your current conversion rate?",
-    "How much do you spend on ads monthly?",
-    "What's your cost per acquisition right now?"
-  ]
+    "How many campaigns are delayed by video production?",
+    "What would one new enterprise customer be worth?",
+    "How many hours per month do you spend managing video production?",
+    "What's the cost of missing a campaign deadline?",
+    "When was the last time slow production cost you a deal?"
+  ],
+  "quick_roi_formulas": {
+    "conversion_lift": "Monthly visitors × (new_rate - current_rate) × value_per_conversion",
+    "cpa_improvement": "(ad_spend / new_cpa - ad_spend / old_cpa) × average_order_value",
+    "time_savings": "hours_saved × hourly_rate × videos_per_month",
+    "margin_improvement": "(client_charge - barrios_cost) × videos_per_month"
+  }
 }

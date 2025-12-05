@@ -1,5 +1,24 @@
 {
   "last_updated": "2024-12-05",
+  "barrios_positioning": {
+    "pricing": {
+      "starter": {"price": "$2,500", "length": "30 seconds", "description": "Perfect for homepage explainers"},
+      "professional": {"price": "$5,000", "length": "60 seconds", "description": "Full commercial production"},
+      "enterprise": {"price": "$15,000", "length": "90+ seconds", "description": "Premium campaign package"}
+    },
+    "production_time": "243 seconds (4 minutes)",
+    "cost_per_video": "$2.60",
+    "margin": "99.9%",
+    "key_differentiators": [
+      "Human Creative Director on every project",
+      "243-second guaranteed turnaround",
+      "Agency-quality at AI speed",
+      "Zero technical skill required",
+      "White-label capability for agencies",
+      "Transparent fixed pricing - no hidden costs"
+    ],
+    "value_proposition": "Agency-quality video commercials in 4 minutes, not 4 weeks. Human creative direction + AI speed = broadcast quality without the $25K agency price tag."
+  },
   "competitors": {
     "synthesia": {
       "name": "Synthesia",
@@ -8,16 +27,28 @@
         "free": "3 min/month",
         "starter": "$18/month (120 min/year)",
         "creator": "$64/month (360 min/year)",
-        "enterprise": "custom"
+        "enterprise": "Custom pricing"
       },
       "cost_per_minute": "$0.18-$0.53",
-      "critical_weaknesses": [
+      "target_customer": "Enterprise L&D teams, Fortune 500 training",
+      "user_complaints": [
+        "Uncanny valley effect - avatars look robotic",
+        "Flat voice emotion and unnatural expressiveness",
         "30% of legitimate videos arbitrarily rejected",
-        "Uncanny valley effects, limited emotional expressiveness",
+        "Content moderation appeals take days/weeks",
         "Technical terms consistently mispronounced",
-        "Audio quality randomly shifts mid-video"
+        "Audio quality randomly shifts mid-video",
+        "Custom avatars cost $1,000/year extra"
       ],
-      "talk_track": "Synthesia works for internal training videos where perfection doesn't matter. But when you're spending $5,000+ on a commercial that represents your brand, 'good enough' isn't enough."
+      "hidden_weaknesses": [
+        "No unlimited plans - strict video minute caps",
+        "Enterprise features gated behind custom pricing",
+        "One-time embedding costs scale to $8.39 for 10GB corpus",
+        "3-20+ minute generation times"
+      ],
+      "trustpilot_rating": "1.8/5 (vs G2 4.7/5 - major disconnect)",
+      "kill_shot": "Stop accepting robotic avatars. Barrios A2I's Human Creative Director delivers agency-quality that Synthesia's 3.2-star uncanny valley can't match, at 1/50th agency cost.",
+      "talk_track": "Synthesia works for internal training videos where perfection doesn't matter. But when you're spending $5,000+ on a commercial that represents your brand, 'good enough' isn't enough. Their 30% rejection rate means you can't trust deadlines, and their uncanny valley avatars actually hurt conversion rates by 40-60%."
     },
     "heygen": {
       "name": "HeyGen",
@@ -25,35 +56,103 @@
       "pricing": {
         "free": "3 videos/month",
         "creator": "$24-29/month",
-        "team": "$30-39/seat/month"
+        "team": "$39-149/month/seat",
+        "enterprise": "Custom"
       },
-      "critical_weaknesses": [
-        "AI-only customer support",
+      "cost_per_minute": "$0.40-$0.80",
+      "target_customer": "Content creators, marketers, small agencies",
+      "user_complaints": [
+        "36-hour rendering queues even on paid Creator plan",
+        "Unreliable status indicators",
+        "'In line for processing' delays with no ETA",
+        "Voice emotion flatness",
+        "Uncanny valley lip-sync issues",
         "Bait-and-switch on 'unlimited' plans",
-        "Frequent policy changes removing features"
+        "AI-only customer support can't solve real problems"
       ],
-      "talk_track": "HeyGen is great until you hit a problem. Then you're stuck with AI-powered support that can't solve real business issues."
+      "hidden_weaknesses": [
+        "Processing bottleneck during high demand",
+        "Paid users experience same delays as free tier",
+        "Limited to 2 avatars per scene",
+        "No collaboration features",
+        "30-minute video limit on Team plan"
+      ],
+      "trustpilot_rating": "2.1/5",
+      "kill_shot": "36-hour render times kill campaigns. Barrios guarantees 243-second turnaround with human oversight, eliminating HeyGen's processing bottlenecks and quality inconsistency.",
+      "talk_track": "HeyGen is great until you hit a problem. Then you're stuck with AI-powered support that can't solve real business issues. When your $20K campaign launch depends on a video rendering, you need a human expert, not a chatbot. And their 36-hour queues? We deliver in 243 seconds."
     },
     "runway": {
-      "name": "Runway",
-      "type": "secondary",
-      "pricing": { "unlimited": "$76-95/month" },
-      "critical_weaknesses": [
-        "Credit-based complexity",
-        "Steep learning curve",
-        "Quality inconsistency"
+      "name": "Runway ML",
+      "type": "primary",
+      "pricing": {
+        "free": "125 credits",
+        "standard": "$12-15/month (625 credits)",
+        "pro": "$28-35/month (2,250 credits)",
+        "unlimited": "$76-95/month"
+      },
+      "cost_per_minute": "$0.50-$2.00",
+      "target_customer": "Professional video editors, creative agencies",
+      "user_complaints": [
+        "Account bans for 'suspicious activity' (using service as advertised)",
+        "Unusable outputs requiring multiple regenerations",
+        "No refunds after termination",
+        "'Unlimited' plan termination after 15-21 days",
+        "Credit card payment bugs",
+        "Users report account termination after 50 video generations"
       ],
-      "talk_track": "Runway is powerful but requires a creative director who knows how to use professional editing software."
+      "hidden_weaknesses": [
+        "Explore Mode rate limits",
+        "Credits don't roll over",
+        "Image generation still costs credits under 'unlimited'",
+        "2 concurrent video limit",
+        "$1,000 annual fee kept without refund after ban"
+      ],
+      "trustpilot_rating": "Poor - fraud accusations",
+      "kill_shot": "Banned for using 'unlimited'? Barrios A2I's transparent pricing delivers without termination risk, plus human quality control Runway's scattershot AI lacks.",
+      "talk_track": "Runway is powerful but their 'unlimited' plan is a trap. Users report getting banned after 15-21 days for 'suspicious activity' - which is just using the service as advertised. We have transparent per-video pricing with no hidden limits, no bans, and human quality control that ensures usable output on the first try."
     },
     "sora": {
       "name": "Sora (OpenAI)",
       "type": "emerging",
-      "critical_weaknesses": [
-        "No avatar customization",
-        "No commercial controls",
-        "Early stage quality"
+      "pricing": {
+        "plus": "$20/month (50 videos via ChatGPT Plus)",
+        "pro": "$200/month (500 videos)"
+      },
+      "cost_per_minute": "$0.40-$0.67",
+      "target_customer": "Early adopters, experimental marketers",
+      "user_complaints": [
+        "GPU throttling during high demand",
+        "6 videos/day limit on free tier",
+        "'GPUs are melting' resource constraints",
+        "Region restrictions"
       ],
-      "talk_track": "Sora is exciting but it's a creative toy right now, not a reliable commercial production tool."
+      "hidden_weaknesses": [
+        "Invite-only access periods",
+        "No commercial terms on free tier",
+        "API not yet released (planned 2025)",
+        "Compute limitations unsustainable"
+      ],
+      "kill_shot": "Sora is experimental. Barrios A2I is production-ready with commercial licensing, human quality control, and 243-second guaranteed delivery.",
+      "talk_track": "Sora is exciting technology but it's a creative toy right now, not a reliable commercial production tool. You can't brief it on brand guidelines, guarantee broadcast quality, or get consistent output. Our 243-second turnaround is guaranteed, not throttled by GPU availability."
+    },
+    "colossyan": {
+      "name": "Colossyan",
+      "type": "secondary",
+      "pricing": {
+        "free": "5 min/month",
+        "starter": "$19/month (10 min)",
+        "business": "$70/month (unlimited)",
+        "enterprise": "Custom"
+      },
+      "cost_per_minute": "$0.19-$0.70",
+      "target_customer": "L&D teams, e-learning creators",
+      "user_complaints": [
+        "High pricing for value delivered",
+        "Limited avatar variety",
+        "Template limitations",
+        "No 4K on Business plan"
+      ],
+      "talk_track": "Colossyan is built for training videos, not commercials. Their unlimited minutes sound good until you realize you're getting presentation software, not broadcast-quality advertising."
     },
     "wistia": {
       "name": "Wistia",
@@ -64,24 +163,92 @@
         "pro": "$79/month",
         "advanced": "$319/month"
       },
-      "critical_weaknesses": [
+      "target_customer": "Marketing teams needing video analytics",
+      "user_complaints": [
         "Hosting only - no video creation",
         "Analytics without production capability",
         "Expensive for what you get"
       ],
-      "talk_track": "Wistia is great for hosting and analytics, but you still need to create the video first. We handle the entire production pipeline."
+      "positioning": "Complementary, not competitive",
+      "talk_track": "Wistia is great for hosting and analytics. We're the video production engine that feeds your Wistia analytics machine. Many of our clients use both - we create the content, Wistia hosts and tracks performance."
+    },
+    "n8n": {
+      "name": "n8n",
+      "type": "orchestration",
+      "pricing": {
+        "community": "Free (self-hosted)",
+        "enterprise": "~€10k/year for 10 workflows"
+      },
+      "per_execution_cost": "€0.0133 per execution overage",
+      "user_complaints": [
+        "Workflow complexity limits",
+        "Execution-based pricing unpredictability",
+        "Enterprise features require custom negotiation"
+      ],
+      "kill_shot": "Why spend $10k/year on n8n engineering when Barrios delivers finished agency-quality videos in 4 minutes? Skip the orchestration complexity, get immediate results.",
+      "talk_track": "n8n is a powerful automation tool, but you still need engineers to build workflows and create the actual content. We deliver finished creative products, not just tools that require internal technical resources."
+    },
+    "zapier_agents": {
+      "name": "Zapier AI Agents",
+      "type": "orchestration",
+      "pricing": {
+        "agents_pro": "$50/month (1,500 activities)",
+        "enterprise": "Custom"
+      },
+      "per_activity_cost": "$0.033 per activity overage",
+      "user_complaints": [
+        "Activity limits quickly exceeded",
+        "Complex pricing structure",
+        "Task overages add up rapidly",
+        "Limited 400 activities/month free tier"
+      ],
+      "talk_track": "Zapier Agents is a DIY builder that requires you to create and maintain the automation yourself. We deliver complete video production as a service - you describe what you need, we deliver broadcast-quality in 4 minutes."
+    },
+    "langgraph_crewai": {
+      "name": "LangGraph/CrewAI",
+      "type": "orchestration",
+      "pricing": {
+        "langgraph": "$0.001 per node + $155/mo standby",
+        "crewai": "$99-6,000/year (up to $120,000/year enterprise)"
+      },
+      "user_complaints": [
+        "Complex pricing visible only after account creation",
+        "Execution limits quickly exceeded",
+        "Steep learning curve",
+        "Requires strong Python skills"
+      ],
+      "hidden_weaknesses": [
+        "LangGraph standby minutes $155/mo per deployment",
+        "CrewAI jumps from $99/mo to $6,000/year with no intermediate tier"
+      ],
+      "talk_track": "LangGraph and CrewAI are powerful orchestration frameworks - we actually use them in our backend. But they require dedicated engineering teams to implement. Our 4-phase protocol delivers complete solutions in 8-12 weeks, not months of agent development with uncertain outcomes."
     }
   },
-  "barrios_positioning": {
-    "cost_per_minute": "$83-$167",
-    "production_time": "243 seconds",
-    "value_proposition": "Agency-quality at AI speed",
-    "competitive_advantages": [
-      "120,000x faster than traditional agencies",
-      "Human creative director on every project",
-      "Fixed pricing with unlimited revisions",
-      "Real footage and actors, not uncanny valley avatars",
-      "Full Command Deck automation system included"
-    ]
+  "competitive_matrix": {
+    "speed_comparison": {
+      "barrios_a2i": "243 seconds",
+      "heygen": "36 hours",
+      "synthesia": "24-48 hours",
+      "runway": "3-20 minutes (when not banned)",
+      "freelancers": "4+ days",
+      "agencies": "3-8 weeks"
+    },
+    "quality_tier": {
+      "diy_ai": {"range": "$20-200/month", "quality": "Robotic, uncanny valley", "rating": "3.2/5"},
+      "barrios_a2i": {"range": "$2,500-15,000/video", "quality": "Broadcast commercial", "rating": "Human-directed"},
+      "traditional_agency": {"range": "$25,000-200,000/minute", "quality": "Broadcast commercial", "rating": "Variable"}
+    },
+    "trust_impact": {
+      "synthetic_only": "40-60% lower engagement due to uncanny valley",
+      "human_directed": "75% higher credibility perception",
+      "quality_trust": "87% of consumers judge brand trust by video quality"
+    }
+  },
+  "kill_sheets": {
+    "vs_synthesia": "Stop accepting robotic avatars. Barrios A2I's Human Creative Director delivers agency-quality that Synthesia's 1.8-star Trustpilot and uncanny valley can't match. Their 30% rejection rate means you can't trust deadlines. We guarantee 243 seconds.",
+    "vs_heygen": "36-hour render queues kill campaigns. Barrios guarantees 243-second turnaround with human oversight, eliminating HeyGen's processing bottlenecks. Their AI support can't solve real problems - we give you a human Creative Director's phone number.",
+    "vs_runway": "Banned for using 'unlimited'? Runway terminates accounts after 15-21 days and keeps your $1,000. Barrios A2I's transparent pricing delivers without termination risk, plus human quality control that ensures usable output - not 10 regeneration attempts.",
+    "vs_freelancers": "4-day revision cycles are revenue killers. Speed-to-lead research shows 8-21x higher conversion within 5 minutes. Barrios delivers in 243 seconds. Plus, we're available at 11 PM before your board meeting.",
+    "vs_agencies": "Traditional agencies charge $25,000-200,000 per minute and take 4-8 weeks. Barrios A2I delivers broadcast-quality in 243 seconds for $2,500-15,000. Same quality, 120,000x faster, 90% cheaper."
   }
 }
