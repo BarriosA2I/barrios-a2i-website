@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import ChatWidget from '@/components/chat/ChatWidget'
 
 export const metadata: Metadata = {
   title: 'Barrios A2I | Automated Operations. Engineered Attention.',
@@ -32,6 +33,13 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="min-h-screen bg-[#0a0a1e] text-white antialiased">
         {children}
+        <ChatWidget
+          apiEndpoint="/api/chat"
+          tenantId="barriosa2i"
+          siteId="main"
+          userTier="pro"
+          position="bottom-right"
+        />
       </body>
     </html>
   )
