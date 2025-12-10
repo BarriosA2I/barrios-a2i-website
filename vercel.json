@@ -1,37 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/blog",
-      "dest": "/blog.html"
-    },
-    {
-      "src": "/documentation",
-      "dest": "/documentation.html"
-    },
-    {
-      "src": "/guides",
-      "dest": "/guides.html"
-    },
-    {
-      "src": "/contact",
-      "dest": "/contact.html"
-    },
-    {
-      "src": "/assistant",
-      "dest": "/assistant.html"
-    },
-    {
-      "src": "/",
-      "dest": "/index.html"
-    }
-  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/(.*)",
