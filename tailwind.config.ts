@@ -9,25 +9,32 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Barrios A2I Brand Colors - Senior Creative Director Palette
+        // Barrios A2I Brand Colors - Aura Design Palette
+        brand: {
+          deep: '#0A1628',
+          panel: '#0F172A',
+          teal: '#00C2FF',
+          orange: '#F97316',
+          muted: '#94A3B8',
+        },
         navy: {
-          950: '#050A14', // Deeper, closer to void
+          950: '#050A14',
           900: '#0B1221',
           800: '#151E32',
         },
         neon: {
-          cyan: '#00EAFF', // Electric Blue
+          cyan: '#00C2FF',
           blue: '#007CFF',
-          gold: '#FFD600', // Cyber Gold
+          gold: '#FFD600',
           purple: '#7B2BF9',
         },
         // Legacy support
-        'cyber-cyan': '#00EAFF',
+        'cyber-cyan': '#00C2FF',
         'cyber-gold': '#FFD600',
-        'navy-deep': '#050A14',
+        'navy-deep': '#0A1628',
         'navy-light': '#0B1221',
         // Semantic
-        background: '#050A14',
+        background: '#0A1628',
         foreground: '#ffffff',
         muted: '#94a3b8',
         border: 'rgba(255, 255, 255, 0.05)',

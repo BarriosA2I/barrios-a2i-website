@@ -3,21 +3,21 @@ import './globals.css'
 import ChatWidget from '@/components/chat/ChatWidget'
 
 export const metadata: Metadata = {
-  title: 'Barrios A2I | Automated Operations. Engineered Attention.',
-  description: 'Event-driven AI systems to run your business and character-driven commercials to fuel it. The complete ROI stack for local businesses, service companies, and agencies.',
-  keywords: ['AI automation', 'commercial production', 'business automation', 'AI agents', 'video production', 'Veo 3.1', 'Sora 2'],
+  title: 'Barrios A2I | Autonomous Infrastructure',
+  description: 'We design, develop, and deploy AI-powered solutions — from websites and apps to commercials and automation systems. Build smarter. Launch faster.',
+  keywords: ['AI automation', 'AI agents', 'web development', 'app development', 'AI commercials', 'business automation'],
   authors: [{ name: 'Barrios A2I Systems' }],
   openGraph: {
-    title: 'Barrios A2I | Automated Operations. Engineered Attention.',
-    description: 'Event-driven AI systems to run your business and character-driven commercials to fuel it.',
+    title: 'Barrios A2I | Autonomous Infrastructure',
+    description: 'We design, develop, and deploy AI-powered solutions — from websites and apps to commercials and automation systems.',
     url: 'https://barriosa2i.com',
     siteName: 'Barrios A2I',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Barrios A2I | Automated Operations. Engineered Attention.',
-    description: 'Event-driven AI systems to run your business and character-driven commercials to fuel it.',
+    title: 'Barrios A2I | Autonomous Infrastructure',
+    description: 'We design, develop, and deploy AI-powered solutions — from websites and apps to commercials and automation systems.',
   },
   icons: {
     icon: '/favicon.svg',
