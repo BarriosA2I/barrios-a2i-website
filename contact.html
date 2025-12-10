@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Barrios A2I</title>
+  <meta name="description" content="Get in touch with Barrios A2I for enterprise AI orchestration consulting, implementation, and managed services.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --void: #030508; --void-light: #0A1220; --surface: #0D1829; --surface-elevated: #131F33;
+      --border: rgba(255,255,255,0.08); --border-hover: rgba(255,255,255,0.15);
+      --text-primary: #F8FAFC; --text-secondary: #94A3B8; --text-muted: #64748B;
+      --cyan: #00D4FF; --cyan-dim: rgba(0,212,255,0.15);
+      --orange: #FF7A3D; --orange-dim: rgba(255,122,61,0.15);
+      --violet: #A78BFA; --violet-dim: rgba(167,139,250,0.15);
+      --green: #22C55E; --green-dim: rgba(34,197,94,0.15);
+      --red: #EF4444; --red-dim: rgba(239,68,68,0.15);
+      --font-display: 'Instrument Serif', serif; --font-body: 'Outfit', sans-serif; --font-mono: 'JetBrains Mono', monospace;
+      --space-xs: 0.25rem; --space-sm: 0.5rem; --space-md: 1rem; --space-lg: 1.5rem; --space-xl: 2rem; --space-2xl: 3rem; --space-3xl: 4rem; --space-4xl: 6rem;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --duration-fast: 150ms; --duration-base: 300ms;
+      --glow-cyan: 0 0 40px rgba(0,212,255,0.3); --glow-orange: 0 0 40px rgba(255,122,61,0.3);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-weight: 400; line-height: 1.6; color: var(--text-primary); background: var(--void); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+    h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height: 1.1; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4rem); } h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); } h3 { font-size: clamp(1.25rem, 3vw, 1.5rem); }
+    p { color: var(--text-secondary); } a { color: inherit; text-decoration: none; }
+    .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--space-xl); }
+    .text-gradient { background: linear-gradient(135deg, var(--cyan) 0%, var(--orange) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    .skip-link { position: absolute; top: -100%; left: var(--space-md); padding: var(--space-sm) var(--space-md); background: var(--cyan); color: var(--void); font-weight: 600; border-radius: 4px; z-index: 9999; transition: top var(--duration-base) var(--ease-out); }
+    .skip-link:focus { top: var(--space-md); }
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+    ::selection { background: var(--cyan); color: var(--void); }
+    .atmosphere { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .grain { position: absolute; inset: 0; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+    .glow-orb { position: absolute; border-radius: 50%; filter: blur(100px); }
+    .glow-orb.cyan { width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,212,255,0.1) 0%, transparent 70%); top: -100px; left: -150px; }
+    .glow-orb.orange { width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,122,61,0.08) 0%, transparent 70%); bottom: 10%; right: -100px; }
+    
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: var(--space-lg) 0; background: rgba(3,5,8,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: baseline; gap: var(--space-xs); }
+    .nav-logo-text { font-family: var(--font-display); font-size: 1.5rem; color: var(--text-primary); }
+    .nav-logo-tag { font-family: var(--font-mono); font-size: 0.75rem; color: var(--cyan); opacity: 0.8; }
+    .nav-links { display: flex; align-items: center; gap: var(--space-xl); }
+    .nav-link { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); transition: color var(--duration-fast) var(--ease-out); }
+    .nav-link:hover, .nav-link.active { color: var(--text-primary); }
+    .nav-cta { display: inline-flex; align-items: center; gap: var(--space-sm); padding: var(--space-sm) var(--space-lg); background: linear-gradient(135deg, var(--orange) 0%, #FF9A5C 100%); color: var(--void); font-weight: 600; font-size: 0.9rem; border-radius: 6px; transition: all var(--duration-base) var(--ease-out); box-shadow: var(--glow-orange); }
+    .nav-cta:hover { transform: translateY(-2px); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--text-primary); cursor: pointer; padding: var(--space-sm); }
+    @media (max-width: 768px) { .nav-links { display: none; } .nav-toggle { display: block; } .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--void); border-bottom: 1px solid var(--border); padding: var(--space-xl); gap: var(--space-lg); } }
+    
+    .contact-section { padding: calc(80px + var(--space-4xl)) 0 var(--space-4xl); position: relative; z-index: 1; min-height: calc(100vh - 200px); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-3xl); align-items: start; }
+    @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+    
+    .contact-info { position: sticky; top: 120px; }
+    .contact-badge { display: inline-flex; align-items: center; gap: var(--space-sm); padding: var(--space-xs) var(--space-md); background: var(--cyan-dim); border: 1px solid rgba(0,212,255,0.2); border-radius: 100px; font-size: 0.8rem; font-weight: 500; color: var(--cyan); margin-bottom: var(--space-lg); }
+    .contact-title { margin-bottom: var(--space-md); }
+    .contact-subtitle { font-size: 1.1rem; max-width: 400px; line-height: 1.7; margin-bottom: var(--space-2xl); }
+    
+    .contact-methods { display: flex; flex-direction: column; gap: var(--space-lg); }
+    .contact-method { display: flex; align-items: flex-start; gap: var(--space-md); padding: var(--space-lg); background: var(--surface); border: 1px solid var(--border); border-radius: 12px; transition: all var(--duration-base) var(--ease-out); }
+    .contact-method:hover { border-color: var(--border-hover); }
+    .contact-method-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--cyan-dim); border-radius: 10px; flex-shrink: 0; }
+    .contact-method-icon svg { width: 22px; height: 22px; color: var(--cyan); }
+    .contact-method-content h4 { font-family: var(--font-body); font-weight: 600; font-size: 1rem; color: var(--text-primary); margin-bottom: var(--space-xs); }
+    .contact-method-content p { font-size: 0.9rem; margin: 0; }
+    .contact-method-content a { color: var(--cyan); transition: color var(--duration-fast) var(--ease-out); }
+    .contact-method-content a:hover { color: var(--text-primary); }
+    
+    .contact-form-wrapper { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: var(--space-2xl); }
+    .form-header { margin-bottom: var(--space-xl); }
+    .form-header h2 { font-family: var(--font-body); font-weight: 600; font-size: 1.5rem; color: var(--text-primary); margin-bottom: var(--space-sm); }
+    .form-header p { font-size: 0.95rem; }
+    
+    .contact-form { display: flex; flex-direction: column; gap: var(--space-lg); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+    
+    .form-group { display: flex; flex-direction: column; gap: var(--space-sm); }
+    .form-label { font-size: 0.9rem; font-weight: 500; color: var(--text-primary); }
+    .form-label .required { color: var(--orange); margin-left: var(--space-xs); }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: var(--space-md); background: var(--void); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: var(--font-body); font-size: 0.95rem; transition: all var(--duration-base) var(--ease-out); }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--cyan); outline: none; box-shadow: 0 0 0 3px var(--cyan-dim); }
+    .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2394A3B8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right var(--space-md) center; padding-right: var(--space-2xl); cursor: pointer; }
+    .form-select option { background: var(--void); color: var(--text-primary); }
+    .form-textarea { min-height: 140px; resize: vertical; }
+    
+    .form-checkbox-group { display: flex; align-items: flex-start; gap: var(--space-sm); }
+    .form-checkbox { width: 20px; height: 20px; accent-color: var(--cyan); cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+    .form-checkbox-label { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+    .form-checkbox-label a { color: var(--cyan); text-decoration: underline; }
+    
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-sm); padding: var(--space-md) var(--space-xl); font-weight: 600; font-size: 0.95rem; border-radius: 8px; transition: all var(--duration-base) var(--ease-out); cursor: pointer; border: none; }
+    .btn-primary { background: linear-gradient(135deg, var(--cyan) 0%, #33E0FF 100%); color: var(--void); box-shadow: var(--glow-cyan); width: 100%; }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    
+    .form-success { display: none; text-align: center; padding: var(--space-2xl); }
+    .form-success.show { display: block; }
+    .form-success-icon { width: 64px; height: 64px; margin: 0 auto var(--space-lg); background: var(--green-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .form-success-icon svg { width: 32px; height: 32px; color: var(--green); }
+    .form-success h3 { font-family: var(--font-body); font-weight: 600; font-size: 1.5rem; color: var(--text-primary); margin-bottom: var(--space-sm); }
+    .form-success p { font-size: 1rem; }
+    
+    .footer { position: relative; padding: var(--space-3xl) 0; border-top: 1px solid var(--border); z-index: 1; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-lg); }
+    .footer-copy { font-size: 0.85rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: var(--space-xl); }
+    .footer-link { font-size: 0.85rem; color: var(--text-secondary); transition: color var(--duration-fast) var(--ease-out); }
+    .footer-link:hover { color: var(--cyan); }
+    
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s var(--ease-out); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div class="atmosphere" aria-hidden="true"><div class="grain"></div><div class="glow-orb cyan"></div><div class="glow-orb orange"></div></div>
+  
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Barrios A2I Home"><span class="nav-logo-text">Barrios</span><span class="nav-logo-tag">A2I</span></a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html#services" class="nav-link">Services</a>
+        <a href="index.html#features" class="nav-link">Features</a>
+        <a href="index.html#pricing" class="nav-link">Pricing</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="documentation.html" class="nav-link">Docs</a>
+        <a href="guides.html" class="nav-link">Guides</a>
+        <a href="contact.html" class="nav-cta active">Get Started →</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+  
+  <main id="main">
+    <section class="contact-section" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact-grid">
+          
+          <div class="contact-info reveal">
+            <div class="contact-badge">Let's Talk</div>
+            <h1 class="contact-title" id="contact-title">Get in <em class="text-gradient">Touch</em></h1>
+            <p class="contact-subtitle">Ready to build production-grade AI orchestration? Schedule a technical consultation with our team.</p>
+            
+            <div class="contact-methods">
+              <div class="contact-method">
+                <div class="contact-method-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                <div class="contact-method-content">
+                  <h4>Email</h4>
+                  <p><a href="mailto:contact@barriosa2i.com">contact@barriosa2i.com</a></p>
+                </div>
+              </div>
+              
+              <div class="contact-method">
+                <div class="contact-method-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <div class="contact-method-content">
+                  <h4>Location</h4>
+                  <p>Remote-first, serving clients globally</p>
+                </div>
+              </div>
+              
+              <div class="contact-method">
+                <div class="contact-method-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <div class="contact-method-content">
+                  <h4>Response Time</h4>
+                  <p>Usually within 24 business hours</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="contact-form-wrapper reveal reveal-delay-1">
+            <div class="form-header">
+              <h2>Start Your Project</h2>
+              <p>Tell us about your requirements and we'll get back to you with a custom proposal.</p>
+            </div>
+            
+            <form class="contact-form" id="contact-form" action="#" method="POST">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name" class="form-label">Full Name<span class="required">*</span></label>
+                  <input type="text" id="name" name="name" class="form-input" placeholder="John Smith" required>
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-label">Work Email<span class="required">*</span></label>
+                  <input type="email" id="email" name="email" class="form-input" placeholder="john@company.com" required>
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="company" class="form-label">Company</label>
+                  <input type="text" id="company" name="company" class="form-input" placeholder="Acme Corp">
+                </div>
+                <div class="form-group">
+                  <label for="role" class="form-label">Role</label>
+                  <input type="text" id="role" name="role" class="form-input" placeholder="CTO, VP Engineering, etc.">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="service" class="form-label">Service Interest<span class="required">*</span></label>
+                <select id="service" name="service" class="form-select" required>
+                  <option value="" disabled selected>Select a service...</option>
+                  <option value="consulting">Architecture Consulting ($15K)</option>
+                  <option value="implementation">Turnkey Implementation ($45K)</option>
+                  <option value="managed">Managed Platform ($8K/month)</option>
+                  <option value="custom">Custom Solution</option>
+                  <option value="unsure">Not sure yet</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="agents" class="form-label">Expected Agent Scale</label>
+                <select id="agents" name="agents" class="form-select">
+                  <option value="" disabled selected>How many agents do you need?</option>
+                  <option value="1-10">1-10 agents</option>
+                  <option value="10-50">10-50 agents</option>
+                  <option value="50-100">50-100 agents</option>
+                  <option value="100+">100+ agents</option>
+                  <option value="unsure">Not sure yet</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="message" class="form-label">Project Details<span class="required">*</span></label>
+                <textarea id="message" name="message" class="form-textarea" placeholder="Tell us about your use case, current infrastructure, timeline, and any specific requirements..." required></textarea>
+              </div>
+              
+              <div class="form-checkbox-group">
+                <input type="checkbox" id="privacy" name="privacy" class="form-checkbox" required>
+                <label for="privacy" class="form-checkbox-label">I agree to the <a href="#">Privacy Policy</a> and consent to being contacted about my inquiry.</label>
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Send Message →</button>
+            </form>
+            
+            <div class="form-success" id="form-success">
+              <div class="form-success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <h3>Message Sent!</h3>
+              <p>Thanks for reaching out. We'll review your requirements and get back to you within 24 hours.</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© 2025 Barrios A2I. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="blog.html" class="footer-link">Blog</a>
+        <a href="documentation.html" class="footer-link">Documentation</a>
+        <a href="guides.html" class="footer-link">Guides</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+      </nav>
+    </div>
+  </footer>
+  
+  <script>
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    navToggle.addEventListener('click', () => { const isOpen = navLinks.classList.toggle('open'); navToggle.setAttribute('aria-expanded', isOpen); });
+    
+    const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')); }
+    
+    // Form handling
+    const form = document.getElementById('contact-form');
+    const successMsg = document.getElementById('form-success');
+    
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      
+      // Simulate form submission (replace with actual endpoint)
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      form.style.display = 'none';
+      document.querySelector('.form-header').style.display = 'none';
+      successMsg.classList.add('show');
+    });
+  </script>
+</body>
+</html>
