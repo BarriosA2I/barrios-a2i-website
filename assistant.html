@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Assistant | Barrios A2I</title>
+  <meta name="description" content="Intelligent website assistant with Generative UI. Multi-agent intelligence for lead qualification, competitive analysis, and ROI calculation.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AI Assistant | Barrios A2I">
+  <meta property="og:description" content="Multi-agent AI assistant for enterprise automation intelligence.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://barriosa2i.com/assistant.html">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Fonts (same as other pages) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS (Void Interface + Glass-OS)
+       Version: 2.1 Production
+    ============================================ */
+    :root {
+      /* Core Void */
+      --void: #030508;
+      --void-deep: #000205;
+
+      /* Glass System */
+      --glass-base: rgba(10, 15, 25, 0.6);
+      --glass-elevated: rgba(13, 17, 26, 0.8);
+      --glass-highlight: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-border-light: rgba(255, 255, 255, 0.15);
+
+      /* Text Hierarchy */
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted: #475569;
+
+      /* Neon Accents - Barrios A2I Brand */
+      --cyan: #00D4FF;
+      --cyan-glow: rgba(0, 212, 255, 0.25);
+      --cyan-dim: rgba(0, 212, 255, 0.1);
+      --orange: #FF7A3D;
+      --orange-dim: rgba(255, 122, 61, 0.1);
+      --violet: #A78BFA;
+      --violet-dim: rgba(167, 139, 250, 0.1);
+      --green: #22C55E;
+      --green-dim: rgba(34, 197, 94, 0.1);
+
+      /* Typography */
+      --font-display: 'Instrument Serif', serif;
+      --font-body: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Effects */
+      --blur-md: blur(12px);
+      --blur-lg: blur(24px);
+      --glow-cyan: 0 0 30px var(--cyan-glow);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      /* Layout */
+      --nav-height: 72px;
+      --sidebar-width: 360px;
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--void);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 400;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* Focus States (Accessibility) */
+    :focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--void);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--glass-border-light);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ============================================
+       ATMOSPHERE (Background FX)
+    ============================================ */
+    .atmosphere {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 50% 0%, #0f172a 0%, var(--void) 70%);
+    }
+
+    .grid-floor {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 60%);
+      transform: perspective(500px) rotateX(25deg) scale(1.5);
+      transform-origin: top center;
+      animation: gridDrift 25s linear infinite;
+    }
+
+    @keyframes gridDrift {
+      from { background-position: 0 0; }
+      to { background-position: 0 40px; }
+    }
+
+    .spotlight {
+      position: absolute;
+      width: 800px;
+      height: 600px;
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse, var(--cyan-glow) 0%, transparent 70%);
+      filter: blur(100px);
+      opacity: 0.6;
+    }
+
+    /* Grain Overlay (matches other pages) */
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================
+       NAVIGATION (Consistent with site)
+    ============================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(3, 5, 8, 0.8);
+      backdrop-filter: var(--blur-md);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--text-primary);
+    }
+
+    .nav-logo span {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--cyan);
+    }
+
+    .nav-cta {
+      padding: 10px 20px;
+      background: var(--text-primary);
+      color: var(--void);
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 8px;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
+    /* Mobile Nav Toggle */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      padding: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(3, 5, 8, 0.95);
+        backdrop-filter: var(--blur-lg);
+        padding: 24px;
+        gap: 16px;
+        border-bottom: 1px solid var(--glass-border);
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    /* ============================================
+       MAIN LAYOUT
+    ============================================ */
+    .app-container {
+      position: relative;
+      z-index: 10;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: calc(var(--nav-height) + 24px) 24px 24px;
+      min-height: 100vh;
+    }
+
+    .interface-grid {
+      display: grid;
+      grid-template-columns: 1fr var(--sidebar-width);
+      gap: 24px;
+      height: calc(100vh - var(--nav-height) - 48px);
+    }
+
+    @media (max-width: 1024px) {
+      .interface-grid {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+
+    /* ============================================
+       CHAT PANEL (Main Stage)
+    ============================================ */
+    .chat-panel {
+      position: relative;
+      background: var(--glass-base);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .chat-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-title {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .chat-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--green);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Chat Messages */
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px;
+      padding-bottom: 140px; /* Space for floating input */
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .message {
+      display: flex;
+      gap: 16px;
+      max-width: 85%;
+      opacity: 0;
+      animation: messageEnter 0.5s var(--ease-bounce) forwards;
+    }
+
+    @keyframes messageEnter {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .message.user {
+      margin-left: auto;
+      flex-direction: row-reverse;
+    }
+
+    .message-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .message.ai .message-avatar {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      border: 1px solid var(--cyan-dim);
+      color: var(--cyan);
+      font-family: var(--font-mono);
+    }
+
+    .message.user .message-avatar {
+      background: var(--text-primary);
+      color: var(--void);
+    }
+
+    .message-bubble {
+      padding: 16px 20px;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .message.ai .message-bubble {
+      background: var(--glass-elevated);
+      border: 1px solid var(--glass-border);
+      border-top-left-radius: 4px;
+    }
+
+    .message.user .message-bubble {
+      background: linear-gradient(135deg, var(--cyan), #0099cc);
+      color: var(--void-deep);
+      border-top-right-radius: 4px;
+      box-shadow: var(--glow-cyan);
+      font-weight: 500;
+    }
+
+    /* Typing Indicator */
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 16px 20px;
+      background: var(--glass-elevated);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      border-top-left-radius: 4px;
+      width: fit-content;
+    }
+
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--text-muted);
+      border-radius: 50%;
+      animation: typingBounce 1.4s ease-in-out infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+
+    /* ============================================
+       GENERATIVE UI CARDS
+    ============================================ */
+    .gen-card {
+      margin-top: 16px;
+      background: var(--glass-elevated);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      overflow: hidden;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Competitor Card */
+    .comp-card {
+      border-top: 2px solid var(--orange);
+    }
+
+    .comp-header {
+      background: linear-gradient(90deg, var(--orange-dim), transparent);
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .comp-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .vs-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--orange);
+      border: 1px solid var(--orange);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .comp-body {
+      padding: 20px;
+    }
+
+    .comp-stat {
+      margin-bottom: 16px;
+    }
+
+    .comp-stat:last-child {
+      margin-bottom: 0;
+    }
+
+    .comp-stat-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .comp-stat-value {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .comp-bar-track {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      gap: 2px;
+    }
+
+    .comp-bar-us {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), #16a34a);
+      border-radius: 4px;
+      transition: width 0.5s var(--ease-out);
+    }
+
+    .comp-bar-them {
+      height: 100%;
+      background: var(--orange);
+      opacity: 0.6;
+      border-radius: 4px;
+    }
+
+    .comp-killshot {
+      margin-top: 16px;
+      padding: 12px;
+      background: rgba(255, 122, 61, 0.05);
+      border-left: 2px solid var(--orange);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .comp-killshot strong {
+      color: var(--orange);
+    }
+
+    /* Persona Card */
+    .persona-card {
+      border-top: 2px solid var(--violet);
+    }
+
+    .persona-layout {
+      display: flex;
+      padding: 20px;
+      gap: 16px;
+    }
+
+    .persona-avatar {
+      width: 64px;
+      height: 64px;
+      background: var(--violet-dim);
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .persona-info h4 {
+      font-family: var(--font-body);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .persona-role {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--violet);
+    }
+
+    .persona-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .persona-tag {
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      color: var(--text-secondary);
+    }
+
+    .persona-pains {
+      padding: 0 20px 20px;
+    }
+
+    .persona-pains-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .persona-pains ul {
+      padding-left: 16px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .persona-pains li {
+      margin-bottom: 4px;
+    }
+
+    /* ROI Card */
+    .roi-card {
+      border: 1px solid var(--green);
+    }
+
+    .roi-display {
+      padding: 32px 24px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--green-dim), transparent);
+    }
+
+    .roi-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .roi-value {
+      font-family: var(--font-mono);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: -2px;
+    }
+
+    .roi-controls {
+      padding: 20px 24px;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .slider-group {
+      margin-bottom: 16px;
+    }
+
+    .slider-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .slider-value {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      background: var(--glass-border);
+      border-radius: 3px;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--green-dim);
+      transition: transform 0.2s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .roi-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* Script Card */
+    .script-card {
+      border-top: 2px solid var(--cyan);
+    }
+
+    .script-header {
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .script-id {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--cyan);
+    }
+
+    .script-body {
+      padding: 20px;
+    }
+
+    .script-section {
+      margin-bottom: 16px;
+    }
+
+    .script-section:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .script-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      margin-bottom: 4px;
+    }
+
+    .script-text {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .script-actions {
+      padding: 16px 20px;
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      gap: 12px;
+    }
+
+    .script-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .script-btn-copy {
+      background: var(--cyan-dim);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+    }
+
+    .script-btn-copy:hover {
+      background: var(--cyan);
+      color: var(--void);
+    }
+
+    .script-btn-edit {
+      background: transparent;
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+    }
+
+    .script-btn-edit:hover {
+      border-color: var(--text-secondary);
+      color: var(--text-primary);
+    }
+
+    /* ============================================
+       COMMAND BAR (Floating Input)
+    ============================================ */
+    .command-wrapper {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 64px);
+      max-width: 700px;
+      z-index: 20;
+    }
+
+    .command-bar {
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: var(--blur-lg);
+      border: 1px solid var(--glass-border-light);
+      border-radius: 16px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      transition: all 0.2s ease;
+    }
+
+    .command-bar:focus-within {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px var(--cyan-dim), 0 10px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .command-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      padding-left: 4px;
+    }
+
+    .command-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: var(--font-body);
+      padding: 10px 0;
+      outline: none;
+    }
+
+    .command-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .command-send {
+      width: 40px;
+      height: 40px;
+      background: var(--text-primary);
+      color: var(--void);
+      border: none;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .command-send:hover {
+      background: var(--cyan);
+      transform: scale(1.05);
+    }
+
+    .command-send:disabled {
+      opacity: 0.5;
+      background: var(--text-muted);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .quick-btn {
+      padding: 8px 16px;
+      background: var(--glass-base);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    .quick-btn:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: var(--cyan-dim);
+    }
+
+    /* ============================================
+       SIDEBAR
+    ============================================ */
+    .sidebar {
+      background: var(--glass-base);
+      backdrop-filter: var(--blur-md);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      margin-bottom: 32px;
+    }
+
+    .sidebar-section:last-child {
+      margin-bottom: 0;
+      margin-top: auto;
+    }
+
+    .sidebar-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .capability-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 14px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      color: var(--text-secondary);
+      text-align: left;
+      margin-bottom: 8px;
+      transition: all 0.2s;
+    }
+
+    .capability-btn:hover {
+      background: var(--glass-highlight);
+      border-color: var(--glass-border);
+      color: var(--text-primary);
+    }
+
+    .capability-btn:last-child {
+      margin-bottom: 0;
+    }
+
+    .cap-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .cap-icon.orange {
+      background: var(--orange-dim);
+      color: var(--orange);
+    }
+
+    .cap-icon.violet {
+      background: var(--violet-dim);
+      color: var(--violet);
+    }
+
+    .cap-icon.green {
+      background: var(--green-dim);
+      color: var(--green);
+    }
+
+    .cap-icon.cyan {
+      background: var(--cyan-dim);
+      color: var(--cyan);
+    }
+
+    .cap-label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .cap-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Tech Stack */
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-badge {
+      padding: 6px 12px;
+      background: var(--glass-highlight);
+      border: 1px solid var(--glass-border);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    /* Status */
+    .sidebar-status {
+      padding: 16px;
+      background: var(--glass-highlight);
+      border-radius: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .sidebar-status .active {
+      color: var(--green);
+    }
+  </style>
+</head>
+<body>
+  <!-- Atmosphere -->
+  <div class="atmosphere">
+    <div class="grid-floor"></div>
+    <div class="spotlight"></div>
+  </div>
+  <div class="grain-overlay"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="Barrios A2I Home">
+      Barrios <span>A2I</span>
+    </a>
+
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="documentation.html" class="nav-link">Documentation</a>
+      <a href="guides.html" class="nav-link">Guides</a>
+      <a href="assistant.html" class="nav-link active" aria-current="page">Assistant</a>
+      <a href="contact.html" class="nav-cta">Get Started</a>
+    </div>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 12h18M3 6h18M3 18h18"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Main App -->
+  <div class="app-container">
+    <div class="interface-grid">
+
+      <!-- Chat Panel -->
+      <main class="chat-panel" role="main" aria-label="AI Assistant chat">
+        <div class="chat-header">
+          <span class="chat-title">ORCHESTRATOR v2.1</span>
+          <div class="chat-status">
+            <span class="status-dot"></span>
+            <span>Online</span>
+          </div>
+        </div>
+
+        <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-label="Chat messages">
+          <!-- Welcome Message -->
+          <div class="message ai">
+            <div class="message-avatar" aria-hidden="true">A2I</div>
+            <div class="message-bubble">
+              <strong>System Online.</strong> I am the Barrios A2I Orchestrator.<br><br>
+              I can analyze competitors, generate buyer personas, calculate ROI projections, and write video scripts. Select a capability or ask me anything.
+            </div>
+          </div>
+        </div>
+
+        <!-- Command Bar -->
+        <div class="command-wrapper">
+          <div class="command-bar">
+            <div class="command-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4M12 8h.01"/>
+              </svg>
+            </div>
+            <input
+              type="text"
+              class="command-input"
+              id="chat-input"
+              placeholder="Ask a question or select a capability..."
+              autocomplete="off"
+              aria-label="Chat input"
+            >
+            <button class="command-send" id="send-btn" aria-label="Send message">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="quick-actions">
+            <button class="quick-btn" onclick="sendQuickMessage('Compare us vs Wistia')">VS Wistia</button>
+            <button class="quick-btn" onclick="sendQuickMessage('Who is our ideal buyer?')">Buyer Persona</button>
+            <button class="quick-btn" onclick="sendQuickMessage('Calculate my ROI')">ROI Calc</button>
+            <button class="quick-btn" onclick="sendQuickMessage('Write a video script')">Script</button>
+          </div>
+        </div>
+      </main>
+
+      <!-- Sidebar -->
+      <aside class="sidebar" aria-label="Capabilities and information">
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Capabilities</h3>
+
+          <button class="capability-btn" onclick="sendQuickMessage('Compare us vs Wistia')" aria-label="Competitor Intel capability">
+            <div class="cap-icon orange">&#9876;</div>
+            <div>
+              <div class="cap-label">Competitor Intel</div>
+              <div class="cap-desc">VS Mode Analysis</div>
+            </div>
+          </button>
+
+          <button class="capability-btn" onclick="sendQuickMessage('Who is our ideal buyer?')" aria-label="Buyer Persona capability">
+            <div class="cap-icon violet">&#128100;</div>
+            <div>
+              <div class="cap-label">Buyer Persona</div>
+              <div class="cap-desc">Profile Generation</div>
+            </div>
+          </button>
+
+          <button class="capability-btn" onclick="sendQuickMessage('Calculate my ROI')" aria-label="ROI Calculator capability">
+            <div class="cap-icon green">&#128200;</div>
+            <div>
+              <div class="cap-label">ROI Calculator</div>
+              <div class="cap-desc">Cost/Benefit Analysis</div>
+            </div>
+          </button>
+
+          <button class="capability-btn" onclick="sendQuickMessage('Write a video script')" aria-label="Script Writer capability">
+            <div class="cap-icon cyan">&#128221;</div>
+            <div>
+              <div class="cap-label">Script Writer</div>
+              <div class="cap-desc">Ad Copy Generation</div>
+            </div>
+          </button>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Tech Stack</h3>
+          <div class="tech-stack">
+            <span class="tech-badge">LangGraph</span>
+            <span class="tech-badge">CrewAI</span>
+            <span class="tech-badge">RAG</span>
+            <span class="tech-badge">FastAPI</span>
+            <span class="tech-badge">Redis</span>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-status">
+            SESSION: <span class="active">ACTIVE</span><br>
+            LATENCY: <span id="latency-display">12ms</span><br>
+            MODEL: Claude + GPT-4o
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <script>
+    // ============================================
+    // BARRIOS A2I ASSISTANT v2.1 - PRODUCTION
+    // ============================================
+
+    // ============================================
+    // ERROR BOUNDARY (Global)
+    // ============================================
+    window.addEventListener('error', (e) => {
+      console.error('[A2I Error]', e.message, e.filename, e.lineno);
+      trackEvent('error', {
+        message: e.message,
+        source: 'global',
+        file: e.filename,
+        line: e.lineno
+      });
+    });
+
+    window.addEventListener('unhandledrejection', (e) => {
+      console.error('[A2I Promise Rejection]', e.reason);
+      trackEvent('error', {
+        message: String(e.reason),
+        source: 'promise'
+      });
+    });
+
+    // ============================================
+    // SESSION MANAGEMENT
+    // ============================================
+    const sessionId = (() => {
+      let id = localStorage.getItem('a2i_session_id');
+      if (!id) {
+        id = 'sess_' + crypto.randomUUID();
+        localStorage.setItem('a2i_session_id', id);
+      }
+      return id;
+    })();
+
+    const sessionStart = Date.now();
+    let messageCount = 0;
+
+    // ============================================
+    // ANALYTICS
+    // ============================================
+    const trackEvent = (event, data = {}) => {
+      const payload = {
+        event,
+        session_id: sessionId,
+        timestamp: new Date().toISOString(),
+        page: 'assistant',
+        ...data
+      };
+
+      // Google Analytics 4
+      if (typeof gtag !== 'undefined') {
+        gtag('event', event, payload);
+      }
+
+      // Debug logging
+      console.log('[Analytics]', event, payload);
+    };
+
+    // Track page view
+    trackEvent('page_view', {
+      referrer: document.referrer,
+      viewport: `${window.innerWidth}x${window.innerHeight}`
+    });
+
+    // ============================================
+    // STATE & CONFIG
+    // ============================================
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    let isProcessing = false;
+
+    // ============================================
+    // RESPONSE TEMPLATES (Demo Mode)
+    // ============================================
+    const responses = {
+      competitor: {
+        text: 'Analyzing competitive landscape...',
+        card: `
+          <div class="gen-card comp-card">
+            <div class="comp-header">
+              <span class="comp-title">Performance Matrix</span>
+              <span class="vs-badge">VS WISTIA</span>
+            </div>
+            <div class="comp-body">
+              <div class="comp-stat">
+                <div class="comp-stat-labels">
+                  <span>Speed to Publish</span>
+                  <span class="comp-stat-value">10x Faster</span>
+                </div>
+                <div class="comp-bar-track">
+                  <div class="comp-bar-us" style="width: 90%"></div>
+                  <div class="comp-bar-them" style="width: 10%"></div>
+                </div>
+              </div>
+              <div class="comp-stat">
+                <div class="comp-stat-labels">
+                  <span>Cost Efficiency</span>
+                  <span class="comp-stat-value">-85% Cost</span>
+                </div>
+                <div class="comp-bar-track">
+                  <div class="comp-bar-us" style="width: 95%"></div>
+                  <div class="comp-bar-them" style="width: 30%"></div>
+                </div>
+              </div>
+              <div class="comp-stat">
+                <div class="comp-stat-labels">
+                  <span>Automation Level</span>
+                  <span class="comp-stat-value">Full Stack</span>
+                </div>
+                <div class="comp-bar-track">
+                  <div class="comp-bar-us" style="width: 100%"></div>
+                  <div class="comp-bar-them" style="width: 15%"></div>
+                </div>
+              </div>
+              <div class="comp-killshot">
+                <strong>Kill Shot:</strong> Wistia focuses on hosting. A2I handles the entire production lifecycle autonomously.
+              </div>
+            </div>
+          </div>
+        `
+      },
+      persona: {
+        text: 'Generating ideal buyer profile...',
+        card: `
+          <div class="gen-card persona-card">
+            <div class="persona-layout">
+              <div class="persona-avatar">SJ</div>
+              <div class="persona-info">
+                <h4>Sarah Jenkins</h4>
+                <p class="persona-role">CMO @ Series B Fintech</p>
+                <div class="persona-tags">
+                  <span class="persona-tag">High Intent</span>
+                  <span class="persona-tag">Decision Maker</span>
+                  <span class="persona-tag">Budget: $10k-50k</span>
+                </div>
+              </div>
+            </div>
+            <div class="persona-pains">
+              <div class="persona-pains-title">Core Pain Points</div>
+              <ul>
+                <li>Video production is too slow for market trends</li>
+                <li>Agency costs are bleeding the marketing budget</li>
+                <li>Needs personalization at scale for ABM campaigns</li>
+                <li>Current tools cannot match brand guidelines</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      roi: {
+        text: 'Calculating efficiency projections...',
+        card: `
+          <div class="gen-card roi-card">
+            <div class="roi-display">
+              <div class="roi-label">Projected Annual Savings</div>
+              <div class="roi-value" id="roi-value">$56,880</div>
+            </div>
+            <div class="roi-controls">
+              <div class="slider-group">
+                <div class="slider-label">
+                  <span>Monthly Videos</span>
+                  <span class="slider-value" id="volume-display">100</span>
+                </div>
+                <input
+                  type="range"
+                  min="10"
+                  max="500"
+                  value="100"
+                  id="volume-slider"
+                  oninput="updateROI()"
+                  aria-label="Monthly video volume"
+                >
+              </div>
+              <div class="slider-group">
+                <div class="slider-label">
+                  <span>Current Cost/Video</span>
+                  <span class="slider-value">$<span id="cost-display">50</span></span>
+                </div>
+                <input
+                  type="range"
+                  min="20"
+                  max="200"
+                  value="50"
+                  id="cost-slider"
+                  oninput="updateROI()"
+                  aria-label="Current cost per video"
+                >
+              </div>
+              <p class="roi-note">A2I cost: $2.60/video average</p>
+            </div>
+          </div>
+        `
+      },
+      script: {
+        text: 'Generating script from "High Velocity" template...',
+        card: `
+          <div class="gen-card script-card">
+            <div class="script-header">
+              <span class="script-id">// SCRIPT_${Math.floor(Math.random() * 9000) + 1000}_A //</span>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">30s Ad</span>
+            </div>
+            <div class="script-body">
+              <div class="script-section">
+                <div class="script-label">[HOOK - 0:00]</div>
+                <p class="script-text">"Stop waiting 2 weeks for a video agency to fix a typo."</p>
+              </div>
+              <div class="script-section">
+                <div class="script-label">[PROBLEM - 0:05]</div>
+                <p class="script-text">"Your competitors are shipping content daily. You are stuck in email chains."</p>
+              </div>
+              <div class="script-section">
+                <div class="script-label">[SOLUTION - 0:15]</div>
+                <p class="script-text">"Barrios A2I generates production-ready video assets in minutes, not months."</p>
+              </div>
+              <div class="script-section">
+                <div class="script-label">[CTA - 0:25]</div>
+                <p class="script-text">"Automate your creative. Start free today."</p>
+              </div>
+            </div>
+            <div class="script-actions">
+              <button class="script-btn script-btn-copy" onclick="copyScript()">Copy Script</button>
+              <button class="script-btn script-btn-edit">Edit</button>
+            </div>
+          </div>
+        `
+      },
+      default: {
+        text: "I can help with that. Would you like me to analyze competitors, generate a buyer persona, calculate ROI, or write a script?",
+        card: null
+      }
+    };
+
+    // ============================================
+    // UTILITY FUNCTIONS
+    // ============================================
+    function addMessage(content, isUser = false, includeCard = null) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
+
+      const avatar = isUser
+        ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+             <circle cx="12" cy="7" r="4"/>
+           </svg>`
+        : 'A2I';
+
+      let bubbleContent = content;
+      if (includeCard) {
+        bubbleContent += includeCard;
+      }
+
+      messageDiv.innerHTML = `
+        <div class="message-avatar">${avatar}</div>
+        <div class="message-bubble">${bubbleContent}</div>
+      `;
+
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      messageCount++;
+    }
+
+    function showTypingIndicator() {
+      const indicator = document.createElement('div');
+      indicator.className = 'message ai';
+      indicator.id = 'typing-indicator';
+      indicator.innerHTML = `
+        <div class="message-avatar">A2I</div>
+        <div class="typing-indicator">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      `;
+      chatMessages.appendChild(indicator);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const indicator = document.getElementById('typing-indicator');
+      if (indicator) indicator.remove();
+    }
+
+    function detectIntent(text) {
+      const lower = text.toLowerCase();
+      if (lower.includes('wistia') || lower.includes('competitor') || lower.includes('compare') || lower.includes('vs') || lower.includes('beat')) {
+        return 'competitor';
+      }
+      if (lower.includes('persona') || lower.includes('buyer') || lower.includes('customer') || lower.includes('target') || lower.includes('ideal') || lower.includes('who')) {
+        return 'persona';
+      }
+      if (lower.includes('roi') || lower.includes('calculate') || lower.includes('saving') || lower.includes('cost') || lower.includes('money')) {
+        return 'roi';
+      }
+      if (lower.includes('script') || lower.includes('write') || lower.includes('ad') || lower.includes('video') || lower.includes('copy')) {
+        return 'script';
+      }
+      return 'default';
+    }
+
+    // ============================================
+    // MAIN HANDLER (Demo Mode)
+    // ============================================
+    async function handleSend() {
+      const text = chatInput.value.trim();
+      if (!text || isProcessing) return;
+
+      const startTime = performance.now();
+
+      // Add user message
+      addMessage(text, true);
+      chatInput.value = '';
+      isProcessing = true;
+      sendBtn.disabled = true;
+
+      // Detect intent for analytics
+      const intent = detectIntent(text);
+
+      // Track message sent
+      trackEvent('chat_message_sent', {
+        intent,
+        query_length: text.length,
+        message_number: messageCount
+      });
+
+      // Show typing
+      showTypingIndicator();
+
+      // Simulate processing delay (realistic LLM latency)
+      const simulatedLatency = 1200 + Math.random() * 800;
+      await new Promise(r => setTimeout(r, simulatedLatency));
+
+      // Remove typing
+      removeTypingIndicator();
+
+      // Get response
+      const response = responses[intent];
+      addMessage(response.text, false, response.card);
+
+      // Track response
+      const endTime = performance.now();
+      trackEvent('chat_response_complete', {
+        intent,
+        latency_ms: Math.round(endTime - startTime),
+        has_card: !!response.card
+      });
+
+      // Update latency display
+      const latencyDisplay = document.getElementById('latency-display');
+      if (latencyDisplay) {
+        latencyDisplay.textContent = Math.round(simulatedLatency) + 'ms';
+      }
+
+      isProcessing = false;
+      sendBtn.disabled = false;
+    }
+
+    // Quick message from buttons
+    window.sendQuickMessage = (text) => {
+      trackEvent('quick_action_clicked', { action: text });
+      chatInput.value = text;
+      handleSend();
+    };
+
+    // ROI Calculator
+    window.updateROI = () => {
+      const volume = document.getElementById('volume-slider')?.value || 100;
+      const cost = document.getElementById('cost-slider')?.value || 50;
+      const a2iCost = 2.60;
+      const savings = (volume * cost) - (volume * a2iCost);
+      const annual = savings * 12;
+
+      const valueEl = document.getElementById('roi-value');
+      const volDisplay = document.getElementById('volume-display');
+      const costDisplay = document.getElementById('cost-display');
+
+      if (valueEl) valueEl.textContent = '$' + annual.toLocaleString();
+      if (volDisplay) volDisplay.textContent = volume;
+      if (costDisplay) costDisplay.textContent = cost;
+
+      // Track significant ROI interactions (debounced via timeout)
+      clearTimeout(window.roiTrackTimeout);
+      window.roiTrackTimeout = setTimeout(() => {
+        trackEvent('roi_calculated', {
+          volume: parseInt(volume),
+          cost: parseInt(cost),
+          annual_savings: Math.round(annual)
+        });
+      }, 1000);
+    };
+
+    // Copy script to clipboard
+    window.copyScript = async () => {
+      const script = `[HOOK] "Stop waiting 2 weeks for a video agency to fix a typo."
+
+[PROBLEM] "Your competitors are shipping content daily. You are stuck in email chains."
+
+[SOLUTION] "Barrios A2I generates production-ready video assets in minutes, not months."
+
+[CTA] "Automate your creative. Start free today."`;
+
+      try {
+        await navigator.clipboard.writeText(script);
+        const btn = document.querySelector('.script-btn-copy');
+        if (btn) {
+          btn.textContent = 'Copied!';
+          setTimeout(() => btn.textContent = 'Copy Script', 2000);
+        }
+        trackEvent('script_copied');
+      } catch (err) {
+        console.error('Copy failed:', err);
+        trackEvent('error', { message: 'clipboard_copy_failed', source: 'script_card' });
+      }
+    };
+
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    sendBtn.addEventListener('click', handleSend);
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSend();
+      }
+    });
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', !expanded);
+        navLinks.classList.toggle('open');
+        trackEvent('nav_toggle', { expanded: !expanded });
+      });
+    }
+
+    // Track capability button clicks (sidebar)
+    document.querySelectorAll('.capability-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const label = btn.querySelector('.cap-label')?.textContent;
+        trackEvent('capability_clicked', {
+          capability: label,
+          source: 'sidebar'
+        });
+      });
+    });
+
+    // Track session end
+    window.addEventListener('beforeunload', () => {
+      const sessionDuration = Math.round((Date.now() - sessionStart) / 1000);
+      trackEvent('session_end', {
+        duration_seconds: sessionDuration,
+        message_count: messageCount
+      });
+    });
+  </script>
+</body>
+</html>
