@@ -31,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="min-h-screen bg-[#0a0a1e] text-white antialiased">
+      <body className="min-h-screen bg-navy-deep text-white antialiased">
         {children}
         <ChatWidget
           apiEndpoint="/api/chat"

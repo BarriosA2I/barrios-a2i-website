@@ -18,7 +18,7 @@ const itemVariants = {
 
 export function Audience() {
   return (
-    <section id="audience" className="relative py-24 sm:py-32 bg-[#050A14] overflow-hidden">
+    <section id="audience" className="relative py-24 sm:py-32 bg-navy-deep overflow-hidden">
 
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
@@ -179,7 +179,7 @@ export function Audience() {
             <div className="h-12 w-px bg-white/10 hidden sm:block" />
             <Link
               href="#pricing"
-              className="px-8 py-4 bg-cyber-cyan hover:bg-white text-navy-deep font-bold tracking-wider uppercase text-sm transition-all hover:scale-105 shadow-[0_0_30px_rgba(0,194,255,0.4)]"
+              className="px-8 py-4 bg-cyber-cyan text-navy-deep font-bold tracking-wider uppercase text-sm rounded-lg transition-all hover:scale-105 hover:shadow-glow-cyan"
             >
               See Full Package
             </Link>

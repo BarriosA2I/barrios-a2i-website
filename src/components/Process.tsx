@@ -101,7 +101,7 @@ const itemVariants = {
 
 export function Process() {
   return (
-    <section id="process" className="relative py-24 sm:py-32 bg-black overflow-hidden">
+    <section id="process" className="relative py-24 sm:py-32 bg-navy-deep overflow-hidden">
 
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
@@ -241,7 +241,7 @@ export function Process() {
             </div>
             <Link
               href="#pricing"
-              className="px-10 py-4 bg-cyber-gold hover:bg-white text-navy-deep font-bold tracking-wider uppercase text-sm transition-all hover:scale-105 shadow-[0_0_30px_rgba(245,158,11,0.4)]"
+              className="px-10 py-4 bg-cyber-cyan text-navy-deep font-bold tracking-wider uppercase text-sm rounded-lg transition-all hover:scale-105 hover:shadow-glow-cyan"
             >
               Start the Audit
             </Link>

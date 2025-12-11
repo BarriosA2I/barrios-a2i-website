@@ -187,7 +187,7 @@ function PricingCard({
 
 export function Pricing() {
   return (
-    <section id="pricing" className="relative py-24 sm:py-32">
+    <section id="pricing" className="relative py-24 sm:py-32 bg-navy-deep">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <motion.div
@@ -250,7 +250,7 @@ export function Pricing() {
           </p>
           <Link
             href="#contact"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-cyber-gold text-navy-deep font-bold rounded-xl hover:shadow-glow-gold transition-all"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-cyber-cyan text-navy-deep font-bold rounded-lg hover:shadow-glow-cyan hover:scale-105 transition-all"
           >
             Discuss Enterprise
           </Link>
