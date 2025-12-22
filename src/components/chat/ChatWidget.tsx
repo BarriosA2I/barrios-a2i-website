@@ -1,14 +1,103 @@
 // components/chat/ChatWidget.tsx
 // ============================================================================
-// BARRIOS A2I WEBSITE ASSISTANT v2.0 — CHAT WIDGET
+// BARRIOS A2I WEBSITE ASSISTANT v2.1 — CHAT WIDGET
 // ============================================================================
 // Enhanced with Generative UI card rendering
 // Displays rich interactive cards inline with chat messages
+// P0-E: Session persistence via localStorage
 // ============================================================================
 
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
+
+// ============================================================================
+// P0-E: SESSION PERSISTENCE UTILITIES
+// ============================================================================
+
+const STORAGE_KEYS = {
+  SESSION_ID: "nexus_session_id",
+  MESSAGES: "nexus_chat_messages",
+  LAST_ACTIVITY: "nexus_last_activity",
+};
+
+// Sessions expire after 24 hours of inactivity
+const SESSION_EXPIRY_MS = 24 * 60 * 60 * 1000;
+
+function getStoredSessionId(): string | null {
+  if (typeof window === "undefined") return null;
+
+  try {
+    const lastActivity = localStorage.getItem(STORAGE_KEYS.LAST_ACTIVITY);
+    if (lastActivity) {
+      const elapsed = Date.now() - parseInt(lastActivity, 10);
+      if (elapsed > SESSION_EXPIRY_MS) {
+        // Session expired - clear and return null
+        localStorage.removeItem(STORAGE_KEYS.SESSION_ID);
+        localStorage.removeItem(STORAGE_KEYS.MESSAGES);
+        localStorage.removeItem(STORAGE_KEYS.LAST_ACTIVITY);
+        return null;
+      }
+    }
+    return localStorage.getItem(STORAGE_KEYS.SESSION_ID);
+  } catch {
+    return null;
+  }
+}
+
+function setStoredSessionId(sessionId: string): void {
+  if (typeof window === "undefined") return;
+
+  try {
+    localStorage.setItem(STORAGE_KEYS.SESSION_ID, sessionId);
+    localStorage.setItem(STORAGE_KEYS.LAST_ACTIVITY, Date.now().toString());
+  } catch {
+    // Ignore storage errors
+  }
+}
+
+function getStoredMessages(): ChatMessage[] {
+  if (typeof window === "undefined") return [];
+
+  try {
+    const stored = localStorage.getItem(STORAGE_KEYS.MESSAGES);
+    if (!stored) return [];
+
+    const parsed = JSON.parse(stored);
+    // Convert timestamp strings back to Date objects
+    return parsed.map((msg: any) => ({
+      ...msg,
+      timestamp: new Date(msg.timestamp),
+    }));
+  } catch {
+    return [];
+  }
+}
+
+function setStoredMessages(messages: ChatMessage[]): void {
+  if (typeof window === "undefined") return;
+
+  try {
+    // Only store last 50 messages to avoid localStorage limits
+    const toStore = messages.slice(-50).filter((m) => !m.isLoading);
+    localStorage.setItem(STORAGE_KEYS.MESSAGES, JSON.stringify(toStore));
+    localStorage.setItem(STORAGE_KEYS.LAST_ACTIVITY, Date.now().toString());
+  } catch {
+    // Ignore storage errors
+  }
+}
+
+function clearStoredSession(): void {
+  if (typeof window === "undefined") return;
+
+  try {
+    localStorage.removeItem(STORAGE_KEYS.SESSION_ID);
+    localStorage.removeItem(STORAGE_KEYS.MESSAGES);
+    localStorage.removeItem(STORAGE_KEYS.LAST_ACTIVITY);
+  } catch {
+    // Ignore storage errors
+  }
+}
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
@@ -21,6 +110,7 @@ import {
   Sparkles,
   Minimize2,
   Maximize2,
+  Trash2,
 } from "lucide-react";
 import { DynamicCard } from "../generative-ui/DynamicCard";
 import { RenderCard, AssistantMessage } from "@/lib/types/generative-ui";
@@ -178,15 +268,54 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [sessionId] = useState(
-    initialSessionId || `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-  );
+
+  // P0-E: Initialize messages from localStorage with lazy initializer (fixes hydration flash)
+  const [messages, setMessages] = useState<ChatMessage[]>(() => {
+    if (typeof window === "undefined") return initialMessages;
+
+    const storedSessionId = getStoredSessionId();
+    if (!storedSessionId) return initialMessages;
+
+    const storedMessages = getStoredMessages();
+    return storedMessages.length > 0 ? storedMessages : initialMessages;
+  });
+
+  // P0-E: Initialize session ID from localStorage with lazy initializer
+  const [sessionId, setSessionId] = useState<string>(() => {
+    if (typeof window === "undefined") {
+      return initialSessionId || `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    }
+
+    const stored = getStoredSessionId();
+    if (stored) return stored;
+
+    const newId = initialSessionId || `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    setStoredSessionId(newId);
+    return newId;
+  });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  // P0-E: Persist messages to localStorage when they change
+  useEffect(() => {
+    // Only save non-empty message arrays (avoid clearing on mount)
+    if (messages.length > 0) {
+      setStoredMessages(messages);
+    }
+  }, [messages]);
+
+  // P0-E: Clear chat history
+  const handleClearHistory = useCallback(() => {
+    clearStoredSession();
+    setMessages([]);
+    // Generate new session ID
+    const newSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    setSessionId(newSessionId);
+    setStoredSessionId(newSessionId);
+  }, []);
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -388,6 +517,16 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
               </div>
 
               <div className="flex items-center gap-1">
+                {/* P0-E: Clear History Button */}
+                {messages.length > 0 && (
+                  <button
+                    onClick={handleClearHistory}
+                    className="p-2 text-slate-400 hover:text-red-400 hover:bg-slate-700 rounded-lg transition-colors"
+                    title="Clear chat history"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                )}
                 <button
                   onClick={() => setIsMinimized(!isMinimized)}
                   className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors"
